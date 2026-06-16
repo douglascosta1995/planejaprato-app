@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Criar Conta - PlanejaPrato
+{% endblock %}
+
+{% block content %}
+
+<div class="login-container">
+
+    <div class="logo">🥗</div>
+
+    <h1>PlanejaPrato</h1>
+
+    <p class="subtitle">
+        Crie sua conta para começar.
+    </p>
+
+    {% if error %}
+    <div class="error-message">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form action="/register" method="post">
+
+        <div class="input-group">
+        <input
+            type="text"
+            name="name"
+            value="{{ name if name else '' }}"
+            placeholder="Nome"
+            required
+        >
+        </div>
+
+        <div class="input-group">
+        <input
+            type="email"
+            name="email"
+            value="{{ email if email else '' }}"
+            placeholder="E-mail"
+            required
+        >
+        </div>
+
+        <div class="input-group">
+        <input
+            type="password"
+            name="password"
+            placeholder="Senha"
+            required
+        >
+        </div>
+
+        <button type="submit" class="btn">
+            Criar Conta
+        </button>
+
+    </form>
+
+    <div class="footer">
+        Já possui conta?
+        <a href="/">Entrar</a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -18,18 +18,19 @@ class User(Base):
     )
 
     name = Column(
-        String,
+        String(255),
         nullable=False
     )
 
     email = Column(
-        String,
+        String(255),
         unique=True,
-        nullable=False
+        nullable=False,
+        index=True
     )
 
     password_hash = Column(
-        String,
+        String(255),
         nullable=False
     )
 
