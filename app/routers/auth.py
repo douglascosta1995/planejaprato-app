@@ -7,10 +7,11 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from sqlalchemy.orm import Session
+from starlette.responses import RedirectResponse
 
 from app.database.database import get_db
 
-from app.services.user_service import (create_user, get_user_by_email)
+from app.services.user_service import (create_user, get_user_by_email, authenticate_user)
 
 router = APIRouter()
 
@@ -65,3 +66,32 @@ def register_page(request: Request):
         name="register.html",
         context={}
     )
+
+
+@router.post("/login")
+def login(request: Request, email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    email = email.strip().lower()
+    user = authenticate_user(db, email, password)
+
+    if not user:
+        return templates.TemplateResponse(
+            request=request,
+            name="home.html",
+            context={
+                "app_name": "PlanejaPrato",
+                "error": "E-mail ou senha inválidos."
+            }
+        )
+
+    return RedirectResponse(
+        url="/dashboard",
+        status_code=303
+    )
+
+
+@router.get("/dashboard")
+def dashboard():
+
+    return {
+        "message": "Bem-vindo ao PlanejaPrato"
+    }

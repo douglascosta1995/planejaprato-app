@@ -16,11 +16,18 @@
         Organize suas refeições, gere listas de compras e mantenha sua alimentação planejada sem complicação.
     </p>
 
-    <form>
+    {% if error %}
+    <div class="error-message">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form action="/login" method="post">
 
         <div class="input-group">
             <input
                 type="email"
+                name="email"
                 placeholder="E-mail"
             >
         </div>
@@ -28,6 +35,7 @@
         <div class="input-group">
             <input
                 type="password"
+                name="password"
                 placeholder="Senha"
             >
         </div>
