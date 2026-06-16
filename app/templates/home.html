@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }}</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            width: 400px;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2E7D32;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+        .divider {
+            margin: 25px 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .demo-link {
+            text-align: center;
+            display: block;
+            color: #6B7280;
+            text-decoration: none;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .demo-link:hover {
+            color: #2E7D32;
+        }
+
+        .btn:hover {
+            background: #43a047;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #2E7D32;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="logo">🥗</div>
+
+    <h1>{{ app_name }}</h1>
+
+    <p class="subtitle">
+        Organize suas refeições, gere listas de compras e mantenha sua alimentação planejada sem complicação.
+    </p>
+
+    <form>
+
+        <div class="input-group">
+            <input
+                type="email"
+                placeholder="E-mail"
+            >
+        </div>
+
+        <div class="input-group">
+            <input
+                type="password"
+                placeholder="Senha"
+            >
+        </div>
+
+        <button class="btn" type="submit">
+            Entrar
+        </button>
+
+    </form>
+
+    <div class="footer">
+        Não possui conta?
+        <a href="/register">Criar conta</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <a href="/demo" class="demo-link">
+        Ainda não quer criar uma conta?<br>
+        Conheça o PlanejaPrato antes →
+    </a>
+
+</div>
+
+</body>
+</html>
