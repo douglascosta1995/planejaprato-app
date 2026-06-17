@@ -12,6 +12,8 @@ from starlette.responses import RedirectResponse
 from app.database.database import get_db
 
 from app.services.user_service import (create_user, get_user_by_email, authenticate_user)
+from app.auth.jwt import create_access_token
+from app.auth.dependencies import (get_current_user_id)
 
 router = APIRouter()
 
@@ -83,15 +85,44 @@ def login(request: Request, email: str = Form(...), password: str = Form(...), d
             }
         )
 
-    return RedirectResponse(
-        url="/dashboard",
-        status_code=303
+    token = create_access_token(
+        {
+            "sub": str(user.id)
+        }
     )
+
+    response = RedirectResponse(url="/dashboard", status_code=303)
+
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        httponly=True,
+        samesite="lax"
+    )
+
+    return response
 
 
 @router.get("/dashboard")
-def dashboard():
+def dashboard(request: Request, user_id: int = Depends(get_current_user_id)):
 
-    return {
-        "message": "Bem-vindo ao PlanejaPrato"
-    }
+    return templates.TemplateResponse(
+        request=request,
+        name="dashboard.html",
+        context={
+            "user_id": user_id
+        }
+    )
+
+
+@router.get("/logout")
+def logout():
+
+    response = RedirectResponse(
+        url="/",
+        status_code=303
+    )
+
+    response.delete_cookie(key="access_token")
+
+    return response
