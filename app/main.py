@@ -19,7 +19,7 @@ templates = Jinja2Templates(
 def home(request: Request):
     return templates.TemplateResponse(
     request=request,
-    name="home.html",
+    name="auth/home.html",
     context={
         "app_name": "PlanejaPrato"
     }

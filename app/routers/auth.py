@@ -10,10 +10,11 @@ from sqlalchemy.orm import Session
 from starlette.responses import RedirectResponse
 
 from app.database.database import get_db
+from app.models.user import User
 
 from app.services.user_service import (create_user, get_user_by_email, authenticate_user)
 from app.auth.jwt import create_access_token
-from app.auth.dependencies import (get_current_user_id)
+from app.auth.dependencies import get_current_user
 
 router = APIRouter()
 
@@ -33,7 +34,7 @@ def register(request: Request, name: str = Form(...), email: str = Form(...), pa
     if existing_user:
         return templates.TemplateResponse(
             request=request,
-            name="register.html",
+            name="auth/register.html",
             context={
                 "error": "Este e-mail já está cadastrado."
             }
@@ -45,7 +46,7 @@ def register(request: Request, name: str = Form(...), email: str = Form(...), pa
     except Exception:
         return templates.TemplateResponse(
             request=request,
-            name="register.html",
+            name="auth/register.html",
             context={
                 "error": "Ocorreu um erro ao criar sua conta. Tente novamente.",
                 "name": name,
@@ -55,7 +56,7 @@ def register(request: Request, name: str = Form(...), email: str = Form(...), pa
 
     return templates.TemplateResponse(
         request=request,
-        name="register_success.html",
+        name="auth/register_success.html",
         context={}
     )
 
@@ -65,7 +66,7 @@ def register_page(request: Request):
 
     return templates.TemplateResponse(
         request=request,
-        name="register.html",
+        name="auth/register.html",
         context={}
     )
 
@@ -78,7 +79,7 @@ def login(request: Request, email: str = Form(...), password: str = Form(...), d
     if not user:
         return templates.TemplateResponse(
             request=request,
-            name="home.html",
+            name="auth/home.html",
             context={
                 "app_name": "PlanejaPrato",
                 "error": "E-mail ou senha inválidos."
@@ -104,13 +105,13 @@ def login(request: Request, email: str = Form(...), password: str = Form(...), d
 
 
 @router.get("/dashboard")
-def dashboard(request: Request, user_id: int = Depends(get_current_user_id)):
+def dashboard(request: Request, current_user: User = Depends(get_current_user)):
 
     return templates.TemplateResponse(
         request=request,
-        name="dashboard.html",
+        name="app/dashboard.html",
         context={
-            "user_id": user_id
+            "user": current_user
         }
     )
 
