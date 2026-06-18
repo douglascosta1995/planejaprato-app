@@ -1,4 +1,4 @@
-from sqlalchemy import Column
+from sqlalchemy import Column, Text
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import ForeignKey
@@ -25,12 +25,12 @@ class Recipe(Base):
     )
 
     name = Column(
-        String(255),
+        String(150),
         nullable=False
     )
 
     instructions = Column(
-        String,
+        Text,
         nullable=True
     )
 
