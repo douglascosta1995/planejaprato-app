@@ -5,7 +5,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi import Request
 from app.routers.auth import router as auth_router
 
+from app.database.database import Base
+from app.database.database import engine
+
+from app.models.user import User
+from app.models.ingredient import Ingredient
+
 app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
 
 app.include_router(auth_router)
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
