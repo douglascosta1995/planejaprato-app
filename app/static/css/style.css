@@ -138,15 +138,10 @@ background: #43a047;
 
 .btn-delete {
     background: #d32f2f;
-
     color: white;
-
     border: none;
-
     padding: 12px 20px;
-
     border-radius: 8px;
-
     cursor: pointer;
 }
 
@@ -219,7 +214,7 @@ color: #666;
 text-decoration: none;
 }
 
-.logout-link {
+.logout-link:hover {
 color: #2E7D32;
 }
 
@@ -292,6 +287,12 @@ margin-top: 20px;
 .recipe-card .btn-dashboard {
     margin-top: auto;
     text-align: center;
+}
+
+.recipe-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
 }
 
 .section-title {

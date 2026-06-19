@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         {% block title %}
-            PlanejaPrato
+        PlanejaPrato
         {% endblock %}
     </title>
 
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
 
-    {% block content %}
-    {% endblock %}
+    <!-- NAVBAR GLOBAL -->
+    <nav class="navbar">
+
+        <div class="navbar-brand">
+            🥗 PlanejaPrato
+        </div>
+
+        <div class="navbar-right">
+
+            <span class="navbar-user">
+                {{ user.name }}
+            </span>
+
+            <a href="/logout" class="logout-link">
+                Sair
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- CONTEÚDO DA PÁGINA -->
+    <main class="page-content">
+        {% block content %}
+        {% endblock %}
+    </main>
 
 </body>
 </html>

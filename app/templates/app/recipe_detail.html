@@ -6,22 +6,6 @@
 
 {% block content %}
 
-<nav class="navbar">
-
-    <div class="navbar-brand">
-        🥗 PlanejaPrato
-    </div>
-
-    <div class="navbar-right">
-
-        <a href="/dashboard" class="logout-link">
-            Voltar
-        </a>
-
-    </div>
-
-</nav>
-
 <div class="dashboard-container">
 
     <div class="dashboard-card">
@@ -47,20 +31,19 @@
 
         <div class="divider"></div>
 
-        <form
-            action="/recipes/{{ recipe.id }}/delete"
-            method="post"
-        >
+        <div class="recipe-actions">
 
-            <button
-                type="submit"
-                class="btn-delete"
-                onclick="return confirm('Deseja realmente excluir esta receita?')"
-            >
-                Excluir Receita
-            </button>
+            <a href="/dashboard" class="btn-secondary">
+                Voltar
+            </a>
 
-        </form>
+            <form action="/recipes/{{ recipe.id }}/delete" method="post">
+                <button class="btn-delete" type="submit">
+                    Excluir Receita
+                </button>
+            </form>
+
+        </div>
 
     </div>
 
