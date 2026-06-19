@@ -46,10 +46,44 @@
             Minhas Receitas
         </h2>
 
-        <div class="empty-state">
-            Nenhuma receita cadastrada.<br>
-            Clique em "Nova Receita" para começar.
-        </div>
+        {% if recipes %}
+
+            <div class="recipe-grid">
+
+                {% for recipe in recipes %}
+
+                <div class="recipe-card">
+
+                    <div class="recipe-name">
+                        🍽️ {{ recipe.name }}
+                    </div>
+
+                    <div class="recipe-date">
+                        Criada em
+                        {{ recipe.created_at.strftime("%d/%m/%Y") }}
+                    </div>
+
+                    <a
+                        href="/recipes/{{ recipe.id }}"
+                        class="btn-dashboard"
+                    >
+                        Ver Receita
+                    </a>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                Nenhuma receita cadastrada.<br>
+                Clique em "Nova Receita" para começar.
+            </div>
+
+        {% endif %}
 
     </div>
 

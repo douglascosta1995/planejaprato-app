@@ -1,0 +1,63 @@
+{% extends "base_app.html" %}
+
+{% block title %}
+Nova Receita
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar">
+
+    <div class="navbar-brand">
+        🥗 PlanejaPrato
+    </div>
+
+</nav>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-card">
+
+        <h1 class="welcome-title">
+            Nova Receita
+        </h1>
+
+        <p class="welcome-subtitle">
+            Cadastre uma nova receita.
+        </p>
+
+        <form action="/recipes" method="post">
+
+            <div class="input-group">
+                <label>Nome da Receita</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Modo de Preparo</label>
+
+                <textarea
+                    name="instructions"
+                    rows="8"
+                ></textarea>
+            </div>
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Salvar Receita
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -11,6 +11,7 @@ from starlette.responses import RedirectResponse
 
 from app.database.database import get_db
 from app.models.user import User
+from app.services.recipe_service import get_recipes_by_user
 
 from app.services.user_service import (create_user, get_user_by_email, authenticate_user)
 from app.auth.jwt import create_access_token
@@ -105,13 +106,16 @@ def login(request: Request, email: str = Form(...), password: str = Form(...), d
 
 
 @router.get("/dashboard")
-def dashboard(request: Request, current_user: User = Depends(get_current_user)):
+def dashboard(request: Request, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    recipes = get_recipes_by_user(db=db, user_id=current_user.id)
 
     return templates.TemplateResponse(
         request=request,
         name="app/dashboard.html",
         context={
-            "user": current_user
+            "user": current_user,
+            "recipes": recipes
         }
     )
 
