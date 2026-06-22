@@ -5,6 +5,7 @@ from sqlalchemy import String
 from sqlalchemy import ForeignKey
 
 from app.database.database import Base
+from sqlalchemy.orm import relationship
 
 
 class RecipeIngredient(Base):
@@ -36,4 +37,14 @@ class RecipeIngredient(Base):
     unit = Column(
         String(50),
         nullable=False
+    )
+
+    recipe = relationship(
+        "Recipe",
+        back_populates="recipe_ingredients"
+    )
+
+    ingredient = relationship(
+        "Ingredient",
+        back_populates="recipe_ingredients"
     )

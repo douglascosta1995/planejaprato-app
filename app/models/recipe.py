@@ -7,7 +7,7 @@ from sqlalchemy import DateTime
 from datetime import datetime
 
 from app.database.database import Base
-
+from sqlalchemy.orm import relationship
 
 class Recipe(Base):
     __tablename__ = "recipes"
@@ -37,4 +37,10 @@ class Recipe(Base):
     created_at = Column(
         DateTime,
         default=datetime.utcnow
+    )
+
+    recipe_ingredients = relationship(
+        "RecipeIngredient",
+        back_populates="recipe",
+        cascade="all, delete-orphan"
     )

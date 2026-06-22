@@ -142,11 +142,28 @@ background: #43a047;
     border: none;
     padding: 12px 20px;
     border-radius: 8px;
-    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    font-size: 14px;
 }
 
 .btn-delete:hover {
     background: #b71c1c;
+}
+
+.btn-back {
+    display: inline-block;
+    background: #f5f5f5;
+    color: #444;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.btn-back:hover {
+    background: #ececec;
 }
 
 /* =========================
@@ -194,9 +211,14 @@ box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .navbar-brand {
-font-size: 24px;
-font-weight: bold;
-color: #2E7D32;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2E7D32;
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    opacity: 0.85;
 }
 
 .navbar-right {

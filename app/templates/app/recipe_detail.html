@@ -33,12 +33,12 @@
 
         <div class="recipe-actions">
 
-            <a href="/dashboard" class="btn-secondary">
+            <a href="/dashboard" class="btn-back">
                 Voltar
             </a>
 
             <form action="/recipes/{{ recipe.id }}/delete" method="post">
-                <button class="btn-delete" type="submit">
+                <button class="btn-delete" type="submit" onclick="return confirm('Deseja realmente excluir esta receita?')">
                     Excluir Receita
                 </button>
             </form>

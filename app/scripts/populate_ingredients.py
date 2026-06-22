@@ -1,5 +1,6 @@
 from app.database.database import SessionLocal
 from app.models.ingredient import Ingredient
+from app.models.recipe_ingredient import RecipeIngredient
 
 COMMON_INGREDIENTS = {
     "Grãos e Cereais": [

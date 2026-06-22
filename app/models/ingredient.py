@@ -3,6 +3,7 @@ from sqlalchemy import Integer
 from sqlalchemy import String
 
 from app.database.database import Base
+from sqlalchemy.orm import relationship
 
 
 class Ingredient(Base):
@@ -19,4 +20,9 @@ class Ingredient(Base):
         unique=True,
         nullable=False,
         index=True
+    )
+
+    recipe_ingredients = relationship(
+        "RecipeIngredient",
+        back_populates="ingredient"
     )

@@ -16,6 +16,8 @@ SessionLocal = sessionmaker(
 
 Base = declarative_base()
 
+import app.models
+
 
 def get_db():
     db = SessionLocal()
