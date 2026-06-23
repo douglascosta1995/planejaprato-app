@@ -166,6 +166,40 @@ background: #43a047;
     background: #ececec;
 }
 
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+}
+
+select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.clear-search-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+    color: #999;
+    font-size: 16px;
+
+    display: none;
+}
+
+.clear-search-btn:hover {
+    color: #d32f2f;
+}
+
 /* =========================
 MENSAGENS
 ========================= */
@@ -329,4 +363,128 @@ border: 2px dashed #ddd;
 border-radius: 12px;
 background: white;
 color: #777;
+}
+
+.ingredient-search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#ingredient-results {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.ingredient-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 16px;
+    margin-bottom: 8px;
+
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+}
+
+.ingredient-item button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.selected-ingredient {
+    background: #fafafa;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.selected-ingredient h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.ingredient-fields {
+    display: flex;
+    gap: 15px;
+}
+
+.field-group {
+    flex: 1;
+}
+
+.field-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #666;
+    font-size: 14px;
+}
+
+.remove-ingredient {
+    margin-top: 15px;
+    background: none;
+    border: none;
+    color: #d32f2f;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.remove-ingredient:hover {
+    text-decoration: underline;
+}
+
+.ingredient-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.delete-ingredient-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.7;
+}
+
+.delete-ingredient-btn:hover {
+    opacity: 1;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ingredient-item-detail {
+    background: #f7faf7;
+    border: 1px solid #dcefe0;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.ingredient-item-detail strong {
+    color: #2E7D32;
 }

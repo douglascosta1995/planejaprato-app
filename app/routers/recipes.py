@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
@@ -22,7 +24,6 @@ templates = Jinja2Templates(
 
 @router.get("/recipes/new")
 def new_recipe(request: Request, current_user: User = Depends(get_current_user)):
-
     return templates.TemplateResponse(
         request=request,
         name="app/new_recipe.html",
@@ -33,9 +34,15 @@ def new_recipe(request: Request, current_user: User = Depends(get_current_user))
 
 
 @router.post("/recipes")
-def create_recipe_route(name: str = Form(...), instructions: str = Form(""), current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def create_recipe_route(name: str = Form(...), instructions: str = Form(""), ingredient_ids: List[int] = Form([]),
+                        quantities: List[float] = Form([]), units: List[str] = Form([]),
+                        current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    create_recipe(db=db, name=name, instructions=instructions, user_id=current_user.id, ingredient_ids=ingredient_ids,
+                  quantities=quantities, units=units)
 
-    create_recipe(db=db, name=name, instructions=instructions, user_id=current_user.id)
+    print("ingredient_ids:", ingredient_ids)
+    print("quantities:", quantities)
+    print("units:", units)
 
     return RedirectResponse(
         url="/dashboard",
@@ -44,8 +51,8 @@ def create_recipe_route(name: str = Form(...), instructions: str = Form(""), cur
 
 
 @router.get("/recipes/{recipe_id}")
-def recipe_detail(recipe_id: int, request: Request, current_user: User = Depends(get_current_user),db: Session = Depends(get_db)):
-
+def recipe_detail(recipe_id: int, request: Request, current_user: User = Depends(get_current_user),
+                  db: Session = Depends(get_db)):
     recipe = get_recipe_by_id(db, recipe_id)
 
     if not recipe:
@@ -72,7 +79,6 @@ def recipe_detail(recipe_id: int, request: Request, current_user: User = Depends
 
 @router.post("/recipes/{recipe_id}/delete")
 def delete_recipe_route(recipe_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-
     recipe = get_recipe_by_id(db, recipe_id)
 
     if not recipe:

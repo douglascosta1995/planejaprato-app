@@ -20,6 +20,25 @@
         </p>
 
         <div class="divider"></div>
+        <h2 class="section-title">
+            Ingredientes
+        </h2>
+
+        <div class="ingredients-list">
+            {% for ri in recipe.recipe_ingredients %}
+                <div class="ingredient-item-detail">
+                    <strong>
+                        {{ ri.quantity }} {{ ri.unit }}
+                    </strong>
+                    de
+                    <span>
+                        {{ ri.ingredient.name }}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="divider"></div>
 
         <h2 class="section-title">
             Modo de Preparo

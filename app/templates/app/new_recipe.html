@@ -20,19 +20,61 @@ Nova Receita
 
         <form action="/recipes" method="post">
 
+            <div class="divider"></div>
             <div class="input-group">
-                <label>Nome da Receita</label>
-
+                <h3 class="section-title">
+                    Nome da Receita
+                </h3>
                 <input
                     type="text"
                     name="name"
                     required
                 >
             </div>
+            <div class="divider"></div>
+
+            <div class="ingredient-row">
+                <h3 class="section-title">
+                    Ingredientes
+                </h3>
+                <div class="ingredient-search">
+                    <div class="search-input-wrapper">
+                        <input
+                            type="text"
+                            id="ingredient_search"
+                            name="ingredient_search"
+                            placeholder="Buscar ingrediente"
+                        >
+                        <button
+                            type="button"
+                            id="clear-search-btn"
+                            onclick="clearIngredientSearch()"
+                            class="clear-search-btn"
+                        >
+                            X
+                        </button>
+                    </div>
+                    <button type="button" onclick="searchIngredient()">
+                        Buscar
+                    </button>
+                </div>
+
+                <div id="ingredient-results"></div>
+                <div id="selected-ingredients">
+                    <div id="ingredients-empty-state" class="empty-state">
+                        Nenhum ingrediente adicionado ainda.
+                        Pesquise um ingrediente para começar.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
 
             <div class="input-group">
-                <label>Modo de Preparo</label>
-
+                <h3 class="section-title">
+                    Modo de Preparo
+                </h3>
                 <textarea
                     name="instructions"
                     rows="8"
