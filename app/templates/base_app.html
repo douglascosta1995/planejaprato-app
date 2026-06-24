@@ -16,6 +16,8 @@
 
 <script src="/static/js/app.js" defer></script>
 
+{% block scripts %}{% endblock %}
+
 <body>
 
     <!-- NAVBAR GLOBAL -->
@@ -39,11 +41,20 @@
 
     </nav>
 
+    {% if message %}
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            showToast("{{ message.text }}", "{{ message.type }}");
+        });
+    </script>
+    {% endif %}
+
     <!-- CONTEÚDO DA PÁGINA -->
     <main class="page-content">
         {% block content %}
         {% endblock %}
     </main>
 
+    <div id="toast-container"></div>
 </body>
 </html>

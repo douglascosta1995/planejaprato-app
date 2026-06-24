@@ -45,7 +45,7 @@ def create_recipe_route(name: str = Form(...), instructions: str = Form(""), ing
     print("units:", units)
 
     return RedirectResponse(
-        url="/dashboard",
+        url="/dashboard?message=recipe_created",
         status_code=303
     )
 
@@ -96,6 +96,6 @@ def delete_recipe_route(recipe_id: int, current_user: User = Depends(get_current
     delete_recipe(db, recipe)
 
     return RedirectResponse(
-        "/dashboard",
+        "/dashboard?message=recipe_deleted",
         status_code=303
     )

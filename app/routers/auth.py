@@ -16,6 +16,7 @@ from app.services.recipe_service import get_recipes_by_user
 from app.services.user_service import (create_user, get_user_by_email, authenticate_user)
 from app.auth.jwt import create_access_token
 from app.auth.dependencies import get_current_user
+from app.utils.messages import MESSAGES
 
 router = APIRouter()
 
@@ -93,7 +94,7 @@ def login(request: Request, email: str = Form(...), password: str = Form(...), d
         }
     )
 
-    response = RedirectResponse(url="/dashboard", status_code=303)
+    response = RedirectResponse(url="/dashboard?message=login_success", status_code=303)
 
     response.set_cookie(
         key="access_token",
@@ -110,12 +111,17 @@ def dashboard(request: Request, current_user: User = Depends(get_current_user), 
 
     recipes = get_recipes_by_user(db=db, user_id=current_user.id)
 
+    message_key = request.query_params.get("message")
+
+    message = MESSAGES.get(message_key)
+
     return templates.TemplateResponse(
         request=request,
         name="app/dashboard.html",
         context={
             "user": current_user,
-            "recipes": recipes
+            "recipes": recipes,
+            "message": message
         }
     )
 
