@@ -43,11 +43,8 @@
                         {{ recipe.created_at.strftime("%d/%m/%Y") }}
                     </div>
 
-                    <a
-                        href="/recipes/{{ recipe.id }}"
-                        class="btn-dashboard"
-                    >
-                        Ver Receita
+                    <a href="/recipes/{{ recipe.id }}" class="recipe-open-btn" title="Abrir receita">
+                        ⤤
                     </a>
 
                 </div>
