@@ -9,6 +9,15 @@ function initIngredientSearch() {
         clearButton.style.display =
             searchInput.value.trim() ? "block" : "none";
     });
+
+    searchInput.addEventListener("keydown", (e) => {
+
+        if (e.key === "Enter") {
+            e.preventDefault();
+            searchIngredient();
+        }
+
+    });
 }
 
 window.searchIngredient = async function () {
@@ -83,11 +92,11 @@ function selectIngredient(id, name) {
                 <label>Unidade</label>
 
                 <select name="units">
+                    <option value="un" selected>unidade</option>
                     <option value="g">g</option>
                     <option value="kg">kg</option>
                     <option value="ml">ml</option>
                     <option value="l">l</option>
-                    <option value="un">unidade</option>
                     <option value="colher">colher</option>
                     <option value="xícara">xícara</option>
                 </select>
@@ -137,3 +146,25 @@ document.addEventListener("DOMContentLoaded", () => {
     initIngredientSearch();
     initClearButton();
 });
+
+async function toggleCategory(recipeId, categoryId, button) {
+
+    const formData = new FormData();
+    formData.append("category_id", categoryId);
+
+    const response = await fetch(
+        `/recipes/${recipeId}/categories/toggle`,
+        {
+            method: "POST",
+            body: formData
+        }
+    );
+
+    const data = await response.json();
+
+    if (data.action === "added") {
+        button.classList.add("selected");
+    } else {
+        button.classList.remove("selected");
+    }
+}

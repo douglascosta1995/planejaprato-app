@@ -395,6 +395,11 @@ margin-top: 20px;
     margin: 0;
 }
 
+.recipe-card h4 {
+    color: #333;
+    margin: 0;
+}
+
 .recipe-name {
     font-size: 18px;
     font-weight: bold;
@@ -584,4 +589,33 @@ color: #777;
 
 .ingredient-item-detail strong {
     color: #2E7D32;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-chip {
+    padding: 8px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 999px;
+    background: #fff;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.category-chip:hover {
+    border-color: #22c55e;
+    transform: translateY(-1px);
+}
+
+.category-chip.selected {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: white;
+    font-weight: 600;
 }

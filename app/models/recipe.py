@@ -9,6 +9,7 @@ from datetime import datetime
 from app.database.database import Base
 from sqlalchemy.orm import relationship
 
+
 class Recipe(Base):
     __tablename__ = "recipes"
 
@@ -41,6 +42,12 @@ class Recipe(Base):
 
     recipe_ingredients = relationship(
         "RecipeIngredient",
+        back_populates="recipe",
+        cascade="all, delete-orphan"
+    )
+
+    recipe_categories = relationship(
+        "RecipeCategory",
         back_populates="recipe",
         cascade="all, delete-orphan"
     )

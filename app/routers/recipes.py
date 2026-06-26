@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.database.database import get_db
 from app.auth.dependencies import get_current_user
+from app.models import RecipeCategory, Category
 from app.models.user import User
 
 from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe
@@ -67,12 +68,18 @@ def recipe_detail(recipe_id: int, request: Request, current_user: User = Depends
             status_code=303
         )
 
+    categories = db.query(Category).all()
+
+    selected_categories = [rc.category_id for rc in recipe.recipe_categories]
+
     return templates.TemplateResponse(
         request=request,
         name="app/recipe_detail.html",
         context={
             "user": current_user,
-            "recipe": recipe
+            "recipe": recipe,
+            "categories": categories,
+            "selected_categories": selected_categories
         }
     )
 
@@ -99,3 +106,39 @@ def delete_recipe_route(recipe_id: int, current_user: User = Depends(get_current
         "/dashboard?message=recipe_deleted",
         status_code=303
     )
+
+
+@router.post("/recipes/{recipe_id}/categories/toggle")
+def toggle_recipe_category(recipe_id: int, category_id: int = Form(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    recipe = get_recipe_by_id(db, recipe_id)
+
+    if not recipe or recipe.user_id != current_user.id:
+        return {"success": False}
+
+    existing = db.query(RecipeCategory).filter_by(
+        recipe_id=recipe_id,
+        category_id=category_id
+    ).first()
+
+    if existing:
+        db.delete(existing)
+        db.commit()
+
+        return {
+            "success": True,
+            "action": "removed"
+        }
+
+    db.add(
+        RecipeCategory(
+            recipe_id=recipe_id,
+            category_id=category_id
+        )
+    )
+    db.commit()
+
+    return {
+        "success": True,
+        "action": "added"
+    }
+
