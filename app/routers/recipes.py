@@ -15,6 +15,7 @@ from app.models import RecipeCategory, Category
 from app.models.user import User
 
 from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe
+from app.utils.messages import MESSAGES
 
 router = APIRouter()
 
@@ -38,15 +39,12 @@ def new_recipe(request: Request, current_user: User = Depends(get_current_user))
 def create_recipe_route(name: str = Form(...), instructions: str = Form(""), ingredient_ids: List[int] = Form([]),
                         quantities: List[float] = Form([]), units: List[str] = Form([]),
                         current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    create_recipe(db=db, name=name, instructions=instructions, user_id=current_user.id, ingredient_ids=ingredient_ids,
-                  quantities=quantities, units=units)
-
-    print("ingredient_ids:", ingredient_ids)
-    print("quantities:", quantities)
-    print("units:", units)
+    recipe = create_recipe(db=db, name=name, instructions=instructions, user_id=current_user.id,
+                           ingredient_ids=ingredient_ids,
+                           quantities=quantities, units=units)
 
     return RedirectResponse(
-        url="/dashboard?message=recipe_created",
+        url=f"/recipes/{recipe.id}?message=recipe_created&highlight=categories",
         status_code=303
     )
 
@@ -72,6 +70,12 @@ def recipe_detail(recipe_id: int, request: Request, current_user: User = Depends
 
     selected_categories = [rc.category_id for rc in recipe.recipe_categories]
 
+    message_key = request.query_params.get("message")
+
+    message = MESSAGES.get(message_key)
+
+    highlight = request.query_params.get("highlight")
+
     return templates.TemplateResponse(
         request=request,
         name="app/recipe_detail.html",
@@ -79,7 +83,9 @@ def recipe_detail(recipe_id: int, request: Request, current_user: User = Depends
             "user": current_user,
             "recipe": recipe,
             "categories": categories,
-            "selected_categories": selected_categories
+            "selected_categories": selected_categories,
+            "message": message,
+            "highlight": highlight
         }
     )
 
@@ -109,7 +115,8 @@ def delete_recipe_route(recipe_id: int, current_user: User = Depends(get_current
 
 
 @router.post("/recipes/{recipe_id}/categories/toggle")
-def toggle_recipe_category(recipe_id: int, category_id: int = Form(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def toggle_recipe_category(recipe_id: int, category_id: int = Form(...), db: Session = Depends(get_db),
+                           current_user: User = Depends(get_current_user)):
     recipe = get_recipe_by_id(db, recipe_id)
 
     if not recipe or recipe.user_id != current_user.id:
@@ -141,4 +148,3 @@ def toggle_recipe_category(recipe_id: int, category_id: int = Form(...), db: Ses
         "success": True,
         "action": "added"
     }
-

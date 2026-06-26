@@ -54,8 +54,11 @@
 
         <div class="divider"></div>
 
-        <div class="recipe-categories">
-            <h4 class="section-title">Categorias</h4>
+        <div id="recipe-categories" class="recipe-categories {% if highlight == 'categories' %}highlight-section{% endif %}">
+            <h4 class="section-title">Onde esta receita pode ser sugerida?</h4>
+            <div class="helper-message">
+            💡 Esta informação será utilizada futuramente para gerar automaticamente sugestões de cardápio durante o planejamento semanal. Você pode selecionar quantas opções desejar.
+            </div>
 
             <div class="category-list">
                 {% for category in categories %}

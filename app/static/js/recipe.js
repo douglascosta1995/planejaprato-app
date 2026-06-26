@@ -50,6 +50,22 @@ window.searchIngredient = async function () {
     });
 };
 
+const UNITS = [
+    "unidade",
+    "g",
+    "kg",
+    "ml",
+    "l",
+    "pitada",
+    "colher de chá",
+    "colher de sopa",
+    "xícara"
+];
+
+const options = UNITS.map(unit =>
+    `<option value="${unit}">${unit}</option>`
+).join("");
+
 function selectIngredient(id, name) {
     const container = document.getElementById("selected-ingredients");
     const emptyState = document.getElementById("ingredients-empty-state");
@@ -92,13 +108,7 @@ function selectIngredient(id, name) {
                 <label>Unidade</label>
 
                 <select name="units">
-                    <option value="un" selected>unidade</option>
-                    <option value="g">g</option>
-                    <option value="kg">kg</option>
-                    <option value="ml">ml</option>
-                    <option value="l">l</option>
-                    <option value="colher">colher</option>
-                    <option value="xícara">xícara</option>
+                    ${options}
                 </select>
             </div>
         </div>
@@ -168,3 +178,19 @@ async function toggleCategory(recipeId, categoryId, button) {
         button.classList.remove("selected");
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const section =
+        document.querySelector(".highlight-section");
+
+    if(section){
+
+        section.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+    }
+
+});
