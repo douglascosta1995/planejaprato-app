@@ -18,7 +18,13 @@
             + Nova Receita
         </a>
 
+        <a href="/meal-plans/new" class="btn-dashboard">
+            + Novo Planejamento
+        </a>
+
     </div>
+
+    <!-- RECEITAS -->
 
     <div class="recipe-section">
 
@@ -32,22 +38,25 @@
 
                 {% for recipe in recipes %}
 
-                <div class="recipe-card">
+                    <div class="recipe-card">
 
-                    <div class="recipe-name">
-                        🍽️ {{ recipe.name }}
+                        <div class="recipe-name">
+                            🍽️ {{ recipe.name }}
+                        </div>
+
+                        <div class="recipe-date">
+                            Criada em {{ recipe.created_at.strftime("%d/%m/%Y") }}
+                        </div>
+
+                        <a
+                            href="/recipes/{{ recipe.id }}"
+                            class="recipe-open-btn"
+                            title="Abrir receita"
+                        >
+                            ⤤
+                        </a>
+
                     </div>
-
-                    <div class="recipe-date">
-                        Criada em
-                        {{ recipe.created_at.strftime("%d/%m/%Y") }}
-                    </div>
-
-                    <a href="/recipes/{{ recipe.id }}" class="recipe-open-btn" title="Abrir receita">
-                        ⤤
-                    </a>
-
-                </div>
 
                 {% endfor %}
 
@@ -58,6 +67,52 @@
             <div class="empty-state">
                 Nenhuma receita cadastrada.<br>
                 Clique em "Nova Receita" para começar.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- PLANEJAMENTOS -->
+
+    <div class="recipe-section">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Planejamentos Semanais
+            </h2>
+
+        </div>
+
+        {% if latest_meal_plan %}
+
+                    <div class="recipe-card">
+
+                        <div class="recipe-name">
+                            🗓️ {{ latest_meal_plan.name }}
+                        </div>
+
+                        <div class="recipe-date">
+                            Criado em {{ latest_meal_plan.created_at.strftime("%d/%m/%Y") }}
+                        </div>
+
+                        <a
+                            href="/meal-plans/{{ latest_meal_plan.id }}"
+                            class="recipe-open-btn"
+                            title="Abrir planejamento"
+                        >
+                            ⤤
+                        </a>
+
+                    </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                Nenhum planejamento criado.<br>
+                Clique em "Novo Planejamento" para começar.
             </div>
 
         {% endif %}

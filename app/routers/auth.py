@@ -11,6 +11,7 @@ from starlette.responses import RedirectResponse
 
 from app.database.database import get_db
 from app.models.user import User
+from app.services.meal_plan_service import get_user_latest_meal_plan
 from app.services.recipe_service import get_recipes_by_user
 
 from app.services.user_service import (create_user, get_user_by_email, authenticate_user)
@@ -115,13 +116,16 @@ def dashboard(request: Request, current_user: User = Depends(get_current_user), 
 
     message = MESSAGES.get(message_key)
 
+    latest_meal_plan = get_user_latest_meal_plan(db=db, user_id=current_user.id)
+
     return templates.TemplateResponse(
         request=request,
         name="app/dashboard.html",
         context={
             "user": current_user,
             "recipes": recipes,
-            "message": message
+            "message": message,
+            "latest_meal_plan": latest_meal_plan
         }
     )
 

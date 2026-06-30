@@ -1,0 +1,67 @@
+{% extends "base_app.html" %}
+
+{% block title %}
+Lista de Compras
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <div class="dashboard-card">
+
+        <h1 class="welcome-title">
+            🛒 Lista de Compras
+        </h1>
+
+        <p class="welcome-subtitle">
+            Gerada automaticamente com base no seu cardápio semanal
+        </p>
+
+        <div class="recipe-actions">
+
+            <a href="/meal-plans/{{ meal_plan.id }}" class="btn-back">
+                Voltar ao Cardápio
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-card">
+
+        {% if shopping_list %}
+
+            <div class="shopping-list">
+
+                {% for id, item in shopping_list.items() %}
+
+                    <div class="shopping-item">
+
+                        <div class="shopping-name">
+                            🥫 {{ item.name }}
+                        </div>
+
+                        <div class="shopping-quantity">
+                            {{ item.quantity }} {{ item.unit }}
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                Nenhum item encontrado na lista de compras.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

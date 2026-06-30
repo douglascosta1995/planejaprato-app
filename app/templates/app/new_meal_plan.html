@@ -1,0 +1,70 @@
+{% extends "base_app.html" %}
+
+{% block title %}
+Gerar Cardápio Semanal
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <div class="dashboard-card">
+
+        <h1 class="welcome-title">
+            🍽️ Gerar Cardápio Semanal
+        </h1>
+
+        <p class="welcome-subtitle">
+            O PlanejaPrato irá montar automaticamente um cardápio de 7 dias utilizando as receitas cadastradas.
+        </p>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="divider"></div>
+
+        <div class="meal-plan-info">
+
+            <p>
+                ✔️ Utiliza suas receitas cadastradas
+            </p>
+
+            <p>
+                ✔️ Distribui automaticamente café da manhã, almoço, lanche da tarde e jantar
+            </p>
+
+            <p>
+                ✔️ Depois você poderá editar qualquer refeição
+            </p>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <form action="/meal-plans" method="post">
+
+            <div class="recipe-actions">
+
+                <a href="/dashboard" class="btn-back">
+                    Cancelar
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn-dashboard"
+                >
+                    🍽️ Gerar Cardápio
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -14,6 +14,11 @@ MESSAGES = {
         "text": "Receita atualizada com sucesso!"
     },
 
+    "meal_plan_created": {
+        "type": "success",
+        "text": "Cardápio da semana gerado com sucesso!"
+    },
+
     "login_success": {
         "type": "success",
         "text": "Login realizado com sucesso!"

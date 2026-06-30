@@ -4,3 +4,5 @@ from app.models.ingredient import Ingredient
 from app.models.recipe_ingredient import RecipeIngredient
 from app.models.category import Category
 from app.models.recipe_category import RecipeCategory
+from .meal_plan import MealPlan
+from .meal_plan_item import MealPlanItem

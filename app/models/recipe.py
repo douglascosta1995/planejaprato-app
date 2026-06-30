@@ -51,3 +51,8 @@ class Recipe(Base):
         back_populates="recipe",
         cascade="all, delete-orphan"
     )
+
+    meal_plan_items = relationship(
+        "MealPlanItem",
+        back_populates="recipe"
+    )
