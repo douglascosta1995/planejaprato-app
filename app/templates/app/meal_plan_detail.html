@@ -86,119 +86,90 @@ Cardápio Semanal
                 📅 {{ day }}
             </h2>
 
+            {% set meal_types = [
+                ("breakfast", "☀ Café da manhã"),
+                ("lunch", "🍽️ Almoço"),
+                ("snack", "☕ Lanche da tarde"),
+                ("dinner", "🌙 Jantar")
+            ] %}
+
             <div class="meal-grid">
 
-                <div class="meal-card">
+                {% for meal_key, meal_title in meal_types %}
 
-                    <div class="meal-card-header">
-                        <span class="meal-title">
-                            ☀ Café da manhã
-                        </span>
+                    {% set meal = meals[meal_key] %}
 
-                        {% if meals.breakfast %}
-                            <a
-                                href="/recipes/{{ meals.breakfast.recipe.id }}"
-                                class="recipe-open-btn"
-                                title="Abrir receita"
+                    <div class="meal-card">
+
+                        <div class="meal-card-header">
+
+                            <span class="meal-title">
+                                {{ meal_title }}
+                            </span>
+
+                        </div>
+
+                        <div class="meal-recipe">
+
+                            {% if meal %}
+
+                                <div class="meal-plan-item">
+
+                                    <a
+                                        href="/recipes/{{ meal.recipe.id }}"
+                                        class="meal-plan-recipe"
+                                    >
+                                        {{ meal.recipe.name }}
+                                    </a>
+
+                                    <div class="meal-item-actions">
+
+                                        <button
+                                            class="icon-btn"
+                                            title="Trocar receita"
+                                        >
+                                            🔄
+                                        </button>
+
+                                        <form
+                                            action="/meal-plan-items/{{ meal.id }}/delete"
+                                            method="post"
+                                            style="display:inline"
+                                        >
+                                            <button
+                                                class="icon-btn"
+                                                type="submit"
+                                                title="Remover receita"
+                                                onclick="return confirm('Remover esta receita?')"
+                                            >
+                                                🗑️
+                                            </button>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="empty-state-small">
+                                    Nenhuma receita.
+                                </div>
+
+                            {% endif %}
+
+                            <button
+                                class="btn-add-recipe"
+                                type="button"
                             >
-                                ⤤
-                            </a>
-                        {% endif %}
+                                ➕ Adicionar receita
+                            </button>
+
+                        </div>
+
                     </div>
 
-                    <div class="meal-recipe">
-                        {% if meals.breakfast %}
-                            {{ meals.breakfast.recipe.name }}
-                        {% else %}
-                            —
-                        {% endif %}
-                    </div>
-
-                </div>
-
-                <div class="meal-card">
-
-                    <div class="meal-card-header">
-                        <span class="meal-title">
-                            🍽️ Almoço
-                        </span>
-
-                        {% if meals.lunch %}
-                            <a
-                                href="/recipes/{{ meals.lunch.recipe.id }}"
-                                class="recipe-open-btn"
-                                title="Abrir receita"
-                            >
-                                ⤤
-                            </a>
-                        {% endif %}
-                    </div>
-
-                    <div class="meal-recipe">
-                        {% if meals.lunch %}
-                            {{ meals.lunch.recipe.name }}
-                        {% else %}
-                            —
-                        {% endif %}
-                    </div>
-
-                </div>
-
-                <div class="meal-card">
-
-                    <div class="meal-card-header">
-                        <span class="meal-title">
-                            ☕ Lanche da tarde
-                        </span>
-
-                        {% if meals.snack %}
-                            <a
-                                href="/recipes/{{ meals.snack.recipe.id }}"
-                                class="recipe-open-btn"
-                                title="Abrir receita"
-                            >
-                                ⤤
-                            </a>
-                        {% endif %}
-                    </div>
-
-                    <div class="meal-recipe">
-                        {% if meals.snack %}
-                            {{ meals.snack.recipe.name }}
-                        {% else %}
-                            —
-                        {% endif %}
-                    </div>
-
-                </div>
-
-                <div class="meal-card">
-
-                    <div class="meal-card-header">
-                        <span class="meal-title">
-                            🌙 Jantar
-                        </span>
-
-                        {% if meals.dinner %}
-                            <a
-                                href="/recipes/{{ meals.dinner.recipe.id }}"
-                                class="recipe-open-btn"
-                                title="Abrir receita"
-                            >
-                                ⤤
-                            </a>
-                        {% endif %}
-                    </div>
-
-                    <div class="meal-recipe">
-                        {% if meals.dinner %}
-                            {{ meals.dinner.recipe.name }}
-                        {% else %}
-                            —
-                        {% endif %}
-                    </div>
-
-                </div>
+                {% endfor %}
 
             </div>
 
@@ -207,7 +178,6 @@ Cardápio Semanal
     {% endfor %}
 
 </div>
-```
 
 </div>
 

@@ -771,6 +771,79 @@ Meal Plan
     margin-bottom:10px;
 }
 
+.meal-plan-item{
+
+    display:flex;
+    justify-content: space-between;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.meal-plan-item-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.meal-plan-actions{
+
+    display:flex;
+
+    gap:8px;
+    align-items: center;
+
+}
+
+.icon-btn{
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    opacity:.7;
+
+    transition:.2s;
+
+}
+
+.icon-btn:hover{
+
+    opacity:1;
+
+    transform:scale(1.15);
+
+}
+
+.btn-add-recipe{
+
+    margin-top:12px;
+
+    width:100%;
+
+}
+
+.meal-plan-recipe{
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.meal-plan-recipe:hover{
+    color: #4CAF50;
+    text-decoration: underline;
+}
+
 
 /* =========================
 Shopping List
