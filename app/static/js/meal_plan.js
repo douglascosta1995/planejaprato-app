@@ -15,9 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tab.classList.add("active");
 
             document
-                .getElementById(
-                    `day-${tab.dataset.day}`
-                )
+                .getElementById(`day-${tab.dataset.day}`)
                 .classList.add("active");
 
         });
@@ -25,3 +23,57 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+
+async function deleteMealItem(itemId) {
+
+    if (!confirm("Remover esta receita?")) {
+        return;
+    }
+
+    const response = await fetch(
+        `/meal-plan-items/${itemId}/delete`,
+        {
+            method: "POST"
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        alert(data.message);
+        return;
+    }
+
+    const mealItem = document.getElementById(`meal-item-${itemId}`);
+
+    if (!mealItem) {
+        return;
+    }
+
+    const mealRecipe = mealItem.closest(".meal-recipe");
+
+    const mealItems = mealRecipe.querySelector(".meal-items");
+
+    const emptyState = mealRecipe.querySelector(".empty-state-small");
+
+    mealItem.remove();
+
+    if (mealItems.children.length === 0) {
+
+        emptyState.classList.remove("hidden");
+
+    }
+
+}
+
+
+function renderEmptyMeal() {
+
+    return `
+        <div class="empty-state-small">
+            Nenhuma receita.
+        </div>
+    `;
+
+}

@@ -3,6 +3,7 @@ from fastapi import Depends
 from fastapi import Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import JSONResponse
 
 from sqlalchemy.orm import Session
 
@@ -12,6 +13,11 @@ from app.services.meal_plan_service import (
     organize_meal_plan,
     generate_shopping_list,
     delete_meal_plan
+)
+
+from app.services.meal_plan_item_service import (
+    get_meal_plan_item_by_id,
+    delete_meal_plan_item
 )
 
 from app.auth.dependencies import get_current_user
@@ -147,5 +153,37 @@ def shopping_list(meal_plan_id: int, request: Request, current_user: User = Depe
             "user": current_user,
             "meal_plan": meal_plan,
             "shopping_list": shopping_list
+        }
+    )
+
+
+@router.post("/meal-plan-items/{item_id}/delete")
+def delete_meal_plan_item_route(item_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    item = get_meal_plan_item_by_id(db, item_id)
+
+    if not item:
+        return JSONResponse(
+            {
+                "success": False,
+                "message": "Item não encontrado."
+            },
+            status_code=404
+        )
+
+    if item.meal_plan.user_id != current_user.id:
+        return JSONResponse(
+            {
+                "success": False,
+                "message": "Acesso negado."
+            },
+            status_code=403
+        )
+
+    delete_meal_plan_item(db, item)
+
+    return JSONResponse(
+        {
+            "success": True
         }
     )

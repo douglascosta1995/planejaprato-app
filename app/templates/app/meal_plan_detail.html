@@ -111,58 +111,59 @@ Cardápio Semanal
 
                         <div class="meal-recipe">
 
-                            {% if meal %}
+                            <div class="meal-items">
 
-                                <div class="meal-plan-item">
+                                {% if meal %}
 
-                                    <a
-                                        href="/recipes/{{ meal.recipe.id }}"
-                                        class="meal-plan-recipe"
+                                    <div
+                                        class="meal-plan-item"
+                                        id="meal-item-{{ meal.id }}"
                                     >
-                                        {{ meal.recipe.name }}
-                                    </a>
 
-                                    <div class="meal-item-actions">
-
-                                        <button
-                                            class="icon-btn"
-                                            title="Trocar receita"
+                                        <a
+                                            href="/recipes/{{ meal.recipe.id }}"
+                                            class="meal-plan-recipe"
                                         >
-                                            🔄
-                                        </button>
+                                            {{ meal.recipe.name }}
+                                        </a>
 
-                                        <form
-                                            action="/meal-plan-items/{{ meal.id }}/delete"
-                                            method="post"
-                                            style="display:inline"
-                                        >
+                                        <div class="meal-item-actions">
+
                                             <button
                                                 class="icon-btn"
-                                                type="submit"
+                                                title="Trocar receita"
+                                            >
+                                                🔄
+                                            </button>
+
+                                            <button
+                                                class="icon-btn"
+                                                type="button"
+                                                onclick="deleteMealItem({{ meal.id }})"
                                                 title="Remover receita"
-                                                onclick="return confirm('Remover esta receita?')"
                                             >
                                                 🗑️
                                             </button>
-                                        </form>
+
+                                        </div>
 
                                     </div>
 
-                                </div>
+                                {% endif %}
 
-                            {% else %}
+                            </div>
 
-                                <div class="empty-state-small">
-                                    Nenhuma receita.
-                                </div>
-
-                            {% endif %}
+                            <div
+                                class="empty-state-small {% if meal %}hidden{% endif %}"
+                            >
+                                Nenhuma receita.
+                            </div>
 
                             <button
                                 class="btn-add-recipe"
                                 type="button"
                             >
-                                ➕ Adicionar receita
+                                ➕ Adicionar prato
                             </button>
 
                         </div>

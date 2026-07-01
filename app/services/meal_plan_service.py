@@ -143,10 +143,18 @@ def organize_meal_plan(meal_plan):
 
     days = {}
 
-    for item in meal_plan.meal_plan_items:
+    # Sempre cria todos os dias
+    for day in DAYS:
 
-        if item.day_of_week not in days:
-            days[item.day_of_week] = {}
+        days[day] = {
+            "breakfast": None,
+            "lunch": None,
+            "snack": None,
+            "dinner": None
+        }
+
+    # Depois sobrescreve apenas os que existem
+    for item in meal_plan.meal_plan_items:
 
         days[item.day_of_week][item.meal_type] = item
 
