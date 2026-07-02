@@ -12,7 +12,7 @@ Cardápio Semanal
 
 {% block content %}
 
-<div class="dashboard-container">
+<div class="dashboard-container" data-meal-plan-id="{{ meal_plan.id }}">
 
 <div class="dashboard-card">
 
@@ -97,7 +97,7 @@ Cardápio Semanal
 
                 {% for meal_key, meal_title in meal_types %}
 
-                    {% set meal = meals[meal_key] %}
+                    {% set meal_list = meals[meal_key] %}
 
                     <div class="meal-card">
 
@@ -111,57 +111,30 @@ Cardápio Semanal
 
                         <div class="meal-recipe">
 
-                            <div class="meal-items">
+                            <div class="meal-items" id="meal-items-{{ day }}-{{ meal_key }}">
 
-                                {% if meal %}
+                                {% if meal_list|length > 0 %}
 
-                                    <div
-                                        class="meal-plan-item"
-                                        id="meal-item-{{ meal.id }}"
-                                    >
+                                    {% for meal in meal_list %}
 
-                                        <a
-                                            href="/recipes/{{ meal.recipe.id }}"
-                                            class="meal-plan-recipe"
-                                        >
-                                            {{ meal.recipe.name }}
-                                        </a>
+                                        {% include "app/components/meal_plan_item.html" %}
 
-                                        <div class="meal-item-actions">
+                                    {% endfor %}
 
-                                            <button
-                                                class="icon-btn"
-                                                title="Trocar receita"
-                                            >
-                                                🔄
-                                            </button>
+                                {% else %}
 
-                                            <button
-                                                class="icon-btn"
-                                                type="button"
-                                                onclick="deleteMealItem({{ meal.id }})"
-                                                title="Remover receita"
-                                            >
-                                                🗑️
-                                            </button>
-
-                                        </div>
-
+                                    <div class="empty-state-small">
+                                        Nenhuma receita.
                                     </div>
 
                                 {% endif %}
 
                             </div>
 
-                            <div
-                                class="empty-state-small {% if meal %}hidden{% endif %}"
-                            >
-                                Nenhuma receita.
-                            </div>
-
                             <button
                                 class="btn-add-recipe"
                                 type="button"
+                                onclick="openRecipePicker('add','{{ meal_key }}','{{ day }}')"
                             >
                                 ➕ Adicionar prato
                             </button>
@@ -179,6 +152,38 @@ Cardápio Semanal
     {% endfor %}
 
 </div>
+
+</div>
+
+<div id="recipe-picker-modal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Selecionar Receita</h2>
+
+            <button
+                class="icon-btn"
+                type="button"
+                onclick="closeRecipePicker()"
+            >
+                ✖
+            </button>
+
+        </div>
+
+        <input
+            type="text"
+            id="recipe-search"
+            placeholder="Pesquisar receita..."
+        >
+
+        <div id="recipe-search-results" class="recipe-results">
+
+        </div>
+
+    </div>
 
 </div>
 

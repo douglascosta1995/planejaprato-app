@@ -14,7 +14,7 @@ from app.auth.dependencies import get_current_user
 from app.models import RecipeCategory, Category
 from app.models.user import User
 
-from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe
+from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe, search_recipes
 from app.utils.messages import MESSAGES
 
 router = APIRouter()
@@ -47,6 +47,25 @@ def create_recipe_route(name: str = Form(...), instructions: str = Form(""), ing
         url=f"/recipes/{recipe.id}?message=recipe_created&highlight=categories",
         status_code=303
     )
+
+
+@router.get("/recipes/search")
+def search_recipes_route(q: str, meal_type: str | None = None, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    recipes = search_recipes(
+        db=db,
+        user_id=current_user.id,
+        query=q,
+        meal_type=meal_type
+    )
+
+    return [
+        {
+            "id": recipe.id,
+            "name": recipe.name
+        }
+        for recipe in recipes
+    ]
 
 
 @router.get("/recipes/{recipe_id}")

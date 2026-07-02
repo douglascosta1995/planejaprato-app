@@ -1,7 +1,17 @@
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
+from app.models import RecipeCategory, Category
 from app.models.recipe import Recipe
 from app.models.recipe_ingredient import RecipeIngredient
+
+
+MEAL_TYPE_TO_CATEGORY = {
+    "breakfast": "Café da manhã",
+    "lunch": "Almoço",
+    "snack": "Lanche",
+    "dinner": "Jantar"
+}
 
 
 def create_recipe(db: Session, name: str, instructions: str, user_id: int, ingredient_ids, quantities, units):
@@ -37,3 +47,29 @@ def get_recipe_by_id(db, recipe_id):
 def delete_recipe(db, recipe):
     db.delete(recipe)
     db.commit()
+
+
+def search_recipes(db: Session, user_id: int, query: str, meal_type: str | None = None):
+
+    recipes = (db.query(Recipe).filter(
+            Recipe.user_id == user_id,
+            func.lower(Recipe.name).contains(query.lower())
+        )
+    )
+
+    if meal_type:
+
+        category_name = MEAL_TYPE_TO_CATEGORY.get(meal_type)
+        recipes = (
+            recipes
+            .join(RecipeCategory)
+            .join(Category)
+            .filter(Category.name == category_name)
+        )
+
+    return (
+        recipes
+        .order_by(Recipe.name)
+        .limit(20)
+        .all()
+    )

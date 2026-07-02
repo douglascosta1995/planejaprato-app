@@ -1,0 +1,38 @@
+
+<div class="meal-plan-item" id="meal-item-{{ meal.id }}">
+
+    <a
+        href="/recipes/{{ meal.recipe.id }}"
+        class="meal-plan-recipe"
+    >
+        {{ meal.recipe.name }}
+    </a>
+
+    <div class="meal-item-actions">
+
+        <button
+            class="icon-btn"
+            type="button"
+            onclick="openRecipePicker(
+                'replace',
+                '{{ meal.meal_type }}',
+                '{{ meal.day_of_week }}',
+                {{ meal.id }}
+            )"
+            title="Trocar receita"
+        >
+            🔄
+        </button>
+
+        <button
+            class="icon-btn"
+            type="button"
+            onclick="deleteMealItem({{ meal.id }})"
+            title="Remover receita"
+        >
+            🗑️
+        </button>
+
+    </div>
+
+</div>

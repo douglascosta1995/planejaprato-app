@@ -513,6 +513,66 @@ margin-top: 20px;
     color: white;
 }
 
+.recipe-results {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+.recipe-result-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 14px 18px;
+
+    border-radius: 10px;
+
+    border: 1px solid #e7e7e7;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    background: white;
+
+}
+
+.recipe-result-item:hover {
+
+    background: #f5f8ff;
+
+    border-color: #4f7cff;
+
+    transform: translateY(-1px);
+
+}
+
+.recipe-result-item span:first-child {
+
+    font-weight: 600;
+
+    color: #333;
+
+}
+
+.recipe-result-item span:last-child {
+
+    color: #4f7cff;
+
+    font-size: 18px;
+
+}
+
 .section-title {
 text-align: left;
 color: #2E7D32;
@@ -848,6 +908,55 @@ Meal Plan
     text-decoration: underline;
 }
 
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.45);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 999;
+
+}
+
+.modal-content {
+
+    background: white;
+
+    width: 500px;
+
+    max-width: 90%;
+
+    border-radius: 12px;
+
+    padding: 24px;
+
+}
+
+.modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+.modal.hidden {
+
+    display: none;
+
+}
 
 /* =========================
 Shopping List

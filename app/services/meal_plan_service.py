@@ -147,16 +147,16 @@ def organize_meal_plan(meal_plan):
     for day in DAYS:
 
         days[day] = {
-            "breakfast": None,
-            "lunch": None,
-            "snack": None,
-            "dinner": None
+            "breakfast": [],
+            "lunch": [],
+            "snack": [],
+            "dinner": []
         }
 
-    # Depois sobrescreve apenas os que existem
+    # Adiciona todas as receitas
     for item in meal_plan.meal_plan_items:
 
-        days[item.day_of_week][item.meal_type] = item
+        days[item.day_of_week][item.meal_type].append(item)
 
     return days
 
@@ -197,3 +197,46 @@ def generate_shopping_list(meal_plan):
             items[ingredient_id]["quantity"] += ri.quantity
 
     return items
+
+
+def add_meal_plan_item(
+    db: Session,
+    meal_plan_id: int,
+    day: str,
+    meal_type: str,
+    recipe_id: int
+):
+
+    meal = MealPlanItem(
+        meal_plan_id=meal_plan_id,
+        day_of_week=day,
+        meal_type=meal_type,
+        recipe_id=recipe_id
+    )
+
+    db.add(meal)
+
+    db.commit()
+
+    db.refresh(meal)
+
+    return meal
+
+
+def replace_meal_plan_item(db: Session, item_id: int, recipe_id: int):
+
+    item = (
+        db.query(MealPlanItem)
+        .filter(MealPlanItem.id == item_id)
+        .first()
+    )
+
+    if not item:
+        return None
+
+    item.recipe_id = recipe_id
+
+    db.commit()
+    db.refresh(item)
+
+    return item
