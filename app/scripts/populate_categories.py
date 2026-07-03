@@ -1,4 +1,5 @@
-from app.database.database import SessionLocal
+from sqlalchemy.orm import Session
+
 from app.models.category import Category
 
 CATEGORIES = [
@@ -8,26 +9,30 @@ CATEGORIES = [
     "Lanche"
 ]
 
-db = SessionLocal()
 
-count = 0
+def populate_categories(db: Session):
 
-for category_name in CATEGORIES:
+    count = 0
 
-    exists = (
-        db.query(Category)
-        .filter(Category.name == category_name)
-        .first()
-    )
+    for category_name in CATEGORIES:
 
-    if not exists:
+        exists = (
+            db.query(Category)
+            .filter(Category.name == category_name)
+            .first()
+        )
+
+        if exists:
+            continue
+
         db.add(
             Category(
                 name=category_name
             )
         )
+
         count += 1
 
-db.commit()
+    db.commit()
 
-print(f"{count} categorias adicionadas.")
+    print(f"{count} categorias adicionadas.")

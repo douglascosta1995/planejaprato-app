@@ -12,7 +12,7 @@ from starlette.responses import RedirectResponse
 from app.database.database import get_db
 from app.models.user import User
 from app.services.meal_plan_service import get_user_latest_meal_plan
-from app.services.recipe_service import get_recipes_by_user
+from app.services.recipe_service import get_recipes_by_user, get_system_recipes
 
 from app.services.user_service import (create_user, get_user_by_email, authenticate_user)
 from app.auth.jwt import create_access_token
@@ -110,7 +110,8 @@ def login(request: Request, email: str = Form(...), password: str = Form(...), d
 @router.get("/dashboard")
 def dashboard(request: Request, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
 
-    recipes = get_recipes_by_user(db=db, user_id=current_user.id)
+    recipes_user = get_recipes_by_user(db=db, user_id=current_user.id)
+    recipes_system = get_system_recipes(db=db)
 
     message_key = request.query_params.get("message")
 
@@ -123,7 +124,8 @@ def dashboard(request: Request, current_user: User = Depends(get_current_user), 
         name="app/dashboard.html",
         context={
             "user": current_user,
-            "recipes": recipes,
+            "recipes_user": recipes_user,
+            "recipes_system": recipes_system,
             "message": message,
             "latest_meal_plan": latest_meal_plan
         }

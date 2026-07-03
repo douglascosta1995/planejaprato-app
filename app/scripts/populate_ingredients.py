@@ -1,8 +1,9 @@
-from app.database.database import SessionLocal
+from sqlalchemy.orm import Session
 from app.models.ingredient import Ingredient
 from app.models.recipe_ingredient import RecipeIngredient
 
 COMMON_INGREDIENTS = {
+
     "Grãos e Cereais": [
         "Arroz",
         "Arroz Integral",
@@ -12,8 +13,9 @@ COMMON_INGREDIENTS = {
         "Lentilha",
         "Grão-de-Bico",
         "Ervilha",
-        "Milho",
+        "Milho Verde",
         "Aveia",
+        "Granola",
         "Quinoa",
         "Macarrão",
         "Macarrão Integral",
@@ -22,12 +24,15 @@ COMMON_INGREDIENTS = {
         "Fubá",
         "Polvilho Doce",
         "Polvilho Azedo",
+        "Goma de Tapioca",
         "Cuscuz",
-        "Pão Francês"
+        "Pão Francês",
+        "Pão de Forma"
     ],
 
     "Carnes e Proteínas": [
         "Peito de Frango",
+        "Filé de Frango",
         "Coxa de Frango",
         "Sobrecoxa de Frango",
         "Frango Desfiado",
@@ -41,6 +46,7 @@ COMMON_INGREDIENTS = {
         "Lombo Suíno",
         "Bacon",
         "Linguiça Calabresa",
+        "Salsicha",
         "Presunto",
         "Peito de Peru",
         "Atum",
@@ -51,8 +57,6 @@ COMMON_INGREDIENTS = {
 
     "Laticínios": [
         "Leite",
-        "Leite Desnatado",
-        "Leite Integral",
         "Creme de Leite",
         "Leite Condensado",
         "Iogurte Natural",
@@ -60,6 +64,7 @@ COMMON_INGREDIENTS = {
         "Manteiga",
         "Margarina",
         "Requeijão",
+        "Cream Cheese",
         "Queijo Mussarela",
         "Queijo Prato",
         "Queijo Minas",
@@ -82,7 +87,10 @@ COMMON_INGREDIENTS = {
         "Pepino",
         "Vagem",
         "Quiabo",
-        "Jiló"
+        "Jiló",
+        "Pimentão Verde",
+        "Pimentão Vermelho",
+        "Pimentão Amarelo"
     ],
 
     "Verduras e Folhas": [
@@ -98,7 +106,8 @@ COMMON_INGREDIENTS = {
         "Acelga",
         "Salsinha",
         "Cebolinha",
-        "Coentro"
+        "Coentro",
+        "Cheiro Verde"
     ],
 
     "Frutas": [
@@ -116,7 +125,9 @@ COMMON_INGREDIENTS = {
         "Pera",
         "Kiwi",
         "Abacate",
-        "Maracujá"
+        "Maracujá",
+        "Goiaba",
+        "Pêssego"
     ],
 
     "Temperos e Condimentos": [
@@ -132,13 +143,32 @@ COMMON_INGREDIENTS = {
         "Cominho",
         "Colorau",
         "Açafrão",
+        "Alecrim",
+        "Louro",
+        "Manjericão",
+        "Noz-Moscada",
         "Mostarda",
         "Ketchup",
         "Maionese",
         "Vinagre",
         "Azeite de Oliva",
-        "Óleo de Soja",
-        "Molho Shoyu"
+        "Óleo",
+        "Molho Shoyu",
+        "Caldo de Galinha",
+        "Caldo de Carne"
+    ],
+
+    "Conservas": [
+        "Palmito",
+        "Azeitona Verde",
+        "Azeitona Preta",
+        "Champignon"
+    ],
+
+    "Sementes e Oleaginosas": [
+        "Chia",
+        "Linhaça",
+        "Amendoim"
     ],
 
     "Doces e Panificação": [
@@ -155,27 +185,27 @@ COMMON_INGREDIENTS = {
     ]
 }
 
-db = SessionLocal()
 
-count = 0
+def populate_ingredients(db: Session):
+    count = 0
 
-for category, ingredients in COMMON_INGREDIENTS.items():
-    for ingredient_name in ingredients:
+    for category, ingredients in COMMON_INGREDIENTS.items():
+        for ingredient_name in ingredients:
 
-        exists = (
-            db.query(Ingredient)
-            .filter(Ingredient.name == ingredient_name)
-            .first()
-        )
-
-        if not exists:
-            db.add(
-                Ingredient(
-                    name=ingredient_name
-                )
+            exists = (
+                db.query(Ingredient)
+                .filter(Ingredient.name == ingredient_name)
+                .first()
             )
-            count += 1
 
-db.commit()
+            if not exists:
+                db.add(
+                    Ingredient(
+                        name=ingredient_name
+                    )
+                )
+                count += 1
 
-print(f"{count} ingredientes adicionados.")
+    db.commit()
+
+    print(f"{count} ingredientes adicionados.")

@@ -10,18 +10,22 @@ from app.routers.meal_plan import router as meal_plan_router
 
 from app.database.database import Base
 from app.database.database import engine
+from app.database.database import SessionLocal
 
-from app.models.user import User
-from app.models.ingredient import Ingredient
-from app.models.recipe import Recipe
-from app.models.recipe_ingredient import RecipeIngredient
-from app.models.category import Category
-from app.models.recipe_category import RecipeCategory
+from app.scripts.initialize_db import initialize_database
 
+import app.models
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
+
+db = SessionLocal()
+
+try:
+    initialize_database(db)
+finally:
+    db.close()
 
 app.include_router(auth_router)
 app.include_router(recipe_router)

@@ -39,6 +39,12 @@ class User(Base):
         default=True
     )
 
+    is_system = Column(
+        Boolean,
+        default=False,
+        nullable=False
+    )
+
     created_at = Column(
         DateTime,
         default=datetime.utcnow

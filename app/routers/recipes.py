@@ -79,11 +79,12 @@ def recipe_detail(recipe_id: int, request: Request, current_user: User = Depends
             status_code=303
         )
 
-    if recipe.user_id != current_user.id:
-        return RedirectResponse(
-            "/dashboard",
-            status_code=303
-        )
+    if recipe.is_system:
+        # sempre permitido
+        pass
+    else:
+        if recipe.user_id != current_user.id:
+            return RedirectResponse("/dashboard", status_code=303)
 
     categories = db.query(Category).all()
 

@@ -6,3 +6,5 @@ from app.models.category import Category
 from app.models.recipe_category import RecipeCategory
 from .meal_plan import MealPlan
 from .meal_plan_item import MealPlanItem
+from .meal_role import MealRole
+from .recipe_meal_role import RecipeMealRole

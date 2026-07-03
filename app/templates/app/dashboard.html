@@ -32,11 +32,11 @@
             Minhas Receitas
         </h2>
 
-        {% if recipes %}
+        {% if recipes_user %}
 
             <div class="recipe-grid">
 
-                {% for recipe in recipes %}
+                {% for recipe in recipes_user %}
 
                     <div class="recipe-card">
 
@@ -67,6 +67,52 @@
             <div class="empty-state">
                 Nenhuma receita cadastrada.<br>
                 Clique em "Nova Receita" para começar.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="recipe-section">
+
+        <h2 class="section-title">
+            Receitas do Sistema
+        </h2>
+
+        {% if recipes_system %}
+
+            <div class="recipe-grid">
+
+                {% for recipe in recipes_system %}
+
+                    <div class="recipe-card system-recipe">
+
+                        <div class="recipe-name">
+                            🏭 {{ recipe.name }}
+                        </div>
+
+                        <div class="recipe-date">
+                            Receita padrão do PlanejaPrato
+                        </div>
+
+                        <a
+                            href="/recipes/{{ recipe.id }}"
+                            class="recipe-open-btn"
+                            title="Abrir receita"
+                        >
+                            ⤤
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                Nenhuma receita do sistema disponível.
             </div>
 
         {% endif %}

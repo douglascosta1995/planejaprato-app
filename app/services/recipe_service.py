@@ -37,7 +37,11 @@ def create_recipe(db: Session, name: str, instructions: str, user_id: int, ingre
 
 
 def get_recipes_by_user(db, user_id):
-    return db.query(Recipe).filter(Recipe.user_id == user_id).all()
+    return db.query(Recipe).filter(Recipe.user_id == user_id, Recipe.is_system == False).all()
+
+
+def get_system_recipes(db):
+    return db.query(Recipe).filter(Recipe.is_system == True).all()
 
 
 def get_recipe_by_id(db, recipe_id):

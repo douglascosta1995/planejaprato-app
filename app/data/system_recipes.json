@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Arroz Branco",
+    "instructions": "Lave o arroz. Refogue o alho no óleo, adicione o arroz, misture bem, acrescente a água e cozinhe até secar.",
+
+    "categories": [
+      "Almoço",
+      "Jantar"
+    ],
+
+    "meal_roles": [
+      "Carboidrato"
+    ],
+
+    "ingredients": [
+      {
+        "name": "Arroz",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "name": "Alho",
+        "quantity": 5,
+        "unit": "g"
+      },
+      {
+        "name": "Óleo",
+        "quantity": 5,
+        "unit": "ml"
+      },
+      {
+        "name": "Sal",
+        "quantity": 2,
+        "unit": "g"
+      }
+    ]
+  }
+]

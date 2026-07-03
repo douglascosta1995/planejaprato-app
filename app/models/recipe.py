@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text
+from sqlalchemy import Column, Text, Boolean
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import ForeignKey
@@ -17,6 +17,12 @@ class Recipe(Base):
         Integer,
         primary_key=True,
         index=True
+    )
+
+    is_system = Column(
+        Boolean,
+        default=False,
+        nullable=False
     )
 
     user_id = Column(
@@ -55,4 +61,10 @@ class Recipe(Base):
     meal_plan_items = relationship(
         "MealPlanItem",
         back_populates="recipe"
+    )
+
+    recipe_meal_roles = relationship(
+        "RecipeMealRole",
+        back_populates="recipe",
+        cascade="all, delete-orphan"
     )
