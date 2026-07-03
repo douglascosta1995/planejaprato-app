@@ -1,38 +1,144 @@
 [
-  {
-    "name": "Arroz Branco",
-    "instructions": "Lave o arroz. Refogue o alho no óleo, adicione o arroz, misture bem, acrescente a água e cozinhe até secar.",
-
-    "categories": [
-      "Almoço",
-      "Jantar"
-    ],
-
-    "meal_roles": [
-      "Carboidrato"
-    ],
-
-    "ingredients": [
-      {
-        "name": "Arroz",
-        "quantity": 100,
-        "unit": "g"
-      },
-      {
-        "name": "Alho",
-        "quantity": 5,
-        "unit": "g"
-      },
-      {
-        "name": "Óleo",
-        "quantity": 5,
-        "unit": "ml"
-      },
-      {
-        "name": "Sal",
-        "quantity": 2,
-        "unit": "g"
-      }
-    ]
-  }
+    {
+        "name": "Arroz Branco",
+        "instructions": "Lave o arroz. Refogue o alho no óleo, adicione o arroz, misture bem, acrescente a água e cozinhe até secar.",
+        "categories": ["Almoço", "Jantar"],
+        "meal_roles": ["Carboidrato"],
+        "ingredients": [
+            {"name": "Arroz", "quantity": 100, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Feijão Carioca",
+        "instructions": "Cozinhe o feijão até ficar macio. Refogue alho e cebola e misture ao feijão.",
+        "categories": ["Almoço", "Jantar"],
+        "meal_roles": ["Carboidrato"],
+        "ingredients": [
+            {"name": "Feijão Carioca", "quantity": 80, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Cebola", "quantity": 50, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Frango Grelhado",
+        "instructions": "Tempere o frango com sal e alho. Grelhe até dourar.",
+        "categories": ["Almoço", "Jantar"],
+        "meal_roles": ["Proteína"],
+        "ingredients": [
+            {"name": "Peito de Frango", "quantity": 150, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"}
+        ]
+    },
+    {
+        "name": "Omelete Simples",
+        "instructions": "Bata os ovos, tempere e cozinhe na frigideira.",
+        "categories": ["Café da manhã", "Jantar", "Lanche"],
+        "meal_roles": ["Proteína"],
+        "ingredients": [
+            {"name": "Ovo", "quantity": 2, "unit": "unidade"},
+            {"name": "Sal", "quantity": 2, "unit": "g"},
+            {"name": "Manteiga", "quantity": 5, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Macarrão Alho e Óleo",
+        "instructions": "Cozinhe o macarrão e refogue com alho e óleo.",
+        "categories": ["Almoço", "Jantar"],
+        "meal_roles": ["Carboidrato"],
+        "ingredients": [
+            {"name": "Macarrão", "quantity": 100, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Óleo", "quantity": 10, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Arroz com Ovo",
+        "instructions": "Frite o ovo e misture com arroz pronto.",
+        "categories": ["Almoço", "Jantar"],
+        "meal_roles": ["Carboidrato", "Proteína"],
+        "ingredients": [
+            {"name": "Arroz", "quantity": 100, "unit": "g"},
+            {"name": "Ovo", "quantity": 1, "unit": "unidade"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"}
+        ]
+    },
+    {
+        "name": "Purê de Batata",
+        "instructions": "Cozinhe a batata e amasse com leite e manteiga.",
+        "categories": ["Almoço", "Jantar"],
+        "meal_roles": ["Carboidrato"],
+        "ingredients": [
+            {"name": "Batata", "quantity": 200, "unit": "g"},
+            {"name": "Leite", "quantity": 100, "unit": "ml"},
+            {"name": "Manteiga", "quantity": 10, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Carne Moída Refogada",
+        "instructions": "Refogue carne moída com alho, cebola e tomate.",
+        "categories": ["Almoço", "Jantar"],
+        "meal_roles": ["Proteína"],
+        "ingredients": [
+            {"name": "Carne Moída", "quantity": 150, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Cebola", "quantity": 50, "unit": "g"},
+            {"name": "Tomate", "quantity": 1, "unit": "unidade"},
+            {"name": "Óleo", "quantity": 10, "unit": "ml"}
+        ]
+    },
+    {
+        "name": "Salada Simples",
+        "instructions": "Misture alface, tomate e cebola. Tempere com azeite e sal.",
+        "categories": ["Almoço", "Jantar"],
+        "meal_roles": ["Vegetais"],
+        "ingredients": [
+            {"name": "Alface", "quantity": 50, "unit": "g"},
+            {"name": "Tomate", "quantity": 1, "unit": "unidade"},
+            {"name": "Cebola", "quantity": 50, "unit": "g"},
+            {"name": "Azeite de Oliva", "quantity": 10, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Vitamina de Banana",
+        "instructions": "Bata banana, leite e açúcar no liquidificador.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Carboidrato"],
+        "ingredients": [
+            {"name": "Banana", "quantity": 1, "unit": "unidade"},
+            {"name": "Leite", "quantity": 200, "unit": "ml"},
+            {"name": "Açúcar", "quantity": 10, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Cuscuz Nordestino",
+        "instructions": "Hidrate o flocão de milho com 100ml de água e cozinhe no vapor.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Carboidrato"],
+        "ingredients": [
+            {"name": "Cuscuz", "quantity": 80, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Sopa de Legumes",
+        "instructions": "Cozinhe legumes até ficarem macios em água com sal.",
+        "categories": ["Jantar"],
+        "meal_roles": ["Vegetais"],
+        "ingredients": [
+            {"name": "Batata", "quantity": 100, "unit": "g"},
+            {"name": "Cenoura", "quantity": 1, "unit": "unidade"},
+            {"name": "Abobrinha", "quantity": 100, "unit": "g"},
+            {"name": "Cebola", "quantity": 50, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    }
 ]

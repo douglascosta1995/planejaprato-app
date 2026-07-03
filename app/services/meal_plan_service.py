@@ -1,6 +1,7 @@
 import random
 from datetime import datetime
 
+from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from app.models import (
@@ -107,8 +108,11 @@ def get_recipes_by_category(db: Session, user_id: int, category_name: str):
         db.query(Recipe)
         .join(RecipeCategory)
         .filter(
-            Recipe.user_id == user_id,
-            RecipeCategory.category_id == category.id
+            RecipeCategory.category_id == category.id,
+            or_(
+                Recipe.user_id == user_id,
+                Recipe.is_system == True
+            )
         )
         .all()
     )
