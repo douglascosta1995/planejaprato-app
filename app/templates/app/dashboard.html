@@ -29,8 +29,12 @@
     <div class="recipe-section">
 
         <h2 class="section-title">
-            Minhas Receitas
+            Minhas Receitas ({{ total_user_recipes }})
         </h2>
+
+        <a href="/recipes" class="see-more-link">
+            Ver todas →
+        </a>
 
         {% if recipes_user %}
 
@@ -76,8 +80,12 @@
     <div class="recipe-section">
 
         <h2 class="section-title">
-            Receitas do Sistema
+            Receitas do Sistema ({{ total_system_recipes }})
         </h2>
+
+        <a href="/recipes/system" class="see-more-link">
+            Ver todas →
+        </a>
 
         {% if recipes_system %}
 
@@ -88,7 +96,7 @@
                     <div class="recipe-card system-recipe">
 
                         <div class="recipe-name">
-                            🏭 {{ recipe.name }}
+                            🥗 {{ recipe.name }}
                         </div>
 
                         <div class="recipe-date">

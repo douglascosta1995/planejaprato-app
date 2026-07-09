@@ -992,3 +992,14 @@ Shopping List
     color: #2e7d32;
 }
 
+.see-more-link {
+    color: #2E7D32;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color .2s ease;
+}
+
+.see-more-link:hover {
+    color: #43a047;
+}

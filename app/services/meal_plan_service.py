@@ -13,6 +13,13 @@ from app.models import (
 )
 
 from collections import defaultdict
+from app.services.meal_plan_generator import (
+    generate_meal_from_template,
+    BREAKFAST_TEMPLATES,
+    LUNCH_TEMPLATES,
+    SNACK_TEMPLATES,
+    DINNER_TEMPLATES
+)
 
 DAYS = [
     "Segunda",
@@ -25,33 +32,7 @@ DAYS = [
 ]
 
 
-BREAKFAST = "Café da manhã"
-LUNCH = "Almoço"
-SNACK = "Lanche"
-DINNER = "Jantar"
-
-
 def generate_meal_plan(db: Session, user_id: int):
-
-    breakfasts = get_recipes_by_category(db, user_id, BREAKFAST)
-
-    lunches = get_recipes_by_category(db, user_id, LUNCH)
-
-    snacks = get_recipes_by_category(db, user_id, SNACK)
-
-    dinners = get_recipes_by_category(db, user_id, DINNER)
-
-    if not breakfasts:
-        return None
-
-    if not lunches:
-        return None
-
-    if not snacks:
-        return None
-
-    if not dinners:
-        return None
 
     meal_plan = MealPlan(
         name=f"Semana de {datetime.today().strftime('%d/%m/%Y')}",
@@ -64,13 +45,41 @@ def generate_meal_plan(db: Session, user_id: int):
 
     for day in DAYS:
 
-        add_meal(db, meal_plan.id, day, "breakfast", random.choice(breakfasts))
+        breakfast = generate_meal_from_template(
+            db,
+            user_id,
+            "Café da manhã",
+            BREAKFAST_TEMPLATES
+        )
 
-        add_meal(db, meal_plan.id, day, "lunch", random.choice(lunches))
+        lunch = generate_meal_from_template(
+            db,
+            user_id,
+            "Almoço",
+            LUNCH_TEMPLATES
+        )
 
-        add_meal(db, meal_plan.id, day, "snack", random.choice(snacks))
+        snack = generate_meal_from_template(
+            db,
+            user_id,
+            "Lanche",
+            SNACK_TEMPLATES
+        )
 
-        add_meal(db, meal_plan.id, day, "dinner", random.choice(dinners))
+        dinner = generate_meal_from_template(
+            db,
+            user_id,
+            "Jantar",
+            DINNER_TEMPLATES
+            )
+
+        if not breakfast or not lunch or not snack or not dinner:
+            return None
+
+        add_meal(db, meal_plan.id, day, "breakfast", breakfast["recipes"])
+        add_meal(db, meal_plan.id, day, "lunch", lunch["recipes"])
+        add_meal(db, meal_plan.id, day, "snack", snack["recipes"])
+        add_meal(db, meal_plan.id, day, "dinner", dinner["recipes"])
 
     db.commit()
 
@@ -79,18 +88,18 @@ def generate_meal_plan(db: Session, user_id: int):
     return meal_plan
 
 
-def add_meal(db: Session, meal_plan_id: int, day: str, meal_type: str, recipe: Recipe):
+def add_meal(db: Session, meal_plan_id: int, day: str, meal_type: str, recipes):
 
-    db.add(
+    for recipe in recipes:
 
-        MealPlanItem(
-            meal_plan_id=meal_plan_id,
-            day_of_week=day,
-            meal_type=meal_type,
-            recipe_id=recipe.id
+        db.add(
+            MealPlanItem(
+                meal_plan_id=meal_plan_id,
+                day_of_week=day,
+                meal_type=meal_type,
+                recipe_id=recipe.id
+            )
         )
-
-    )
 
 
 def get_recipes_by_category(db: Session, user_id: int, category_name: str):

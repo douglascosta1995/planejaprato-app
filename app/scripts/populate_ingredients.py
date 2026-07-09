@@ -155,7 +155,8 @@ COMMON_INGREDIENTS = {
         "Óleo",
         "Molho Shoyu",
         "Caldo de Galinha",
-        "Caldo de Carne"
+        "Caldo de Carne",
+        "Canela"
     ],
 
     "Conservas": [

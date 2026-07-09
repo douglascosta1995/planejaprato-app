@@ -13,8 +13,11 @@ from app.database.database import get_db
 from app.auth.dependencies import get_current_user
 from app.models import RecipeCategory, Category
 from app.models.user import User
+from app.services.meal_plan_generator import generate_lunch, generate_meal_from_template, LUNCH_TEMPLATES, \
+    generate_meal_plan
 
-from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe, search_recipes
+from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe, search_recipes, \
+    get_recipes_by_role, get_recipes_by_user, get_system_recipes
 from app.utils.messages import MESSAGES
 
 router = APIRouter()
@@ -49,9 +52,45 @@ def create_recipe_route(name: str = Form(...), instructions: str = Form(""), ing
     )
 
 
-@router.get("/recipes/search")
-def search_recipes_route(q: str, meal_type: str | None = None, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+@router.get("/recipes")
+def list_recipes(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    recipes = get_recipes_by_user(db, current_user.id)
 
+    return templates.TemplateResponse(
+        request=request,
+        name="app/recipe_list.html",
+        context={
+            "recipes": recipes,
+            "user": current_user,
+            "page_title": "Minhas Receitas",
+            "is_system": False
+        }
+    )
+
+
+@router.get("/recipes/system")
+def list_system_recipes(
+        request: Request,
+        db: Session = Depends(get_db),
+        current_user: User = Depends(get_current_user)
+):
+    recipes = get_system_recipes(db)
+
+    return templates.TemplateResponse(
+        request=request,
+        name="app/recipe_list.html",
+        context={
+            "recipes": recipes,
+            "user": current_user,
+            "page_title": "Receitas do Sistema",
+            "is_system": True
+        }
+    )
+
+
+@router.get("/recipes/search")
+def search_recipes_route(q: str, meal_type: str | None = None, current_user: User = Depends(get_current_user),
+                         db: Session = Depends(get_db)):
     recipes = search_recipes(
         db=db,
         user_id=current_user.id,
@@ -167,4 +206,31 @@ def toggle_recipe_category(recipe_id: int, category_id: int = Form(...), db: Ses
     return {
         "success": True,
         "action": "added"
+    }
+
+
+@router.get("/test-role")
+def test_role(
+        current_user: User = Depends(get_current_user),
+        db: Session = Depends(get_db)
+):
+    lunch = generate_meal_from_template(
+        db=db,
+        user_id=current_user.id,
+        category_name="Almoço",
+        templates=LUNCH_TEMPLATES
+    )
+
+    print("------------------")
+    print(lunch["template"])
+
+    for recipe in lunch["recipes"]:
+        print(recipe.name)
+
+    return {
+        "template": lunch["template"],
+        "recipes": [
+            recipe.name
+            for recipe in lunch["recipes"]
+        ]
     }

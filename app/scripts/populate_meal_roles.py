@@ -3,13 +3,18 @@ from sqlalchemy.orm import Session
 from app.models import MealRole
 
 MEAL_ROLES = [
-    "Carboidrato",
+    "Arroz",
+    "Feijão",
     "Proteína",
-    "Leguminosa",
-    "Vegetais",
+    "Massa",
+    "Purê",
+    "Salada",
+    "Prato Único",
+    "Pão",
     "Fruta",
-    "Laticínio",
-    "Prato Único"
+    "Aveia",
+    "Cuscuz",
+    "Iogurte"
 ]
 
 

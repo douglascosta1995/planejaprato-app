@@ -3,7 +3,7 @@
         "name": "Arroz Branco",
         "instructions": "Lave o arroz. Refogue o alho no óleo, adicione o arroz, misture bem, acrescente a água e cozinhe até secar.",
         "categories": ["Almoço", "Jantar"],
-        "meal_roles": ["Carboidrato"],
+        "meal_roles": ["Arroz"],
         "ingredients": [
             {"name": "Arroz", "quantity": 100, "unit": "g"},
             {"name": "Alho", "quantity": 5, "unit": "g"},
@@ -12,12 +12,12 @@
         ]
     },
     {
-        "name": "Feijão Carioca",
+        "name": "Feijão",
         "instructions": "Cozinhe o feijão até ficar macio. Refogue alho e cebola e misture ao feijão.",
         "categories": ["Almoço", "Jantar"],
-        "meal_roles": ["Carboidrato"],
+        "meal_roles": ["Feijão"],
         "ingredients": [
-            {"name": "Feijão Carioca", "quantity": 80, "unit": "g"},
+            {"name": "Feijão Preto", "quantity": 80, "unit": "g"},
             {"name": "Alho", "quantity": 5, "unit": "g"},
             {"name": "Cebola", "quantity": 50, "unit": "g"},
             {"name": "Sal", "quantity": 2, "unit": "g"}
@@ -50,7 +50,7 @@
         "name": "Macarrão Alho e Óleo",
         "instructions": "Cozinhe o macarrão e refogue com alho e óleo.",
         "categories": ["Almoço", "Jantar"],
-        "meal_roles": ["Carboidrato"],
+        "meal_roles": ["Massa"],
         "ingredients": [
             {"name": "Macarrão", "quantity": 100, "unit": "g"},
             {"name": "Alho", "quantity": 5, "unit": "g"},
@@ -59,21 +59,10 @@
         ]
     },
     {
-        "name": "Arroz com Ovo",
-        "instructions": "Frite o ovo e misture com arroz pronto.",
-        "categories": ["Almoço", "Jantar"],
-        "meal_roles": ["Carboidrato", "Proteína"],
-        "ingredients": [
-            {"name": "Arroz", "quantity": 100, "unit": "g"},
-            {"name": "Ovo", "quantity": 1, "unit": "unidade"},
-            {"name": "Óleo", "quantity": 5, "unit": "ml"}
-        ]
-    },
-    {
         "name": "Purê de Batata",
         "instructions": "Cozinhe a batata e amasse com leite e manteiga.",
         "categories": ["Almoço", "Jantar"],
-        "meal_roles": ["Carboidrato"],
+        "meal_roles": ["Purê"],
         "ingredients": [
             {"name": "Batata", "quantity": 200, "unit": "g"},
             {"name": "Leite", "quantity": 100, "unit": "ml"},
@@ -98,7 +87,7 @@
         "name": "Salada Simples",
         "instructions": "Misture alface, tomate e cebola. Tempere com azeite e sal.",
         "categories": ["Almoço", "Jantar"],
-        "meal_roles": ["Vegetais"],
+        "meal_roles": ["Salada"],
         "ingredients": [
             {"name": "Alface", "quantity": 50, "unit": "g"},
             {"name": "Tomate", "quantity": 1, "unit": "unidade"},
@@ -111,7 +100,7 @@
         "name": "Vitamina de Banana",
         "instructions": "Bata banana, leite e açúcar no liquidificador.",
         "categories": ["Café da manhã", "Lanche"],
-        "meal_roles": ["Carboidrato"],
+        "meal_roles": ["Fruta"],
         "ingredients": [
             {"name": "Banana", "quantity": 1, "unit": "unidade"},
             {"name": "Leite", "quantity": 200, "unit": "ml"},
@@ -122,7 +111,7 @@
         "name": "Cuscuz Nordestino",
         "instructions": "Hidrate o flocão de milho com 100ml de água e cozinhe no vapor.",
         "categories": ["Café da manhã", "Lanche"],
-        "meal_roles": ["Carboidrato"],
+        "meal_roles": ["Cuscuz"],
         "ingredients": [
             {"name": "Cuscuz", "quantity": 80, "unit": "g"},
             {"name": "Sal", "quantity": 2, "unit": "g"}
@@ -132,7 +121,7 @@
         "name": "Sopa de Legumes",
         "instructions": "Cozinhe legumes até ficarem macios em água com sal.",
         "categories": ["Jantar"],
-        "meal_roles": ["Vegetais"],
+        "meal_roles": ["Prato Único"],
         "ingredients": [
             {"name": "Batata", "quantity": 100, "unit": "g"},
             {"name": "Cenoura", "quantity": 1, "unit": "unidade"},
@@ -140,5 +129,353 @@
             {"name": "Cebola", "quantity": 50, "unit": "g"},
             {"name": "Sal", "quantity": 2, "unit": "g"}
         ]
-    }
+    },
+    {
+        "name": "Arroz Integral",
+        "instructions": "Refogue o alho no óleo, adicione o arroz integral e misture. Acrescente 280 ml de água e cozinhe em fogo baixo até ficar macio.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Arroz"],
+        "ingredients": [
+            {"name": "Arroz Integral", "quantity": 100, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Lentilha Cozida",
+        "instructions": "Cozinhe a lentilha até ficar macia. Refogue alho e cebola no óleo, misture à lentilha e ajuste o sal.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Feijão"],
+        "ingredients": [
+            {"name": "Lentilha", "quantity": 80, "unit": "g"},
+            {"name": "Cebola", "quantity": 30, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Frango Desfiado Refogado",
+        "instructions": "Cozinhe o frango, desfie e reserve. Refogue cebola, alho e tomate, acrescente o frango desfiado e misture por alguns minutos.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Proteína"],
+        "ingredients": [
+            {"name": "Peito de Frango", "quantity": 150, "unit": "g"},
+            {"name": "Cebola", "quantity": 30, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Tomate", "quantity": 50, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Frango Ensopado",
+        "instructions": "Doure o frango no óleo. Acrescente alho, cebola e tomate. Adicione a água e cozinhe até o frango ficar macio.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Proteína"],
+        "ingredients": [
+            {"name": "Coxa de Frango", "quantity": 150, "unit": "g"},
+            {"name": "Cebola", "quantity": 30, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Tomate", "quantity": 50, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Carne de Panela",
+        "instructions": "Corte a carne em cubos. Sele a carne no óleo. Acrescente alho, cebola e tomate. Adicione água e cozinhe até a carne ficar macia.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Proteína"],
+        "ingredients": [
+            {"name": "Acém", "quantity": 150, "unit": "g"},
+            {"name": "Cebola", "quantity": 50, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Tomate", "quantity": 50, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Filé de Tilápia Grelhado",
+        "instructions": "Tempere o peixe com sal e suco do limão. Grelhe em frigideira com azeite até dourar dos dois lados.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Proteína"],
+        "ingredients": [
+            {"name": "Tilápia", "quantity": 150, "unit": "g"},
+            {"name": "Azeite de Oliva", "quantity": 5, "unit": "ml"},
+            {"name": "Sal", "quantity": 2, "unit": "g"},
+            {"name": "Limão", "quantity": 1, "unit": "unidade"}
+        ]
+    },
+    {
+        "name": "Linguiça Acebolada",
+        "instructions": "Frite a linguiça até dourar. Acrescente a cebola fatiada e cozinhe até ficar macia.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Proteína"],
+        "ingredients": [
+            {"name": "Linguiça Calabresa", "quantity": 120, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Cebola", "quantity": 60, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Abobrinha Refogada",
+        "instructions": "Refogue alho e cebola. Acrescente a abobrinha fatiada e cozinhe por cerca de 5 minutos.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Salada"],
+        "ingredients": [
+            {"name": "Abobrinha", "quantity": 150, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Cebola", "quantity": 30, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Chuchu Refogado",
+        "instructions": "Refogue alho e cebola. Acrescente o chuchu em cubos e cozinhe até ficar macio",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Salada"],
+        "ingredients": [
+            {"name": "Chuchu", "quantity": 150, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Cebola", "quantity": 30, "unit": "g"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Cenoura Refogada",
+        "instructions": "Corte a cenoura em rodelas finas. Refogue o alho no óleo, acrescente a cenoura e cozinhe até ficar macia.",
+        "categories": ["Almoço","Jantar"],
+        "meal_roles": ["Salada"],
+        "ingredients": [
+            {"name": "Cenoura", "quantity": 120, "unit": "g"},
+            {"name": "Óleo", "quantity": 5, "unit": "ml"},
+            {"name": "Alho", "quantity": 5, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Pão Francês com Manteiga",
+        "instructions": "Corte o pão ao meio e espalhe a manteiga. Sirva fresco ou levemente aquecido.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Pão"],
+        "ingredients": [
+            {"name": "Pão Francês", "quantity": 1, "unit": "unidade"},
+            {"name": "Manteiga", "quantity": 10, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Pão Francês com Queijo",
+        "instructions": "Monte o sanduíche e sirva ou aqueça até o queijo derreter.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Pão"],
+        "ingredients": [
+            {"name": "Pão Francês", "quantity": 1, "unit": "unidade"},
+            {"name": "Queijo Mussarela", "quantity": 30, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Pão Francês com Presunto e Queijo",
+        "instructions": "Monte o sanduíche e sirva ou aqueça na sanduicheira.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Pão"],
+        "ingredients": [
+            {"name": "Pão Francês", "quantity": 1, "unit": "unidade"},
+            {"name": "Queijo Mussarela", "quantity": 30, "unit": "g"},
+            {"name": "Presunto", "quantity": 30, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Pão com Ovo",
+        "instructions": "Frite o ovo na manteiga e coloque dentro do pão.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Pão"],
+        "ingredients": [
+            {"name": "Pão Francês", "quantity": 1, "unit": "unidade"},
+            {"name": "Ovo", "quantity": 1, "unit": "unidade"},
+            {"name": "Manteiga", "quantity": 5, "unit": "g"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Pão com Requeijão",
+        "instructions": "Abra o pão e espalhe o requeijão.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Pão"],
+        "ingredients": [
+            {"name": "Pão Francês", "quantity": 1, "unit": "unidade"},
+            {"name": "Requeijão", "quantity": 30, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Tapioca com Queijo",
+        "instructions": "Espalhe a goma na frigideira. Quando firmar, coloque o queijo e dobre.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Pão"],
+        "ingredients": [
+            {"name": "Goma de Tapioca", "quantity": 80, "unit": "g"},
+            {"name": "Queijo Mussarela", "quantity": 40, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Tapioca com Banana e Canela",
+        "instructions": "Prepare a tapioca, recheie com a banana fatiada e polvilhe canela.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Pão"],
+        "ingredients": [
+            {"name": "Goma de Tapioca", "quantity": 80, "unit": "g"},
+            {"name": "Banana", "quantity": 1, "unit": "unidade"},
+            {"name": "Canela", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Cuscuz com Ovo",
+        "instructions": "Hidrate o flocão de milho com 100ml de água e cozinhe no vapor. Sirva acompanhado de ovos mexidos.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Cuscuz"],
+        "ingredients": [
+            {"name": "Cuscuz", "quantity": 80, "unit": "g"},
+            {"name": "Ovo", "quantity": 2, "unit": "unidade"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+        "name": "Crepioca Simples",
+        "instructions": "Misture tudo e cozinhe em frigideira antiaderente dos dois lados.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Pão"],
+        "ingredients": [
+            {"name": "Goma de Tapioca", "quantity": 30, "unit": "g"},
+            {"name": "Ovo", "quantity": 1, "unit": "unidade"},
+            {"name": "Sal", "quantity": 2, "unit": "g"}
+        ]
+    },
+    {
+      "name": "Mingau de Aveia",
+      "instructions": "Aqueça o leite, adicione a aveia e mexa até engrossar. Se desejar, acrescente canela.",
+      "categories": ["Café da manhã", "Lanche"],
+      "meal_roles": ["Aveia"],
+      "ingredients": [
+        {"name": "Aveia", "quantity": 40, "unit": "g"},
+        {"name": "Leite", "quantity": 200, "unit": "ml"}
+      ]
+    },
+    {
+      "name": "Iogurte com Frutas",
+      "instructions": "Sirva o iogurte acompanhado da fruta picada.",
+      "categories": ["Café da manhã", "Lanche"],
+      "meal_roles": ["Iogurte"],
+      "ingredients": [
+        {"name": "Iogurte Natural", "quantity": 170, "unit": "g"},
+        {"name": "Banana", "quantity": 1, "unit": "unidade"}
+      ]
+    },
+    {
+        "name": "Banana",
+        "instructions": "Consumir a banana in natura.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Fruta"],
+        "ingredients": [
+          {
+            "name": "Banana",
+            "quantity": 1,
+            "unit": "unidade"
+          }
+        ]
+      },
+      {
+        "name": "Maçã",
+        "instructions": "Consumir a maçã in natura.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Fruta"],
+        "ingredients": [
+          {
+            "name": "Maçã",
+            "quantity": 1,
+            "unit": "unidade"
+          }
+        ]
+      },
+      {
+        "name": "Mamão",
+        "instructions": "Descasque, corte em cubos e consuma fresco.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Fruta"],
+        "ingredients": [
+          {
+            "name": "Mamão",
+            "quantity": 200,
+            "unit": "g"
+          }
+        ]
+      },
+      {
+        "name": "Laranja",
+        "instructions": "Descasque e consuma a fruta in natura.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Fruta"],
+        "ingredients": [
+          {
+            "name": "Laranja",
+            "quantity": 1,
+            "unit": "unidade"
+          }
+        ]
+      },
+      {
+        "name": "Manga",
+        "instructions": "Descasque, corte em pedaços e consuma fresca.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Fruta"],
+        "ingredients": [
+          {
+            "name": "Manga",
+            "quantity": 200,
+            "unit": "g"
+          }
+        ]
+      },
+      {
+        "name": "Melancia",
+        "instructions": "Corte em fatias ou cubos e consuma fresca.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Fruta"],
+        "ingredients": [
+          {
+            "name": "Melancia",
+            "quantity": 250,
+            "unit": "g"
+          }
+        ]
+      },
+      {
+        "name": "Melão",
+        "instructions": "Corte em cubos e consuma fresco.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Fruta"],
+        "ingredients": [
+          {
+            "name": "Melão",
+            "quantity": 200,
+            "unit": "g"
+          }
+        ]
+      },
+      {
+        "name": "Pera",
+        "instructions": "Consumir a pera in natura.",
+        "categories": ["Café da manhã", "Lanche"],
+        "meal_roles": ["Fruta"],
+        "ingredients": [
+          {
+            "name": "Pera",
+            "quantity": 1,
+            "unit": "unidade"
+          }
+        ]
+      }
 ]
