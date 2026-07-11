@@ -4,6 +4,10 @@
 Lista de Compras
 {% endblock %}
 
+{% block scripts %}
+<script src="/static/js/shopping_list.js" defer></script>
+{% endblock %}
+
 {% block content %}
 
 <div class="dashboard-container">
@@ -34,17 +38,84 @@ Lista de Compras
 
             <div class="shopping-list">
 
-                {% for id, item in shopping_list.items() %}
+                {% for item in shopping_list.shopping_list_items %}
 
                     <div class="shopping-item">
 
                         <div class="shopping-name">
-                            🥫 {{ item.name }}
+                            ▪️ {{ item.ingredient.name }}
                         </div>
 
                         <div class="shopping-quantity">
-                            {{ item.quantity }} {{ item.unit }}
+
+                            <input class="shopping-quantity-input"
+                                type="number"
+                                step="0.01"
+                                class="shopping-quantity-input"
+                                data-item-id="{{ item.id }}"
+                                value="{{ item.quantity }}"
+                            >
+
+                             <select
+                                class="shopping-unit-input"
+                                data-item-id="{{ item.id }}"
+                            >
+
+                                <option value="unidade" {% if item.unit == 'unidade' %}selected{% endif %}>
+                                    unidade
+                                </option>
+
+                                <option value="g"
+                                    {% if item.unit == "g" %}selected{% endif %}>
+                                    g
+                                </option>
+
+                                <option value="kg"
+                                    {% if item.unit == "kg" %}selected{% endif %}>
+                                    kg
+                                </option>
+
+                                <option value="ml"
+                                    {% if item.unit == "ml" %}selected{% endif %}>
+                                    ml
+                                </option>
+
+                                <option value="l"
+                                    {% if item.unit == "l" %}selected{% endif %}>
+                                    l
+                                </option>
+
+                                <option value="pitada"
+                                    {% if item.unit == "pitada" %}selected{% endif %}>
+                                    pitada
+                                </option>
+
+                                <option value="colher de chá"
+                                    {% if item.unit == "colher de chá" %}selected{% endif %}>
+                                    colher de chá
+                                </option>
+
+                                <option value="colher de sopa"
+                                    {% if item.unit == "colher de sopa" %}selected{% endif %}>
+                                    colher de sopa
+                                </option>
+
+                                <option value="xícara"
+                                    {% if item.unit == "xícara" %}selected{% endif %}>
+                                    xícara
+                                </option>
+
+                            </select>
+
+                                <input
+                                    class="shopping-comment-input"
+                                    type="text"
+                                    placeholder="Comentário"
+                                >
+
+
                         </div>
+
 
                     </div>
 

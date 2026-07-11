@@ -6,8 +6,8 @@ from sqlalchemy.orm import relationship
 from app.database.database import Base
 
 
-class MealPlan(Base):
-    __tablename__ = "meal_plans"
+class ShoppingList(Base):
+    __tablename__ = "shopping_lists"
 
     id = Column(
         Integer,
@@ -15,14 +15,15 @@ class MealPlan(Base):
         index=True
     )
 
-    user_id = Column(
+    meal_plan_id = Column(
         Integer,
-        ForeignKey("users.id"),
+        ForeignKey("meal_plans.id"),
         nullable=False
     )
 
-    name = Column(
-        String(150),
+    status = Column(
+        String(20),
+        default="draft",
         nullable=False
     )
 
@@ -31,19 +32,13 @@ class MealPlan(Base):
         default=datetime.utcnow
     )
 
-    user = relationship(
-        "User"
+    meal_plan = relationship(
+        "MealPlan",
+        back_populates="shopping_list"
     )
 
-    meal_plan_items = relationship(
-        "MealPlanItem",
-        back_populates="meal_plan",
-        cascade="all, delete-orphan"
-    )
-
-    shopping_list = relationship(
-        "ShoppingList",
-        back_populates="meal_plan",
-        uselist=False,
+    shopping_list_items = relationship(
+        "ShoppingListItem",
+        back_populates="shopping_list",
         cascade="all, delete-orphan"
     )

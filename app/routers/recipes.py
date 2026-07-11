@@ -15,9 +15,11 @@ from app.models import RecipeCategory, Category
 from app.models.user import User
 from app.services.meal_plan_generator import generate_lunch, generate_meal_from_template, LUNCH_TEMPLATES, \
     generate_meal_plan
+from app.services.meal_plan_service import get_meal_plan_by_id
 
 from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe, search_recipes, \
     get_recipes_by_role, get_recipes_by_user, get_system_recipes
+from app.services.shopping_list_service import create_draft_shopping_list
 from app.utils.messages import MESSAGES
 
 router = APIRouter()
@@ -209,28 +211,34 @@ def toggle_recipe_category(recipe_id: int, category_id: int = Form(...), db: Ses
     }
 
 
-@router.get("/test-role")
-def test_role(
-        current_user: User = Depends(get_current_user),
-        db: Session = Depends(get_db)
+@router.get("/test-shopping-list/{meal_plan_id}")
+def test_shopping_list(
+    meal_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
 ):
-    lunch = generate_meal_from_template(
-        db=db,
-        user_id=current_user.id,
-        category_name="Almoço",
-        templates=LUNCH_TEMPLATES
+
+    meal_plan = get_meal_plan_by_id(
+        db,
+        meal_plan_id
     )
 
-    print("------------------")
-    print(lunch["template"])
+    shopping_list = create_draft_shopping_list(
+        db=db,
+        meal_plan=meal_plan
+    )
 
-    for recipe in lunch["recipes"]:
-        print(recipe.name)
+    print("--------------------")
+    print("Shopping List ID:", shopping_list.id)
+
+    for item in shopping_list.shopping_list_items:
+        print(
+            item.ingredient.name,
+            item.quantity,
+            item.unit
+        )
 
     return {
-        "template": lunch["template"],
-        "recipes": [
-            recipe.name
-            for recipe in lunch["recipes"]
-        ]
+        "success": True,
+        "shopping_list_id": shopping_list.id
     }

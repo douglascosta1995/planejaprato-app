@@ -8,3 +8,5 @@ from .meal_plan import MealPlan
 from .meal_plan_item import MealPlanItem
 from .meal_role import MealRole
 from .recipe_meal_role import RecipeMealRole
+from .shopping_list import ShoppingList
+from .shopping_list_item import ShoppingListItem

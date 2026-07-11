@@ -1003,3 +1003,27 @@ Shopping List
 .see-more-link:hover {
     color: #43a047;
 }
+
+.shopping-name{
+    flex: 1;
+}
+
+.shopping-controls{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.shopping-quantity-input{
+    width: 70px;
+    text-align: center;
+}
+
+.shopping-unit-input{
+    width: 120px;
+}
+
+/* Para o futuro */
+.shopping-comment-input{
+    width: 180px;
+}

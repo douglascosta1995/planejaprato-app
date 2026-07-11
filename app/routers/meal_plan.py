@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 
 from sqlalchemy.orm import Session
 
+from app.models import ShoppingListItem
 from app.services.meal_plan_service import (
     generate_meal_plan,
     get_meal_plan_by_id,
@@ -23,7 +24,8 @@ from app.services.meal_plan_item_service import (
 from app.auth.dependencies import get_current_user
 from app.database.database import get_db
 from app.models.user import User
-
+from app.services.shopping_list_service import get_draft_shopping_list, create_draft_shopping_list, \
+    update_shopping_list_item
 
 router = APIRouter()
 
@@ -144,7 +146,11 @@ def shopping_list(meal_plan_id: int, request: Request, current_user: User = Depe
     if not meal_plan or meal_plan.user_id != current_user.id:
         return RedirectResponse("/dashboard", status_code=303)
 
-    shopping_list = generate_shopping_list(meal_plan)
+    shopping_list = get_draft_shopping_list(db, meal_plan.id)
+
+    if not shopping_list:
+
+        shopping_list = create_draft_shopping_list(db, meal_plan)
 
     return templates.TemplateResponse(
         request=request,
@@ -155,6 +161,40 @@ def shopping_list(meal_plan_id: int, request: Request, current_user: User = Depe
             "shopping_list": shopping_list
         }
     )
+
+
+@router.post("/shopping-list-items/{item_id}/update")
+def update_shopping_list_item_route(item_id: int, quantity: float = Form(...), unit: str = Form(...), current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    item = (
+        db.query(ShoppingListItem)
+        .filter(ShoppingListItem.id == item_id)
+        .first()
+    )
+
+    if not item:
+        return JSONResponse(
+            {"message": "Item não encontrado"},
+            status_code=404
+        )
+
+    if item.shopping_list.meal_plan.user_id != current_user.id:
+        return JSONResponse(
+            {"message": "Sem permissão"},
+            status_code=403
+        )
+
+    updated_item = update_shopping_list_item(
+            db=db,
+            item_id=item_id,
+            quantity=quantity,
+            unit=unit
+        )
+
+    return JSONResponse({
+        "success": True,
+        "quantity": updated_item.quantity,
+        "unit": updated_item.unit
+    })
 
 
 @router.post("/meal-plan-items/{item_id}/delete")
