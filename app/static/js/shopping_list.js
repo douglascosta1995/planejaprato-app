@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     document
-        .querySelectorAll(".shopping-quantity-input, .shopping-unit-input")
+        .querySelectorAll(".shopping-quantity-input, .shopping-unit-input, .shopping-comment-input")
         .forEach(field => {
 
             field.addEventListener("blur", () => {
@@ -25,10 +25,15 @@ async function saveShoppingItem(itemId) {
         `.shopping-unit-input[data-item-id="${itemId}"]`
     );
 
+    const noteInput = document.querySelector(
+        `.shopping-comment-input[data-item-id="${itemId}"]`
+    );
+
     const formData = new FormData();
 
     formData.append("quantity", quantityInput.value);
     formData.append("unit", unitInput.value);
+    formData.append("note", noteInput.value);
 
     const response = await fetch(
         `/shopping-list-items/${itemId}/update`,

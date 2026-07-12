@@ -164,7 +164,7 @@ def shopping_list(meal_plan_id: int, request: Request, current_user: User = Depe
 
 
 @router.post("/shopping-list-items/{item_id}/update")
-def update_shopping_list_item_route(item_id: int, quantity: float = Form(...), unit: str = Form(...), current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def update_shopping_list_item_route(item_id: int, quantity: float = Form(...), unit: str = Form(...), note: str = Form(""), current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     item = (
         db.query(ShoppingListItem)
         .filter(ShoppingListItem.id == item_id)
@@ -187,7 +187,8 @@ def update_shopping_list_item_route(item_id: int, quantity: float = Form(...), u
             db=db,
             item_id=item_id,
             quantity=quantity,
-            unit=unit
+            unit=unit,
+            note=note
         )
 
     return JSONResponse({

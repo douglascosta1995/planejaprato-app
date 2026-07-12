@@ -64,7 +64,7 @@ def get_draft_shopping_list(db: Session, meal_plan_id: int):
     )
 
 
-def update_shopping_list_item(db: Session, item_id: int, quantity: float, unit: str):
+def update_shopping_list_item(db: Session, item_id: int, quantity: float, unit: str, note: str):
     item = (
         db.query(ShoppingListItem)
         .filter(ShoppingListItem.id == item_id)
@@ -76,6 +76,7 @@ def update_shopping_list_item(db: Session, item_id: int, quantity: float, unit: 
 
     item.quantity = quantity
     item.unit = unit
+    item.note = note
 
     db.commit()
     db.refresh(item)

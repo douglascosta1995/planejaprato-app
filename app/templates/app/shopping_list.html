@@ -111,7 +111,13 @@ Lista de Compras
                                     class="shopping-comment-input"
                                     type="text"
                                     placeholder="Comentário"
+                                    value="{{ item.note or '' }}"
+                                    data-item-id="{{ item.id }}"
                                 >
+
+                            <button type="button" class="delete-ingredient-btn">
+                                🗑️
+                            </button>
 
 
                         </div>
