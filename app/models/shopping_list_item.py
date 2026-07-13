@@ -22,21 +22,26 @@ class ShoppingListItem(Base):
     ingredient_id = Column(
         Integer,
         ForeignKey("ingredients.id"),
-        nullable=False
+        nullable=True
     )
 
     quantity = Column(
         Float,
-        nullable=False
+        nullable=True
     )
 
     unit = Column(
         String(20),
-        nullable=False
+        nullable=True
     )
 
     note = Column(
         String(255),
+        nullable=True
+    )
+
+    manual_name = Column(
+        String(200),
         nullable=True
     )
 

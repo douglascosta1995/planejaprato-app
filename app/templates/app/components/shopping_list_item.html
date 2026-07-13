@@ -1,0 +1,63 @@
+<div class="shopping-item" data-item-id="{{ item.id }}">
+
+    <div class="shopping-name">
+
+        {% if item.manual_name %}
+
+            ▪️ {{ item.manual_name }}
+
+        {% else %}
+
+            ▪️ {{ item.ingredient.name }}
+
+        {% endif %}
+
+    </div>
+
+    {% if not item.manual_name %}
+
+    <div class="shopping-fields">
+
+        <input
+            class="shopping-quantity-input"
+            type="number"
+            step="0.1"
+            value="{{ item.quantity }}"
+            data-item-id="{{ item.id }}"
+        >
+
+        <select
+            class="shopping-unit-input"
+            data-item-id="{{ item.id }}"
+        >
+            <option value="unidade" {% if item.unit == 'unidade' %}selected{% endif %}>unidade</option>
+            <option value="g" {% if item.unit == 'g' %}selected{% endif %}>g</option>
+            <option value="kg" {% if item.unit == 'kg' %}selected{% endif %}>kg</option>
+            <option value="ml" {% if item.unit == 'ml' %}selected{% endif %}>ml</option>
+            <option value="l" {% if item.unit == 'l' %}selected{% endif %}>l</option>
+            <option value="pitada" {% if item.unit == 'pitada' %}selected{% endif %}>pitada</option>
+            <option value="colher de chá" {% if item.unit == 'colher de chá' %}selected{% endif %}>colher de chá</option>
+            <option value="colher de sopa" {% if item.unit == 'colher de sopa' %}selected{% endif %}>colher de sopa</option>
+            <option value="xícara" {% if item.unit == 'xícara' %}selected{% endif %}>xícara</option>
+        </select>
+
+    </div>
+
+    <input
+        class="shopping-comment-input"
+        type="text"
+        placeholder="Comentário"
+        value="{{ item.note or '' }}"
+        data-item-id="{{ item.id }}"
+    >
+
+    {% endif %}
+
+    <button
+        class="delete-ingredient-btn"
+        data-item-id="{{ item.id }}"
+    >
+        🗑️
+    </button>
+
+</div>

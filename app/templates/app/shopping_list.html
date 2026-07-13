@@ -15,18 +15,39 @@ Lista de Compras
     <div class="dashboard-card">
 
         <h1 class="welcome-title">
-            🛒 Lista de Compras
+            📝 Lista de Compras (Rascunho)
         </h1>
 
         <p class="welcome-subtitle">
-            Gerada automaticamente com base no seu cardápio semanal
+            Revise esta lista antes de gerar a versão final. Você pode ajustar quantidades, unidades, adicionar observações e remover itens que já possui em casa.
         </p>
 
+        <div class="helper-message">
+            <ol></ol>
+            <ol>
+                <li>Revise os ingredientes gerados automaticamente.</li>
+                <li>Ajuste quantidades e unidades conforme sua necessidade.</li>
+                <li>Adicione observações, como "integral", "em pó" ou "prata".</li>
+                <li>Remova ingredientes que você já possui.</li>
+                <li>Quando terminar, clique em <strong>Gerar Lista Final</strong>.</li>
+            </ol>
+        </div>
         <div class="recipe-actions">
 
             <a href="/meal-plans/{{ meal_plan.id }}" class="btn-back">
                 Voltar ao Cardápio
             </a>
+
+            <div class="shopping-actions">
+
+                <button
+                    type="button"
+                    class="btn-dashboard"
+                >
+                    ✅ Gerar Lista Final
+                </button>
+
+            </div>
 
         </div>
 
@@ -36,94 +57,11 @@ Lista de Compras
 
         {% if shopping_list %}
 
-            <div class="shopping-list">
+            <div class="shopping-list" data-shopping-list-id="{{ shopping_list.id }}">
 
                 {% for item in shopping_list.shopping_list_items %}
 
-                    <div class="shopping-item">
-
-                        <div class="shopping-name">
-                            ▪️ {{ item.ingredient.name }}
-                        </div>
-
-                        <div class="shopping-quantity">
-
-                            <input class="shopping-quantity-input"
-                                type="number"
-                                step="0.01"
-                                class="shopping-quantity-input"
-                                data-item-id="{{ item.id }}"
-                                value="{{ item.quantity }}"
-                            >
-
-                             <select
-                                class="shopping-unit-input"
-                                data-item-id="{{ item.id }}"
-                            >
-
-                                <option value="unidade" {% if item.unit == 'unidade' %}selected{% endif %}>
-                                    unidade
-                                </option>
-
-                                <option value="g"
-                                    {% if item.unit == "g" %}selected{% endif %}>
-                                    g
-                                </option>
-
-                                <option value="kg"
-                                    {% if item.unit == "kg" %}selected{% endif %}>
-                                    kg
-                                </option>
-
-                                <option value="ml"
-                                    {% if item.unit == "ml" %}selected{% endif %}>
-                                    ml
-                                </option>
-
-                                <option value="l"
-                                    {% if item.unit == "l" %}selected{% endif %}>
-                                    l
-                                </option>
-
-                                <option value="pitada"
-                                    {% if item.unit == "pitada" %}selected{% endif %}>
-                                    pitada
-                                </option>
-
-                                <option value="colher de chá"
-                                    {% if item.unit == "colher de chá" %}selected{% endif %}>
-                                    colher de chá
-                                </option>
-
-                                <option value="colher de sopa"
-                                    {% if item.unit == "colher de sopa" %}selected{% endif %}>
-                                    colher de sopa
-                                </option>
-
-                                <option value="xícara"
-                                    {% if item.unit == "xícara" %}selected{% endif %}>
-                                    xícara
-                                </option>
-
-                            </select>
-
-                                <input
-                                    class="shopping-comment-input"
-                                    type="text"
-                                    placeholder="Comentário"
-                                    value="{{ item.note or '' }}"
-                                    data-item-id="{{ item.id }}"
-                                >
-
-                            <button type="button" class="delete-ingredient-btn">
-                                🗑️
-                            </button>
-
-
-                        </div>
-
-
-                    </div>
+                    {% include "app/components/shopping_list_item.html" %}
 
                 {% endfor %}
 
@@ -136,6 +74,19 @@ Lista de Compras
             </div>
 
         {% endif %}
+
+        <div id="manual-item-container">
+
+            <button
+                id="show-manual-input-btn"
+                type="button"
+                class="btn-back"
+            >
+                ➕ Adicionar item manual
+            </button>
+            <div id="manual-item-input-container"></div>
+
+        </div>
 
     </div>
 

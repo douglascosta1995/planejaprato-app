@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 
 from sqlalchemy.orm import Session
 
-from app.models import ShoppingListItem
+from app.models import ShoppingListItem, ShoppingList
 from app.services.meal_plan_service import (
     generate_meal_plan,
     get_meal_plan_by_id,
@@ -25,7 +25,7 @@ from app.auth.dependencies import get_current_user
 from app.database.database import get_db
 from app.models.user import User
 from app.services.shopping_list_service import get_draft_shopping_list, create_draft_shopping_list, \
-    update_shopping_list_item
+    update_shopping_list_item, delete_shopping_list_item, add_manual_item
 
 router = APIRouter()
 
@@ -196,6 +196,79 @@ def update_shopping_list_item_route(item_id: int, quantity: float = Form(...), u
         "quantity": updated_item.quantity,
         "unit": updated_item.unit
     })
+
+
+@router.post("/shopping-list-items/{item_id}/delete")
+def delete_shopping_list_item_route(item_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    item = (
+        db.query(ShoppingListItem)
+        .filter(ShoppingListItem.id == item_id)
+        .first()
+    )
+
+    if not item:
+        return JSONResponse(
+            {"message": "Item não encontrado"},
+            status_code=404
+        )
+
+    if item.shopping_list.meal_plan.user_id != current_user.id:
+        return JSONResponse(
+            {"message": "Sem permissão"},
+            status_code=403
+        )
+
+    delete_shopping_list_item(
+        db=db,
+        item=item
+    )
+
+    return JSONResponse({
+        "success": True
+    })
+
+
+@router.post("/shopping-lists/{shopping_list_id}/manual-item")
+def add_manual_item_route(shopping_list_id: int, manual_name: str = Form(...), current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    shopping_list = (
+        db.query(ShoppingList)
+        .filter(ShoppingList.id == shopping_list_id)
+        .first()
+    )
+
+    if not shopping_list:
+        return JSONResponse(
+            {"message": "Lista não encontrada"},
+            status_code=404
+        )
+
+    if shopping_list.meal_plan.user_id != current_user.id:
+        return JSONResponse(
+            {"message": "Sem permissão"},
+            status_code=403
+        )
+
+    item = add_manual_item(
+        db=db,
+        shopping_list_id=shopping_list_id,
+        manual_name=manual_name
+    )
+
+    template = templates.get_template(
+        "app/components/shopping_list_item.html"
+    )
+
+    html = template.render(
+        item=item
+    )
+
+    return JSONResponse(
+        {
+            "success": True,
+            "html": html
+        }
+    )
 
 
 @router.post("/meal-plan-items/{item_id}/delete")

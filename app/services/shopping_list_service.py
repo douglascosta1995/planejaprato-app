@@ -82,3 +82,23 @@ def update_shopping_list_item(db: Session, item_id: int, quantity: float, unit: 
     db.refresh(item)
 
     return item
+
+
+def delete_shopping_list_item(db: Session, item):
+
+    db.delete(item)
+    db.commit()
+
+
+def add_manual_item(db: Session, shopping_list_id: int, manual_name: str):
+
+    item = ShoppingListItem(
+        shopping_list_id=shopping_list_id,
+        manual_name=manual_name.strip()
+    )
+
+    db.add(item)
+    db.commit()
+    db.refresh(item)
+
+    return item
