@@ -1,6 +1,6 @@
 [
     {
-        "name": "Arroz Branco",
+        "name": "Arroz",
         "instructions": "Lave o arroz. Refogue o alho no óleo, adicione o arroz, misture bem, acrescente a água e cozinhe até secar.",
         "categories": ["Almoço", "Jantar"],
         "meal_roles": ["Arroz"],
@@ -127,18 +127,6 @@
             {"name": "Cenoura", "quantity": 1, "unit": "unidade"},
             {"name": "Abobrinha", "quantity": 100, "unit": "g"},
             {"name": "Cebola", "quantity": 50, "unit": "g"},
-            {"name": "Sal", "quantity": 2, "unit": "g"}
-        ]
-    },
-    {
-        "name": "Arroz Integral",
-        "instructions": "Refogue o alho no óleo, adicione o arroz integral e misture. Acrescente 280 ml de água e cozinhe em fogo baixo até ficar macio.",
-        "categories": ["Almoço","Jantar"],
-        "meal_roles": ["Arroz"],
-        "ingredients": [
-            {"name": "Arroz Integral", "quantity": 100, "unit": "g"},
-            {"name": "Alho", "quantity": 5, "unit": "g"},
-            {"name": "Óleo", "quantity": 5, "unit": "ml"},
             {"name": "Sal", "quantity": 2, "unit": "g"}
         ]
     },
@@ -477,5 +465,114 @@
             "unit": "unidade"
           }
         ]
+      },
+      {
+          "name": "Macarrão com Frango Desfiado",
+          "instructions": "Cozinhe o macarrão conforme instruções da embalagem. Refogue o alho e a cebola, adicione o frango desfiado e o molho de tomate. Misture com o macarrão.",
+          "categories": ["Almoço", "Jantar"],
+          "meal_roles": ["Prato Único"],
+          "ingredients": [
+              {"name": "Macarrão", "quantity": 100, "unit": "g"},
+              {"name": "Peito de Frango", "quantity": 120, "unit": "g"},
+              {"name": "Molho de Tomate", "quantity": 100, "unit": "g"},
+              {"name": "Cebola", "quantity": 30, "unit": "g"},
+              {"name": "Alho", "quantity": 5, "unit": "g"},
+              {"name": "Óleo", "quantity": 5, "unit": "ml"},
+              {"name": "Sal", "quantity": 2, "unit": "g"}
+          ]
+      },
+      {
+          "name": "Strogonoff de Frango com Arroz",
+          "instructions": "Refogue o frango com alho e cebola. Adicione o molho de tomate, creme de leite e misture até formar um molho cremoso. Sirva com arroz.",
+          "categories": ["Almoço", "Jantar"],
+          "meal_roles": ["Prato Único"],
+          "ingredients": [
+              {"name": "Peito de Frango", "quantity": 120, "unit": "g"},
+              {"name": "Arroz", "quantity": 100, "unit": "g"},
+              {"name": "Creme de Leite", "quantity": 80, "unit": "g"},
+              {"name": "Molho de Tomate", "quantity": 50, "unit": "g"},
+              {"name": "Cebola", "quantity": 30, "unit": "g"},
+              {"name": "Alho", "quantity": 5, "unit": "g"},
+              {"name": "Óleo", "quantity": 5, "unit": "ml"},
+              {"name": "Sal", "quantity": 2, "unit": "g"}
+          ]
+      },
+      {
+          "name": "Escondidinho de Carne Moída",
+          "instructions": "Prepare o purê cozinhando e amassando a batata. Refogue a carne moída com temperos. Monte uma camada de purê, carne e finalize com queijo. Leve ao forno para gratinar.",
+          "categories": ["Almoço", "Jantar"],
+          "meal_roles": ["Prato Único"],
+          "ingredients": [
+              {"name": "Batata", "quantity": 250, "unit": "g"},
+              {"name": "Carne Moída", "quantity": 120, "unit": "g"},
+              {"name": "Queijo Mussarela", "quantity": 40, "unit": "g"},
+              {"name": "Leite", "quantity": 50, "unit": "ml"},
+              {"name": "Manteiga", "quantity": 10, "unit": "g"},
+              {"name": "Cebola", "quantity": 30, "unit": "g"},
+              {"name": "Alho", "quantity": 5, "unit": "g"},
+              {"name": "Sal", "quantity": 2, "unit": "g"}
+          ]
+      },
+      {
+          "name": "Panqueca de Carne Moída",
+          "instructions": "Prepare a massa batendo ovos, leite e farinha. Faça as panquecas em uma frigideira. Recheie com carne moída refogada e cubra com molho de tomate.",
+          "categories": ["Almoço", "Jantar"],
+          "meal_roles": ["Prato Único"],
+          "ingredients": [
+              {"name": "Farinha de Trigo", "quantity": 60, "unit": "g"},
+              {"name": "Leite", "quantity": 120, "unit": "ml"},
+              {"name": "Ovo", "quantity": 1, "unit": "unidade"},
+              {"name": "Carne Moída", "quantity": 120, "unit": "g"},
+              {"name": "Molho de Tomate", "quantity": 80, "unit": "g"},
+              {"name": "Óleo", "quantity": 5, "unit": "ml"},
+              {"name": "Sal", "quantity": 2, "unit": "g"}
+          ]
+      },
+      {
+          "name": "Galinhada",
+          "instructions": "Refogue o frango com alho e cebola. Adicione o arroz, temperos e água. Cozinhe tudo junto até o arroz absorver o sabor do frango.",
+          "categories": ["Almoço", "Jantar"],
+          "meal_roles": ["Prato Único"],
+          "ingredients": [
+              {"name": "Arroz", "quantity": 90, "unit": "g"},
+              {"name": "Coxa de Frango", "quantity": 150, "unit": "g"},
+              {"name": "Cenoura", "quantity": 50, "unit": "g"},
+              {"name": "Ervilha", "quantity": 40, "unit": "g"},
+              {"name": "Cebola", "quantity": 30, "unit": "g"},
+              {"name": "Alho", "quantity": 5, "unit": "g"},
+              {"name": "Óleo", "quantity": 5, "unit": "ml"},
+              {"name": "Sal", "quantity": 2, "unit": "g"}
+          ]
+      },
+      {
+          "name": "Omelete Completa com Arroz",
+          "instructions": "Bata os ovos e misture com tomate, cebola e queijo. Prepare a omelete na frigideira e sirva com arroz.",
+          "categories": ["Almoço", "Jantar"],
+          "meal_roles": ["Prato Único"],
+          "ingredients": [
+              {"name": "Ovo", "quantity": 3, "unit": "unidade"},
+              {"name": "Arroz", "quantity": 100, "unit": "g"},
+              {"name": "Queijo Mussarela", "quantity": 40, "unit": "g"},
+              {"name": "Tomate", "quantity": 50, "unit": "g"},
+              {"name": "Cebola", "quantity": 20, "unit": "g"},
+              {"name": "Óleo", "quantity": 5, "unit": "ml"},
+              {"name": "Sal", "quantity": 2, "unit": "g"}
+          ]
+      },
+      {
+          "name": "Arroz de Forno com Frango",
+          "instructions": "Misture o arroz cozido com frango desfiado, molho de tomate e queijo. Leve ao forno até o queijo derreter.",
+          "categories": ["Almoço", "Jantar"],
+          "meal_roles": ["Prato Único"],
+          "ingredients": [
+              {"name": "Arroz", "quantity": 150, "unit": "g"},
+              {"name": "Peito de Frango", "quantity": 120, "unit": "g"},
+              {"name": "Queijo Mussarela", "quantity": 50, "unit": "g"},
+              {"name": "Milho Verde", "quantity": 40, "unit": "g"},
+              {"name": "Molho de Tomate", "quantity": 80, "unit": "g"},
+              {"name": "Creme de Leite", "quantity": 50, "unit": "g"},
+              {"name": "Sal", "quantity": 2, "unit": "g"}
+          ]
       }
+
 ]

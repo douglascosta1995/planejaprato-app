@@ -1,16 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    document
-        .querySelectorAll(".shopping-quantity-input, .shopping-unit-input, .shopping-comment-input")
-        .forEach(field => {
+        document.addEventListener("blur", (e) => {
 
-            field.addEventListener("blur", () => {
+        if (
+            e.target.classList.contains("shopping-quantity-input") ||
+            e.target.classList.contains("shopping-unit-input") ||
+            e.target.classList.contains("shopping-comment-input")
+        ) {
 
-                saveShoppingItem(field.dataset.itemId);
+            saveShoppingItem(
+                e.target.dataset.itemId
+            );
 
-            });
+        }
 
-        });
+    }, true);
 
 });
 
@@ -48,18 +52,17 @@ async function saveShoppingItem(itemId) {
     console.log(data);
 }
 
-document
-    .querySelectorAll(".delete-ingredient-btn")
-    .forEach(button => {
+document.addEventListener("click", (e) => {
 
-        button.addEventListener("click", () => {
+    if (!e.target.classList.contains("delete-ingredient-btn")) {
+        return;
+    }
 
-            deleteShoppingItem(button.dataset.itemId);
+    deleteShoppingItem(
+        e.target.dataset.itemId
+    );
 
-        });
-
-    });
-
+});
 
 async function deleteShoppingItem(itemId) {
 
