@@ -1,7 +1,8 @@
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 from sqlalchemy.orm import Session
 
+from app.data.ingredient_categories import COMMON_INGREDIENTS
 from app.models import (
     MealPlan,
     ShoppingList,
@@ -36,7 +37,6 @@ def create_draft_shopping_list(db: Session, meal_plan: MealPlan):
             items[ingredient_id]["quantity"] += ri.quantity
 
     for ingredient_id, item in items.items():
-
         db.add(
             ShoppingListItem(
                 shopping_list_id=shopping_list.id,
@@ -53,12 +53,21 @@ def create_draft_shopping_list(db: Session, meal_plan: MealPlan):
 
 
 def get_draft_shopping_list(db: Session, meal_plan_id: int):
-
     return (
         db.query(ShoppingList)
         .filter(
             ShoppingList.meal_plan_id == meal_plan_id,
             ShoppingList.status == "draft"
+        )
+        .first()
+    )
+
+
+def get_shopping_list(db: Session, meal_plan_id: int):
+    return (
+        db.query(ShoppingList)
+        .filter(
+            ShoppingList.meal_plan_id == meal_plan_id
         )
         .first()
     )
@@ -85,13 +94,11 @@ def update_shopping_list_item(db: Session, item_id: int, quantity: float, unit: 
 
 
 def delete_shopping_list_item(db: Session, item):
-
     db.delete(item)
     db.commit()
 
 
 def add_manual_item(db: Session, shopping_list_id: int, manual_name: str):
-
     item = ShoppingListItem(
         shopping_list_id=shopping_list_id,
         manual_name=manual_name.strip()
@@ -102,3 +109,111 @@ def add_manual_item(db: Session, shopping_list_id: int, manual_name: str):
     db.refresh(item)
 
     return item
+
+
+def finalize_shopping_list(db: Session, meal_plan_id: int):
+    shopping_list = get_shopping_list(
+        db,
+        meal_plan_id
+    )
+
+    if not shopping_list:
+        return None
+
+    shopping_list.status = "final"
+
+    db.commit()
+    db.refresh(shopping_list)
+
+    return shopping_list
+
+
+def get_grouped_shopping_list(shopping_list: ShoppingList):
+    grouped_items = OrderedDict({
+        "Grãos e Cereais": [],
+        "Carnes e Proteínas": [],
+        "Laticínios": [],
+        "Legumes": [],
+        "Verduras e Folhas": [],
+        "Frutas": [],
+        "Temperos e Condimentos": [],
+        "Conservas": [],
+        "Sementes e Oleaginosas": [],
+        "Doces e Panificação": [],
+        "Outros": []
+    })
+
+    for item in shopping_list.shopping_list_items:
+
+        if item.manual_name:
+            grouped_items["Outros"].append(item)
+            continue
+
+        category = get_ingredient_category(item.ingredient.name)
+
+        if category not in grouped_items:
+            grouped_items[category] = []
+
+        grouped_items[category].append(item)
+
+    return grouped_items
+
+
+def get_ingredient_category(ingredient_name: str):
+    for category, ingredients in COMMON_INGREDIENTS.items():
+
+        if ingredient_name in ingredients:
+            return category
+
+    return "Outros"
+
+
+def generate_shopping_list_text(shopping_list, checklist=False):
+    lines = []
+
+    # Lista formatada
+    if not checklist:
+        lines.append("🛒 Lista de Compras\n")
+
+    grouped_items = get_grouped_shopping_list(shopping_list)
+
+    for category, items in grouped_items.items():
+
+        if not checklist:
+            lines.append(
+                f"\n{category}\n"
+            )
+
+        for item in items:
+
+            if item.manual_name:
+                name = item.manual_name
+
+            else:
+                name = item.ingredient.name
+
+            quantity = ""
+
+            if item.quantity and item.unit:
+                quantity = (
+                    f" - {item.quantity:g}{item.unit}"
+                )
+
+            note = ""
+
+            if item.note:
+                note = (
+                    f" ({item.note})"
+                )
+
+            if checklist:
+                lines.append(
+                    f"☐ {name}{quantity}{note}"
+                )
+
+            else:
+                lines.append(
+                    f"• {name}{quantity}{note}"
+                )
+
+    return "\n".join(lines)

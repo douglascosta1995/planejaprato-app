@@ -19,7 +19,7 @@ Lista de Compras
         </h1>
 
         <p class="welcome-subtitle">
-            Revise esta lista antes de gerar a versão final. Você pode ajustar quantidades, unidades, adicionar observações e remover itens que já possui em casa.
+            Revise esta lista antes de gerar a versão final. Você pode ajustar quantidades, unidades, adicionar observações e remover itens que já possui em casa. Todas as alterações são salvas automaticamente.
         </p>
 
         <div class="helper-message">
@@ -30,7 +30,7 @@ Lista de Compras
                 <li>Adicione observações, como "integral", "em pó" ou "prata".</li>
                 <li>Remova ingredientes que você já possui.</li>
                 <li>Adicione manualmente novos produtos que deseja comprar.</li>
-                <li>Quando terminar, clique em <strong>Gerar Lista Final</strong>.</li>
+                <li>Quando terminar, clique em <strong>Visualizar Lista Final</strong>.</li>
             </ol>
         </div>
         <div class="recipe-actions">
@@ -42,10 +42,11 @@ Lista de Compras
             <div class="shopping-actions">
 
                 <button
-                    type="button"
-                    class="btn-dashboard"
+                        id="finalize-shopping-list-btn"
+                        type="button"
+                        class="btn-dashboard"
                 >
-                    ✅ Gerar Lista Final
+                    👁 Visualizar Lista Final
                 </button>
 
             </div>
@@ -58,7 +59,7 @@ Lista de Compras
 
         {% if shopping_list %}
 
-            <div class="shopping-list" data-shopping-list-id="{{ shopping_list.id }}">
+            <div class="shopping-list" data-shopping-list-id="{{ shopping_list.id }}" data-meal-plan-id="{{ meal_plan.id }}">
 
                 {% for item in shopping_list.shopping_list_items %}
 

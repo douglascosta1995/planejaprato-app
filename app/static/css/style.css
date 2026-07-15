@@ -968,10 +968,15 @@ Shopping List
     gap: 12px;
 }
 
+.shopping-list{
+    max-width:700px;
+    margin:0 auto;
+}
+
 .shopping-item {
     display: flex;
     justify-content: space-between;
-    padding: 12px 16px;
+    padding: 5px 6px;
     border: 1px solid #eee;
     border-radius: 10px;
     background: #fafafa;
@@ -1023,7 +1028,41 @@ Shopping List
     width: 120px;
 }
 
-/* Para o futuro */
 .shopping-comment-input{
     width: 180px;
+}
+
+.shopping-category{
+    margin-bottom:40px;
+}
+
+.shopping-category-title{
+
+    font-size:1.35rem;
+    font-weight:700;
+
+    padding-bottom:8px;
+
+    border-bottom:2px solid #d9e8d7;
+
+    margin-bottom:18px;
+
+    color:#2f5e2f;
+}
+
+.shopping-final-item{
+
+    padding:10px 0;
+
+    border-bottom:1px dashed #ececec;
+
+    font-size:1rem;
+
+    line-height:1.8;
+}
+
+.shopping-final-item:last-child{
+
+    border-bottom:none;
+
 }

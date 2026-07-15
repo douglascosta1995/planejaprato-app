@@ -1,0 +1,133 @@
+{% extends "base_app.html" %}
+
+{% block title %}
+Lista Final
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/shopping_list.js" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <div class="dashboard-card">
+
+        <h1 class="welcome-title">
+            🛒 Lista Final
+        </h1>
+
+        <p class="welcome-subtitle">
+            Sua lista está pronta para levar ao supermercado.
+        </p>
+
+        <div class="recipe-actions">
+
+            <a
+                href="/meal-plans/{{ meal_plan.id }}/shopping-list"
+                class="btn-back"
+            >
+                Voltar para edição
+            </a>
+
+            <button
+                id="copy-shopping-list-btn"
+                class="btn-dashboard"
+                type="button"
+            >
+                📋 Copiar Lista
+            </button>
+
+            <button
+                id="copy-checklist-btn"
+                class="btn-back"
+                type="button"
+            >
+                ☑️ Copiar Checklist
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-card">
+
+        <div class="shopping-list" data-meal-plan-id="{{ meal_plan.id }}">
+
+        {% for category, items in grouped_items.items() %}
+
+            {% if items %}
+
+                <div class="shopping-category">
+
+                    <h2 class="shopping-category-title">
+
+                        {% if category == "Carnes e Proteínas" %}
+                            🥩
+                        {% elif category == "Grãos e Cereais" %}
+                            🌾
+                        {% elif category == "Laticínios" %}
+                            🥛
+                        {% elif category == "Legumes" %}
+                            🥕
+                        {% elif category == "Verduras e Folhas" %}
+                            🥬
+                        {% elif category == "Frutas" %}
+                            🍎
+                        {% elif category == "Temperos e Condimentos" %}
+                            🧂
+                        {% elif category == "Conservas" %}
+                            🫙
+                        {% elif category == "Sementes e Oleaginosas" %}
+                            🥜
+                        {% elif category == "Doces e Panificação" %}
+                            🍞
+                        {% else %}
+                            🛒
+                        {% endif %}
+
+                        {{ category }}
+
+                    </h2>
+
+                    {% for item in items %}
+
+                        <div class="shopping-final-item">
+
+                            {% if item.manual_name %}
+
+                                ▪️ {{ item.manual_name }}
+
+                                {% if item.note %}
+                                    ({{ item.note }})
+                                {% endif %}
+
+                            {% else %}
+
+                                ▪️ {{ item.ingredient.name }}
+                                —
+                                {{ item.quantity }} {{ item.unit }}
+
+                                {% if item.note %}
+                                    ({{ item.note }})
+                                {% endif %}
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

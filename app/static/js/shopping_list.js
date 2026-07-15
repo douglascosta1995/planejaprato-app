@@ -141,8 +141,6 @@ function showManualItemInput() {
         "manual_name",
         input.value
     );
-    console.log(shoppingListId);
-    console.log(input.value);
 
     const response = await fetch(
         `/shopping-lists/${shoppingListId}/manual-item`,
@@ -168,5 +166,109 @@ function showManualItemInput() {
     button.style.display = "inline-block";
 
 });
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const button = document.getElementById(
+        "finalize-shopping-list-btn"
+    );
+
+    if (!button) return;
+
+    button.addEventListener("click", finalizeShoppingList);
+
+});
+
+async function finalizeShoppingList() {
+
+    const shoppingList = document.querySelector(".shopping-list");
+
+    const mealPlanId =
+        shoppingList.dataset.mealPlanId;
+
+    const response = await fetch(
+        `/meal-plans/${mealPlanId}/shopping-list/finalize`,
+        {
+            method: "POST"
+        }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+
+        window.location.href =
+            `/meal-plans/${mealPlanId}/shopping-list/final`;
+
+    }
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+    const copyBtn =
+        document.getElementById(
+            "copy-shopping-list-btn"
+        );
+
+    const checklistBtn =
+        document.getElementById(
+            "copy-checklist-btn"
+        );
+
+    if(copyBtn){
+        copyBtn.addEventListener(
+            "click",
+            () => copyShoppingList(false)
+        );
+
+    }
+
+    if(checklistBtn){
+        checklistBtn.addEventListener(
+            "click",
+            () => copyShoppingList(true)
+        );
+
+    }
+});
+
+async function copyShoppingList(checklist){
+    const container =
+        document.querySelector(
+            ".shopping-list"
+        );
+
+    const mealPlanId =
+        container.dataset.mealPlanId;
+
+    let url;
+
+    if(checklist){
+        url =
+        `/meal-plans/${mealPlanId}/shopping-list/checklist`;
+    }
+    else{
+        url =
+        `/meal-plans/${mealPlanId}/shopping-list/copy`;
+    }
+
+    const response =
+        await fetch(url);
+
+    const data =
+        await response.json();
+
+    await navigator.clipboard.writeText(
+        data.text
+    );
+
+    alert(
+        "Lista copiada com sucesso!"
+    );
 
 }

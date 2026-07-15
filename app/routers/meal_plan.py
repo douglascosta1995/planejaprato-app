@@ -25,7 +25,8 @@ from app.auth.dependencies import get_current_user
 from app.database.database import get_db
 from app.models.user import User
 from app.services.shopping_list_service import get_draft_shopping_list, create_draft_shopping_list, \
-    update_shopping_list_item, delete_shopping_list_item, add_manual_item
+    update_shopping_list_item, delete_shopping_list_item, add_manual_item, finalize_shopping_list, \
+    get_grouped_shopping_list, get_shopping_list, generate_shopping_list_text
 
 router = APIRouter()
 
@@ -146,10 +147,9 @@ def shopping_list(meal_plan_id: int, request: Request, current_user: User = Depe
     if not meal_plan or meal_plan.user_id != current_user.id:
         return RedirectResponse("/dashboard", status_code=303)
 
-    shopping_list = get_draft_shopping_list(db, meal_plan.id)
+    shopping_list = get_shopping_list(db, meal_plan.id)
 
     if not shopping_list:
-
         shopping_list = create_draft_shopping_list(db, meal_plan)
 
     return templates.TemplateResponse(
@@ -270,6 +270,142 @@ def add_manual_item_route(shopping_list_id: int, manual_name: str = Form(...), c
         }
     )
 
+
+@router.post("/meal-plans/{meal_plan_id}/shopping-list/finalize")
+def finalize_shopping_list_route(meal_plan_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    shopping_list = get_shopping_list(
+        db,
+        meal_plan_id
+    )
+
+    if not shopping_list:
+        return JSONResponse(
+            {"message": "Lista não encontrada"},
+            status_code=404
+        )
+
+    if shopping_list.meal_plan.user_id != current_user.id:
+        return JSONResponse(
+            {"message": "Sem permissão"},
+            status_code=403
+        )
+
+    shopping_list = finalize_shopping_list(
+        db=db,
+        meal_plan_id=meal_plan_id
+    )
+
+    return JSONResponse({
+        "success": True,
+        "status": shopping_list.status
+    })
+
+
+@router.get("/meal-plans/{meal_plan_id}/shopping-list/final")
+def final_shopping_list(meal_plan_id: int, request: Request, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    shopping_list = get_shopping_list(
+        db,
+        meal_plan_id
+    )
+
+    if not shopping_list:
+        return RedirectResponse(
+            "/dashboard",
+            status_code=303
+        )
+
+    if shopping_list.meal_plan.user_id != current_user.id:
+        return RedirectResponse(
+            "/dashboard",
+            status_code=303
+        )
+
+    grouped_items = get_grouped_shopping_list(shopping_list)
+
+    return templates.TemplateResponse(
+        request=request,
+        name="app/final_shopping_list.html",
+        context={
+            "user": current_user,
+            "shopping_list": shopping_list,
+            "meal_plan": shopping_list.meal_plan,
+            "grouped_items": grouped_items
+        }
+    )
+
+
+@router.get("/meal-plans/{meal_plan_id}/shopping-list/copy")
+def copy_shopping_list(meal_plan_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    shopping_list = get_shopping_list(
+        db,
+        meal_plan_id
+    )
+
+    if not shopping_list:
+
+        return JSONResponse(
+            {
+                "message": "Lista não encontrada"
+            },
+            status_code=404
+        )
+
+    if shopping_list.meal_plan.user_id != current_user.id:
+
+        return JSONResponse(
+            {
+                "message": "Sem permissão"
+            },
+            status_code=403
+        )
+
+    text = generate_shopping_list_text(
+        shopping_list,
+        checklist=False
+    )
+
+    return {
+        "text": text
+    }
+
+
+@router.get("/meal-plans/{meal_plan_id}/shopping-list/checklist")
+def copy_shopping_checklist(meal_plan_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    shopping_list = get_shopping_list(
+        db,
+        meal_plan_id
+    )
+
+    if not shopping_list:
+
+        return JSONResponse(
+            {
+                "message": "Lista não encontrada"
+            },
+            status_code=404
+        )
+
+    if shopping_list.meal_plan.user_id != current_user.id:
+
+        return JSONResponse(
+            {
+                "message": "Sem permissão"
+            },
+            status_code=403
+        )
+
+    text = generate_shopping_list_text(
+        shopping_list,
+        checklist=True
+    )
+
+    return {
+        "text": text
+    }
 
 @router.post("/meal-plan-items/{item_id}/delete")
 def delete_meal_plan_item_route(item_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
