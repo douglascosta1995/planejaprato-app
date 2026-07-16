@@ -139,7 +139,6 @@ background: #43a047;
 .btn-delete {
     background: #d32f2f;
     color: white;
-    border: none;
     padding: 12px 20px;
     border-radius: 8px;
     text-decoration: none;
@@ -404,9 +403,8 @@ margin-bottom: 30px;
 
 .dashboard-actions {
     display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin-top: 24px;
+    gap: 5px;
+    margin-top: 2px;
     flex-wrap: wrap;
 }
 
@@ -482,6 +480,7 @@ margin-top: 20px;
     margin-top: 30px;
     display: flex;
     gap: 10px;
+    flex-wrap:wrap;
 }
 
 .recipe-open-btn {
@@ -839,7 +838,7 @@ Meal Plan
 
     display:flex;
     justify-content: space-between;
-
+    gap:15px
     padding:12px 0;
 
     border-bottom:1px solid #eee;
@@ -901,6 +900,9 @@ Meal Plan
     color: inherit;
     text-decoration: none;
     font-weight: 500;
+    flex:1;
+    min-width:0;
+    word-break:break-word;
 }
 
 .meal-plan-recipe:hover{
@@ -1064,5 +1066,132 @@ Shopping List
 .shopping-final-item:last-child{
 
     border-bottom:none;
+
+}
+
+.shopping-fields{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+@media (max-width: 768px){
+
+    .shopping-item{
+
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+
+        padding:16px 0;
+    }
+
+    .shopping-name{
+
+        font-weight:600;
+    }
+
+    .shopping-fields{
+
+        display:flex;
+        gap:10px;
+    }
+
+    .shopping-quantity-input{
+
+        width:35%;
+    }
+
+    .shopping-unit-input{
+
+        width:65%;
+    }
+
+    .shopping-comment-input{
+
+        width:100%;
+    }
+
+    .delete-ingredient-btn{
+
+        align-self:flex-end;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .dashboard-actions{
+
+        flex-direction:column;
+    }
+
+    .btn-dashboard{
+
+        width:100%;
+        text-align:center;
+        box-sizing:border-box;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .navbar{
+
+        padding:15px 18px;
+    }
+
+    .navbar-brand{
+
+        font-size:1.1rem;
+    }
+
+    .navbar-right{
+
+        gap:10px;
+    }
+
+    .navbar-user{
+
+        font-size:.85rem;
+        text-align:right;
+
+        max-width:120px;
+
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+    }
+
+    .logout-link{
+
+        font-size:.85rem;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .recipe-actions{
+
+        flex-direction:column;
+    }
+
+    .recipe-actions a,
+    .recipe-actions form{
+
+        width:100%;
+    }
+
+    .recipe-actions .btn-back,
+    .recipe-actions .btn-dashboard,
+    .recipe-actions .btn-delete{
+
+        width:100%;
+        box-sizing:border-box;
+        text-align:center;
+    }
 
 }

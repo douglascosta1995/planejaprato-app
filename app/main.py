@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi import Request
+from starlette.responses import RedirectResponse
+
 from app.routers.auth import router as auth_router
 from app.routers.recipes import router as recipe_router
 from app.routers.ingredient import router as ingredient_router
@@ -37,6 +39,24 @@ templates = Jinja2Templates(
     directory="app/templates"
 )
 
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(
+    request: Request,
+    exc: HTTPException
+):
+
+    if exc.status_code == 401:
+        response = RedirectResponse(
+            url="/",
+            status_code=303
+        )
+
+        response.delete_cookie("access_token")
+
+        return response
+
+    raise exc
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):

@@ -31,6 +31,13 @@ Cardápio Semanal
             Voltar
         </a>
 
+        <a
+            href="/meal-plans/{{ meal_plan.id }}/shopping-list"
+            class="btn-dashboard"
+        >
+            🛒 Lista de Compras
+        </a>
+
         <form
             action="/meal-plans/{{ meal_plan.id }}/delete"
             method="post"
@@ -45,13 +52,6 @@ Cardápio Semanal
             </button>
 
         </form>
-
-        <a
-            href="/meal-plans/{{ meal_plan.id }}/shopping-list"
-            class="btn-dashboard"
-        >
-            🛒 Lista de Compras
-        </a>
 
     </div>
 
