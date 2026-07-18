@@ -61,7 +61,21 @@
             </div>
 
             <div class="category-list">
-                {% for category in categories %}
+
+            {% for category in categories %}
+
+                {% if recipe.is_system %}
+
+                    <button
+                        type="button"
+                        class="category-chip {% if category.id in selected_categories %}selected{% endif %}"
+                        disabled
+                    >
+                        {{ category.name }}
+                    </button>
+
+                {% else %}
+
                     <button
                         type="button"
                         class="category-chip {% if category.id in selected_categories %}selected{% endif %}"
@@ -73,8 +87,12 @@
                     >
                         {{ category.name }}
                     </button>
-                {% endfor %}
-            </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
         </div>
         <div class="divider"></div>
         <div class="recipe-actions">
@@ -83,11 +101,35 @@
                 Voltar
             </a>
 
-            <form action="/recipes/{{ recipe.id }}/delete" method="post">
-                <button class="btn-delete" type="submit" onclick="return confirm('Deseja realmente excluir esta receita?')">
-                    Excluir Receita
-                </button>
-            </form>
+            {% if recipe.is_system %}
+
+                <div class="system-recipe-warning">
+
+                    <strong>
+                        🔒 Receita oficial do PlanejaPrato
+                    </strong>
+
+                    <p>
+                        Esta receita faz parte da biblioteca oficial do PlanejaPrato e não pode ser editada, ter suas categorias alteradas ou ser excluída.
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <form action="/recipes/{{ recipe.id }}/delete" method="post">
+
+                    <button
+                        class="btn-delete"
+                        type="submit"
+                        onclick="return confirm('Deseja realmente excluir esta receita?')"
+                    >
+                        Excluir Receita
+                    </button>
+
+                </form>
+
+            {% endif %}
 
         </div>
 

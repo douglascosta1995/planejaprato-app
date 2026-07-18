@@ -1,0 +1,85 @@
+{% extends "base_app.html" %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <div class="dashboard-card">
+
+        <h1 class="welcome-title">
+            {{ page_title }}
+        </h1>
+
+        <p class="welcome-subtitle">
+            Consulte planejamentos anteriores e reutilize suas listas de compras.
+        </p>
+
+        <a href="/meal-plans/new" class="btn-dashboard">
+            + Novo Planejamento
+        </a>
+
+
+    </div>
+
+    <div class="recipe-actions">
+
+        <a href="/dashboard" class="btn-back">
+            Voltar
+        </a>
+
+    </div>
+
+    <div class="recipe-section">
+
+        {% if meal_plans %}
+
+            <div class="recipe-results">
+
+                {% for meal_plan in meal_plans %}
+
+                    <div class="recipe-card">
+
+                        <div>
+
+                            <a
+                                href="/meal-plans/{{ meal_plan.id }}"
+                                class="meal-plan-recipe"
+                            >
+                                🗓️ Semana de
+                                {{ meal_plan.created_at.strftime("%d/%m/%Y") }}
+                            </a>
+
+                            <div class="recipe-date">
+                                Criado em {{ meal_plan.created_at.strftime("%d/%m/%Y") }}
+
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="/meal-plans/{{ meal_plan.id }}"
+                            class="recipe-open-btn"
+                            title="Abrir planejamento"
+                        >
+                            ⤤
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                Nenhum planejamento criado.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

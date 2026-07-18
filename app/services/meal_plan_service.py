@@ -212,13 +212,7 @@ def generate_shopping_list(meal_plan):
     return items
 
 
-def add_meal_plan_item(
-    db: Session,
-    meal_plan_id: int,
-    day: str,
-    meal_type: str,
-    recipe_id: int
-):
+def add_meal_plan_item(db: Session, meal_plan_id: int, day: str, meal_type: str, recipe_id: int):
 
     meal = MealPlanItem(
         meal_plan_id=meal_plan_id,

@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.models import RecipeCategory, Category, RecipeMealRole, MealRole
 from app.models.recipe import Recipe
 from app.models.recipe_ingredient import RecipeIngredient
-
+from app.utils.text import normalize
 
 MEAL_TYPE_TO_CATEGORY = {
     "breakfast": "Café da manhã",
@@ -70,19 +70,22 @@ def delete_recipe(db, recipe):
 
 
 def search_recipes(db: Session, user_id: int, query: str, meal_type: str | None = None):
+    normalized_query = normalize(query)
 
-    recipes = (db.query(Recipe).filter(
-                or_(
-                    Recipe.user_id == user_id,
-                    Recipe.is_system == True
-                ),
-                func.lower(Recipe.name).contains(query.lower())
+    recipes = (
+        db.query(Recipe)
+        .filter(
+            or_(
+                Recipe.user_id == user_id,
+                Recipe.is_system == True
             )
         )
+    )
 
     if meal_type:
 
         category_name = MEAL_TYPE_TO_CATEGORY.get(meal_type)
+
         recipes = (
             recipes
             .join(RecipeCategory)
@@ -90,12 +93,19 @@ def search_recipes(db: Session, user_id: int, query: str, meal_type: str | None 
             .filter(Category.name == category_name)
         )
 
-    return (
-        recipes
-        .order_by(Recipe.name)
-        .limit(20)
-        .all()
-    )
+    recipes = recipes.order_by(Recipe.name).all()
+
+    results = [
+
+        recipe
+
+        for recipe in recipes
+
+        if normalized_query in normalize(recipe.name)
+
+    ]
+
+    return results[:20]
 
 
 def get_recipes_by_role(

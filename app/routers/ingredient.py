@@ -3,14 +3,7 @@ from sqlalchemy.orm import Session
 from app.database.database import get_db
 from app.models.ingredient import Ingredient
 
-import unicodedata
-
-
-def normalize(text: str):
-    return ''.join(
-        c for c in unicodedata.normalize("NFD", text)
-        if unicodedata.category(c) != "Mn"
-    ).lower()
+from app.utils.text import normalize
 
 
 router = APIRouter(prefix="/ingredients", tags=["ingredients"])

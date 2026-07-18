@@ -1195,3 +1195,47 @@ Shopping List
     }
 
 }
+
+.system-recipe-warning{
+
+    flex:1;
+
+    padding:4px 8px;
+
+    border-radius:10px;
+
+    background:#fff8e8;
+
+    border:1px solid #f0d58a;
+
+}
+
+.system-recipe-warning strong{
+
+    display:block;
+
+    color:#8a6d00;
+
+    margin-bottom:6px;
+
+}
+
+.system-recipe-warning p{
+
+    margin:0;
+
+    color:#6b5a00;
+
+    font-size:.95rem;
+
+    line-height:1.5;
+
+}
+
+.category-chip:disabled{
+
+    cursor:not-allowed;
+
+    opacity:.85;
+
+}

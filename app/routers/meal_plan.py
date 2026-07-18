@@ -13,7 +13,7 @@ from app.services.meal_plan_service import (
     get_meal_plan_by_id,
     organize_meal_plan,
     generate_shopping_list,
-    delete_meal_plan, add_meal_plan_item, replace_meal_plan_item
+    delete_meal_plan, add_meal_plan_item, replace_meal_plan_item, get_user_meal_plans
 )
 
 from app.services.meal_plan_item_service import (
@@ -43,6 +43,25 @@ def new_meal_plan(request: Request, current_user: User = Depends(get_current_use
         name="app/new_meal_plan.html",
         context={
             "user": current_user
+        }
+    )
+
+
+@router.get("/meal-plans")
+def meal_plans_list(request: Request, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    meal_plans = get_user_meal_plans(
+        db=db,
+        user_id=current_user.id
+    )
+
+    return templates.TemplateResponse(
+        request=request,
+        name="app/meal_plan_list.html",
+        context={
+            "user": current_user,
+            "page_title": "Meus Planejamentos",
+            "meal_plans": meal_plans
         }
     )
 
