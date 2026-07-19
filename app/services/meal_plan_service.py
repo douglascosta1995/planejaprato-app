@@ -14,12 +14,9 @@ from app.models import (
 
 from collections import defaultdict
 from app.services.meal_plan_generator import (
-    generate_meal_from_template,
-    BREAKFAST_TEMPLATES,
-    LUNCH_TEMPLATES,
-    SNACK_TEMPLATES,
-    DINNER_TEMPLATES
+    generate_meal_from_template
 )
+from app.utils.meal_templates import MEAL_TEMPLATES
 
 DAYS = [
     "Segunda",
@@ -49,28 +46,28 @@ def generate_meal_plan(db: Session, user_id: int):
             db,
             user_id,
             "Café da manhã",
-            BREAKFAST_TEMPLATES
+            MEAL_TEMPLATES["Café da manhã"]
         )
 
         lunch = generate_meal_from_template(
             db,
             user_id,
             "Almoço",
-            LUNCH_TEMPLATES
+            MEAL_TEMPLATES["Almoço"]
         )
 
         snack = generate_meal_from_template(
             db,
             user_id,
             "Lanche",
-            SNACK_TEMPLATES
+            MEAL_TEMPLATES["Lanche"]
         )
 
         dinner = generate_meal_from_template(
             db,
             user_id,
             "Jantar",
-            DINNER_TEMPLATES
+            MEAL_TEMPLATES["Jantar"]
             )
 
         if not breakfast or not lunch or not snack or not dinner:

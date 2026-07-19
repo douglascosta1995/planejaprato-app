@@ -1,9 +1,10 @@
 import random
 
 from app.services.recipe_service import get_recipes_by_role
+from app.utils.meal_templates import MEAL_TEMPLATES
 
 # templates
-BREAKFAST_TEMPLATES = [
+'''BREAKFAST_TEMPLATES = [
 
     {
         "name": "Pão com Proteína",
@@ -102,16 +103,12 @@ SNACK_TEMPLATES = [
     }
 
 ]
-
+'''
 
 def pick_recipe(recipes):
     recipe = random.choice(recipes)
 
     return recipe
-
-
-def generate_breakfast(db, user_id, used_recipe_ids):
-    pass
 
 
 def generate_lunch(db, user_id):
@@ -172,41 +169,33 @@ def generate_lunch(db, user_id):
     return lunch
 
 
-def generate_snack(db, user_id, used_recipe_ids):
-    pass
-
-
-def generate_dinner(db, user_id, used_recipe_ids):
-    pass
-
-
 def generate_meal_plan(db, user_id):
     breakfast = generate_meal_from_template(
         db=db,
         user_id=user_id,
         category_name="Café da manhã",
-        templates=BREAKFAST_TEMPLATES
+        templates=MEAL_TEMPLATES["Café da manhã"]
     )
 
     lunch = generate_meal_from_template(
         db=db,
         user_id=user_id,
         category_name="Almoço",
-        templates=LUNCH_TEMPLATES
+        templates=MEAL_TEMPLATES["Almoço"]
     )
 
     snack = generate_meal_from_template(
         db=db,
         user_id=user_id,
         category_name="Lanche",
-        templates=SNACK_TEMPLATES
+        templates=MEAL_TEMPLATES["Lanche"]
     )
 
     dinner = generate_meal_from_template(
         db=db,
         user_id=user_id,
         category_name="Jantar",
-        templates=DINNER_TEMPLATES
+        templates=MEAL_TEMPLATES["Jantar"]
     )
 
     return {

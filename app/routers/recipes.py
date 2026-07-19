@@ -13,8 +13,6 @@ from app.database.database import get_db
 from app.auth.dependencies import get_current_user
 from app.models import RecipeCategory, Category
 from app.models.user import User
-from app.services.meal_plan_generator import generate_lunch, generate_meal_from_template, LUNCH_TEMPLATES, \
-    generate_meal_plan
 from app.services.meal_plan_service import get_meal_plan_by_id
 
 from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe, search_recipes, \

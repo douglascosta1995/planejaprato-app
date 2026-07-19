@@ -1,27 +1,98 @@
 MEAL_TEMPLATES = {
     "Café da manhã": [
-        ["Pão", "Fruta"],
-        ["Pão", "Iogurte"],
-        ["Cuscuz", "Fruta"],
-        ["Aveia", "Fruta"],
+        {
+            "name": "Pão com Proteína",
+            "weight": 50,
+            "roles": ["Pão", "Fruta"]
+        },
+        {
+            "name": "Pão com Iogurte",
+            "weight": 25,
+            "roles": ["Pão", "Iogurte"]
+        },
+        {
+            "name": "Cuscuz",
+            "weight": 10,
+            "roles": ["Cuscuz", "Fruta"]
+        },
+        {
+            "name": "Aveia",
+            "weight": 15,
+            "roles": ["Aveia", "Fruta"]
+        },
     ],
+
     "Almoço": [
-        ["Arroz", "Feijão", "Proteína", "Salada"],
-        ["Arroz", "Proteína", "Salada"],
-        ["Massa", "Proteína"],
-        ["Purê", "Proteína", "Salada"],
-        ["Prato Único"],
+        {
+            "name": "Tradicional",
+            "weight": 50,
+            "roles": ["Arroz", "Feijão", "Proteína", "Salada"]
+        },
+        {
+            "name": "Fitness",
+            "weight": 20,
+            "roles": ["Arroz", "Proteína", "Salada"]
+        },
+        {
+            "name": "Massa",
+            "weight": 15,
+            "roles": ["Massa", "Proteína"]
+        },
+        {
+            "name": "Massa e Salada",
+            "weight": 10,
+            "roles": ["Purê", "Proteína", "Salada"]
+        },
+        {
+            "name": "Prato Único",
+            "weight": 5,
+            "roles": ["Prato Único"]
+        },
     ],
+
     "Jantar": [
-        ["Arroz", "Feijão", "Proteína", "Salada"],
-        ["Massa", "Proteína"],
-        ["Purê", "Proteína", "Salada"],
-        ["Prato Único"],
+        {
+            "name": "Tradicional",
+            "weight": 35,
+            "roles": ["Arroz", "Feijão", "Proteína", "Salada"]
+        },
+        {
+            "name": "Massa",
+            "weight": 25,
+            "roles": ["Massa", "Proteína"]
+        },
+        {
+            "name": "Massa e Salada",
+            "weight": 20,
+            "roles": ["Purê", "Proteína", "Salada"]
+        },
+        {
+            "name": "Prato Único",
+            "weight": 20,
+            "roles": ["Prato Único"]
+        },
     ],
+
     "Lanche": [
-        ["Pão"],
-        ["Fruta"],
-        ["Iogurte"],
-        ["Aveia"],
+        {
+            "name": "Pão com Proteína",
+            "weight": 50,
+            "roles": ["Pão", "Fruta"]
+        },
+        {
+            "name": "Pão com Iogurte",
+            "weight": 25,
+            "roles": ["Pão", "Iogurte"]
+        },
+        {
+            "name": "Cuscuz",
+            "weight": 10,
+            "roles": ["Cuscuz", "Fruta"]
+        },
+        {
+            "name": "Aveia",
+            "weight": 15,
+            "roles": ["Aveia", "Fruta"]
+        },
     ],
 }
