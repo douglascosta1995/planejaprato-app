@@ -149,3 +149,13 @@ def logout():
     response.delete_cookie(key="access_token")
 
     return response
+
+
+@router.get("/demo", response_class=HTMLResponse)
+def register_page(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="auth/demo_page.html",
+        context={}
+    )
