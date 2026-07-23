@@ -217,3 +217,111 @@ def generate_shopping_list_text(shopping_list, checklist=False):
                 )
 
     return "\n".join(lines)
+
+
+def refresh_shopping_list(db: Session, shopping_list: ShoppingList):
+    meal_plan = shopping_list.meal_plan
+
+    # ============================================
+    # Gera a nova lista em memória
+    # ============================================
+
+    items = defaultdict(lambda: {
+        "name": "",
+        "quantity": 0,
+        "unit": ""
+    })
+
+    for plan_item in meal_plan.meal_plan_items:
+
+        recipe = plan_item.recipe
+
+        for ri in recipe.recipe_ingredients:
+
+            ingredient_id = ri.ingredient_id
+
+            if not items[ingredient_id]["name"]:
+                items[ingredient_id]["name"] = ri.ingredient.name
+                items[ingredient_id]["unit"] = ri.unit
+
+            items[ingredient_id]["quantity"] += ri.quantity
+
+    # ============================================
+    # Sincroniza com os itens atuais
+    # ============================================
+
+    current_items = list(shopping_list.shopping_list_items)
+
+    print("==========")
+
+    print("Shopping List")
+    for item in current_items:
+        print(
+            f"{item.ingredient_id} | {item.quantity} | {item.manual_name} | {item.note}"
+        )
+
+    print()
+
+    print("Nova Lista")
+    for ingredient_id, item in items.items():
+        print(
+            f"{ingredient_id} | {item['quantity']}"
+        )
+
+    for current_item in current_items:
+
+        # Nunca mexer em itens adicionados manualmente
+        if current_item.manual_name:
+            continue
+
+        ingredient_id = current_item.ingredient_id
+
+        if ingredient_id in items:
+
+            # Atualiza quantidade
+            current_item.quantity = items[ingredient_id]["quantity"]
+            current_item.unit = items[ingredient_id]["unit"]
+
+            # Remove do dicionário para sobrar apenas os novos
+            items.pop(ingredient_id)
+
+        else:
+
+            # Não existe mais no planejamento
+            db.delete(current_item)
+
+    # ============================================
+    # Adiciona ingredientes novos
+    # ============================================
+
+    for ingredient_id, item in items.items():
+        db.add(
+            ShoppingListItem(
+                shopping_list_id=shopping_list.id,
+                ingredient_id=ingredient_id,
+                quantity=item["quantity"],
+                unit=item["unit"]
+            )
+        )
+
+    db.commit()
+
+    db.refresh(shopping_list)
+
+    updated_items = (
+        db.query(ShoppingListItem)
+        .filter(
+            ShoppingListItem.shopping_list_id == shopping_list.id
+        )
+        .all()
+    )
+
+    print("==========")
+    print("RESULTADO FINAL")
+
+    for item in updated_items:
+        print(
+            f"{item.ingredient_id} | {item.quantity} | {item.manual_name} | {item.note}"
+        )
+
+    return shopping_list

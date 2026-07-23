@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from fastapi import Form
@@ -11,13 +11,13 @@ from sqlalchemy.orm import Session
 
 from app.database.database import get_db
 from app.auth.dependencies import get_current_user
-from app.models import RecipeCategory, Category
+from app.models import RecipeCategory, Category, MealPlan
 from app.models.user import User
 from app.services.meal_plan_service import get_meal_plan_by_id
 
 from app.services.recipe_service import create_recipe, get_recipe_by_id, delete_recipe, search_recipes, \
     get_recipes_by_role, get_recipes_by_user, get_system_recipes
-from app.services.shopping_list_service import create_draft_shopping_list
+from app.services.shopping_list_service import create_draft_shopping_list, refresh_shopping_list
 from app.utils.messages import MESSAGES
 
 router = APIRouter()
@@ -216,27 +216,22 @@ def test_shopping_list(
     db: Session = Depends(get_db)
 ):
 
-    meal_plan = get_meal_plan_by_id(
-        db,
-        meal_plan_id
-    )
-
-    shopping_list = create_draft_shopping_list(
-        db=db,
-        meal_plan=meal_plan
-    )
-
-    print("--------------------")
-    print("Shopping List ID:", shopping_list.id)
-
-    for item in shopping_list.shopping_list_items:
-        print(
-            item.ingredient.name,
-            item.quantity,
-            item.unit
+    meal_plan = (
+        db.query(MealPlan)
+        .filter(
+            MealPlan.id == meal_plan_id,
+            MealPlan.user_id == current_user.id
         )
+        .first()
+    )
+
+    if not meal_plan:
+        raise HTTPException(status_code=404)
+
+    shopping_list = meal_plan.shopping_list
+
+    refresh_shopping_list(db, shopping_list)
 
     return {
-        "success": True,
-        "shopping_list_id": shopping_list.id
+        "message": "Shopping list atualizada com sucesso!"
     }
