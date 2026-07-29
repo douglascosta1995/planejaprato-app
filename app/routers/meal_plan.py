@@ -27,6 +27,7 @@ from app.models.user import User
 from app.services.shopping_list_service import get_draft_shopping_list, create_draft_shopping_list, \
     update_shopping_list_item, delete_shopping_list_item, add_manual_item, finalize_shopping_list, \
     get_grouped_shopping_list, get_shopping_list, generate_shopping_list_text, refresh_shopping_list
+from app.utils.messages import MESSAGES
 
 router = APIRouter()
 
@@ -93,6 +94,9 @@ def create_meal_plan(request: Request, current_user: User = Depends(get_current_
 @router.get("/meal-plans/{meal_plan_id}")
 def meal_plan_detail(meal_plan_id: int, request: Request, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
 
+    message_key = request.query_params.get("message")
+    message = MESSAGES.get(message_key)
+
     meal_plan = get_meal_plan_by_id(
         db,
         meal_plan_id
@@ -118,6 +122,7 @@ def meal_plan_detail(meal_plan_id: int, request: Request, current_user: User = D
         context={
             "user": current_user,
             "meal_plan": meal_plan,
+            "message": message,
             "days": days
         }
     )
@@ -161,6 +166,9 @@ def delete_meal_plan_route(
 @router.get("/meal-plans/{meal_plan_id}/shopping-list")
 def shopping_list(meal_plan_id: int, request: Request, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
 
+    message_key = request.query_params.get("message")
+    message = MESSAGES.get(message_key)
+
     meal_plan = get_meal_plan_by_id(db, meal_plan_id)
 
     if not meal_plan or meal_plan.user_id != current_user.id:
@@ -177,7 +185,8 @@ def shopping_list(meal_plan_id: int, request: Request, current_user: User = Depe
         context={
             "user": current_user,
             "meal_plan": meal_plan,
-            "shopping_list": shopping_list
+            "shopping_list": shopping_list,
+            "message": message
         }
     )
 
@@ -450,10 +459,9 @@ def refresh_shopping_list_route(meal_plan_id: int, current_user: User = Depends(
     refresh_shopping_list(db=db, shopping_list=shopping_list)
 
     return RedirectResponse(
-        url=f"/meal-plans/{meal_plan_id}/shopping-list",
+        url=f"/meal-plans/{meal_plan_id}/shopping-list?message=shopping_list_updated",
         status_code=303
     )
-
 
 
 @router.post("/meal-plan-items/{item_id}/delete")

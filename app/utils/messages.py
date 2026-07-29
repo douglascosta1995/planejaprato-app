@@ -19,6 +19,16 @@ MESSAGES = {
         "text": "Cardápio da semana gerado com sucesso!"
     },
 
+    "meal_plan_deleted": {
+        "type": "success",
+        "text": "Planejamento excluído com sucesso!"
+    },
+
+    "shopping_list_updated": {
+        "type": "success",
+        "text": "Lista de compras atualizada com sucesso!"
+    },
+
     "login_success": {
         "type": "success",
         "text": "Login realizado com sucesso!"
