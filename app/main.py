@@ -1,9 +1,11 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi import Request
 from starlette.responses import RedirectResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.routers.auth import router as auth_router
 from app.routers.recipes import router as recipe_router
@@ -40,12 +42,11 @@ templates = Jinja2Templates(
 )
 
 
-@app.exception_handler(HTTPException)
+@app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(
-    request: Request,
-    exc: HTTPException
+        request: Request,
+        exc: StarletteHTTPException
 ):
-
     if exc.status_code == 401:
         response = RedirectResponse(
             url="/",
@@ -56,14 +57,39 @@ async def http_exception_handler(
 
         return response
 
-    raise exc
+    if exc.status_code == 404:
+        return RedirectResponse(
+            url="/404",
+            status_code=303
+        )
+
+    return exc
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(
+        request: Request,
+        exc: RequestValidationError
+):
+    return RedirectResponse(
+        url="/404",
+        status_code=303
+    )
+
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     return templates.TemplateResponse(
-    request=request,
-    name="auth/home.html",
-    context={
-        "app_name": "PlanejaPrato"
-    }
-)
+        request=request,
+        name="auth/home.html",
+        context={
+            "app_name": "PlanejaPrato"
+        }
+    )
+
+
+@app.get("/404", response_class=HTMLResponse)
+def not_found(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="errors/404.html"
+    )

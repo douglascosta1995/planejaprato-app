@@ -26,14 +26,22 @@ templates = Jinja2Templates(
     directory="app/templates"
 )
 
+MAX_RECIPE_NAME_LENGTH = 100
+MAX_DESCRIPTION_LENGTH = 2000
+
 
 @router.get("/recipes/new")
 def new_recipe(request: Request, current_user: User = Depends(get_current_user)):
+
+    message_key = request.query_params.get("message")
+    message = MESSAGES.get(message_key)
+
     return templates.TemplateResponse(
         request=request,
         name="app/new_recipe.html",
         context={
-            "user": current_user
+            "user": current_user,
+            "message": message
         }
     )
 
@@ -42,6 +50,28 @@ def new_recipe(request: Request, current_user: User = Depends(get_current_user))
 def create_recipe_route(name: str = Form(...), instructions: str = Form(""), ingredient_ids: List[int] = Form([]),
                         quantities: List[float] = Form([]), units: List[str] = Form([]),
                         current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    name = name.strip()
+    instructions = instructions.strip()
+
+    if not name:
+        return RedirectResponse(
+            "/recipes/new?message=recipe_name_required",
+            status_code=303
+        )
+
+    if len(name) > MAX_RECIPE_NAME_LENGTH:
+        return RedirectResponse(
+            "/recipes/new?message=recipe_name_too_long",
+            status_code=303
+        )
+
+    if instructions and len(instructions) > MAX_DESCRIPTION_LENGTH:
+        return RedirectResponse(
+            "/recipes/new?message=recipe_description_too_long",
+            status_code=303
+        )
+
     recipe = create_recipe(db=db, name=name, instructions=instructions, user_id=current_user.id,
                            ingredient_ids=ingredient_ids,
                            quantities=quantities, units=units)
@@ -114,7 +144,7 @@ def recipe_detail(recipe_id: int, request: Request, current_user: User = Depends
 
     if not recipe:
         return RedirectResponse(
-            "/dashboard",
+            "/404",
             status_code=303
         )
 

@@ -37,5 +37,20 @@ MESSAGES = {
     "permission_denied": {
         "type": "error",
         "text": "Você não possui permissão para realizar esta ação."
+    },
+
+    "recipe_name_too_long": {
+        "type": "error",
+        "text": "O nome da receita deve ter no máximo 100 caracteres."
+    },
+
+    "recipe_description_too_long": {
+        "type": "error",
+        "text": "A descrição da receita deve ter no máximo 2000 caracteres."
+    },
+
+    "recipe_name_required": {
+        "type": "error",
+        "text": "Informe um nome para a receita."
     }
 }

@@ -102,11 +102,9 @@ def meal_plan_detail(meal_plan_id: int, request: Request, current_user: User = D
         meal_plan_id
     )
 
-    days = organize_meal_plan(meal_plan)
-
     if not meal_plan:
         return RedirectResponse(
-            "/dashboard",
+            "/404",
             status_code=303
         )
 
@@ -115,6 +113,8 @@ def meal_plan_detail(meal_plan_id: int, request: Request, current_user: User = D
             "/dashboard",
             status_code=303
         )
+
+    days = organize_meal_plan(meal_plan)
 
     return templates.TemplateResponse(
         request=request,
@@ -172,7 +172,7 @@ def shopping_list(meal_plan_id: int, request: Request, current_user: User = Depe
     meal_plan = get_meal_plan_by_id(db, meal_plan_id)
 
     if not meal_plan or meal_plan.user_id != current_user.id:
-        return RedirectResponse("/dashboard", status_code=303)
+        return RedirectResponse("/404", status_code=303)
 
     shopping_list = get_shopping_list(db, meal_plan.id)
 
@@ -340,7 +340,7 @@ def final_shopping_list(meal_plan_id: int, request: Request, current_user: User 
 
     if not shopping_list:
         return RedirectResponse(
-            "/dashboard",
+            "/404",
             status_code=303
         )
 
@@ -374,20 +374,15 @@ def copy_shopping_list(meal_plan_id: int, current_user: User = Depends(get_curre
 
     if not shopping_list:
 
-        return JSONResponse(
-            {
-                "message": "Lista não encontrada"
-            },
-            status_code=404
+        return RedirectResponse(
+            "/404",
+            status_code=303
         )
 
     if shopping_list.meal_plan.user_id != current_user.id:
-
-        return JSONResponse(
-            {
-                "message": "Sem permissão"
-            },
-            status_code=403
+        return RedirectResponse(
+            "/dashboard",
+            status_code=303
         )
 
     text = generate_shopping_list_text(
@@ -410,20 +405,15 @@ def copy_shopping_checklist(meal_plan_id: int, current_user: User = Depends(get_
 
     if not shopping_list:
 
-        return JSONResponse(
-            {
-                "message": "Lista não encontrada"
-            },
-            status_code=404
+        return RedirectResponse(
+            "/404",
+            status_code=303
         )
 
     if shopping_list.meal_plan.user_id != current_user.id:
-
-        return JSONResponse(
-            {
-                "message": "Sem permissão"
-            },
-            status_code=403
+        return RedirectResponse(
+            "/dashboard",
+            status_code=303
         )
 
     text = generate_shopping_list_text(
