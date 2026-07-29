@@ -19,49 +19,54 @@ Lista de Compras
         </h1>
 
         <p class="welcome-subtitle">
-            Revise esta lista antes de gerar a versão final. Você pode ajustar quantidades, unidades, adicionar observações e remover itens que já possui em casa. Todas as alterações são salvas automaticamente.
+           Revise sua lista de compras antes de gerar a versão final. Todas as alterações são salvas automaticamente.
         </p>
 
         <div class="helper-message">
-            <ol></ol>
-            <ol>
+
+            <ul>
                 <li>Revise os ingredientes gerados automaticamente.</li>
-                <li>Ajuste quantidades e unidades conforme sua necessidade.</li>
-                <li>Adicione observações, como "integral", "em pó" ou "prata".</li>
-                <li>Remova ingredientes que você já possui.</li>
-                <li>Adicione manualmente novos produtos que deseja comprar.</li>
+                <li>Ajuste quantidades, unidades e observações conforme sua necessidade.</li>
+                <li>Remova ingredientes que você já possui e adicione novos itens manualmente, se desejar.</li>
                 <li>Quando terminar, clique em <strong>Visualizar Lista Final</strong>.</li>
-            </ol>
+            </ul>
+
+            <hr>
+
         </div>
-         <div class="recipe-actions">
+
+        <div class="recipe-actions">
 
             <a href="/meal-plans/{{ meal_plan.id }}" class="btn-back">
                 ← Voltar ao Cardápio
             </a>
 
-                <form
-                    id="refresh-shopping-list-form"
-                    method="post"
-                    action="/meal-plans/{{ meal_plan.id }}/shopping-list/refresh">
-                </form>
+            <form
+                id="refresh-shopping-list-form"
+                method="post"
+                action="/meal-plans/{{ meal_plan.id }}/shopping-list/refresh">
+            </form>
 
-                <button
-                    form="refresh-shopping-list-form"
-                    type="submit"
-                    class="btn-secondary">
-                    🔄 Atualizar Lista
-                </button>
+            <button
+                form="refresh-shopping-list-form"
+                type="submit"
+                class="btn-secondary">
+                🔄 Atualizar Lista
+            </button>
 
-                <button
-                    id="finalize-shopping-list-btn"
-                    type="button"
-                    class="btn-dashboard"
-                >
-                    👁 Visualizar Lista Final
-                </button>
-
+            <button
+                id="finalize-shopping-list-btn"
+                type="button"
+                class="btn-dashboard">
+                👁 Visualizar Lista Final
+            </button>
 
         </div>
+        <p class="helper-tip">
+            💡 <strong>Depois de gerar a lista:</strong> caso altere seu cardápio,
+            clique em <strong>Atualizar Lista</strong> para sincronizar os ingredientes
+            e as quantidades. Seus comentários e itens adicionados manualmente serão mantidos.
+        </p>
 
     </div>
 

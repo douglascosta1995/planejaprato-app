@@ -159,3 +159,14 @@ def register_page(request: Request):
         name="auth/demo_page.html",
         context={}
     )
+
+
+@router.get("/guide")
+def guide(request: Request, current_user: User = Depends(get_current_user)):
+    return templates.TemplateResponse(
+        request=request,
+        name="app/guide.html",
+        context={
+            "user": current_user
+        }
+    )

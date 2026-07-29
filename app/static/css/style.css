@@ -408,6 +408,16 @@ textarea {
     display: none;
 }
 
+.helper-tip {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #d8e8d5;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+
+
 /* =========================
 DASHBOARD
 ========================= */
@@ -1479,4 +1489,44 @@ Demo
 
     text-decoration: underline;
 
+}
+
+/* =========================
+Guide
+========================= */
+
+.guide-card h2 {
+    margin-bottom: 12px;
+
+    font-size: 1.35rem;
+    font-weight: 600;
+
+    color: #2e7d32;
+}
+
+.guide-card p {
+    margin-bottom: 14px;
+
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.guide-card ul {
+    margin: 14px 0 14px 22px;
+}
+
+.guide-card li {
+    margin-bottom: 8px;
+
+    color: #555;
+    line-height: 1.6;
+}
+
+.guide-card strong {
+    color: #2e7d32;
+}
+
+.guide-card {
+    margin-bottom: 24px;
 }
