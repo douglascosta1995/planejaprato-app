@@ -115,54 +115,120 @@ background: #43a047;
 }
 
 .btn-secondary {
-background: #f5f5f5;
-color: #444;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    color: #1E88E5;
+
+    padding: 12px 20px;
+
+    border: 1px solid #1E88E5;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all .2s ease;
 }
 
 .btn-secondary:hover {
-background: #ececec;
+    background: #eef6ff;
+
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(30,136,229,.15);
 }
 
 .btn-dashboard {
-display: inline-block;
-background: #4CAF50;
-color: white;
-padding: 12px 20px;
-border-radius: 8px;
-text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #4CAF50;
+    color: white;
+
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all .2s ease;
 }
 
 .btn-dashboard:hover {
-background: #43a047;
+    background: #43a047;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
 }
 
 .btn-delete {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     background: #d32f2f;
     color: white;
+
     padding: 12px 20px;
-    border-radius: 8px;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
     text-decoration: none;
-    border: 1px solid #ddd;
+
     font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all .2s ease;
 }
 
 .btn-delete:hover {
+
     background: #b71c1c;
+
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(211, 47, 47, .15);
 }
 
 .btn-back {
-    display: inline-block;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     background: #f5f5f5;
     color: #444;
+
     padding: 12px 20px;
-    border-radius: 8px;
-    text-decoration: none;
+
     border: 1px solid #ddd;
+    border-radius: 10px;
+
+    text-decoration: none;
+
     font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all .2s ease;
 }
 
 .btn-back:hover {
+
     background: #ececec;
+
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
 }
 
 select {
@@ -1243,6 +1309,8 @@ Shopping List
     opacity:.85;
 
 }
+
+
 
 
 /* =========================

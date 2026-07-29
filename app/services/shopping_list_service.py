@@ -252,22 +252,6 @@ def refresh_shopping_list(db: Session, shopping_list: ShoppingList):
 
     current_items = list(shopping_list.shopping_list_items)
 
-    print("==========")
-
-    print("Shopping List")
-    for item in current_items:
-        print(
-            f"{item.ingredient_id} | {item.quantity} | {item.manual_name} | {item.note}"
-        )
-
-    print()
-
-    print("Nova Lista")
-    for ingredient_id, item in items.items():
-        print(
-            f"{ingredient_id} | {item['quantity']}"
-        )
-
     for current_item in current_items:
 
         # Nunca mexer em itens adicionados manualmente
@@ -315,13 +299,5 @@ def refresh_shopping_list(db: Session, shopping_list: ShoppingList):
         )
         .all()
     )
-
-    print("==========")
-    print("RESULTADO FINAL")
-
-    for item in updated_items:
-        print(
-            f"{item.ingredient_id} | {item.quantity} | {item.manual_name} | {item.note}"
-        )
 
     return shopping_list

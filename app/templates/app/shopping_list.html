@@ -33,23 +33,33 @@ Lista de Compras
                 <li>Quando terminar, clique em <strong>Visualizar Lista Final</strong>.</li>
             </ol>
         </div>
-        <div class="recipe-actions">
+         <div class="recipe-actions">
 
             <a href="/meal-plans/{{ meal_plan.id }}" class="btn-back">
-                Voltar ao Cardápio
+                ← Voltar ao Cardápio
             </a>
 
-            <div class="shopping-actions">
+                <form
+                    id="refresh-shopping-list-form"
+                    method="post"
+                    action="/meal-plans/{{ meal_plan.id }}/shopping-list/refresh">
+                </form>
 
                 <button
-                        id="finalize-shopping-list-btn"
-                        type="button"
-                        class="btn-dashboard"
+                    form="refresh-shopping-list-form"
+                    type="submit"
+                    class="btn-secondary">
+                    🔄 Atualizar Lista
+                </button>
+
+                <button
+                    id="finalize-shopping-list-btn"
+                    type="button"
+                    class="btn-dashboard"
                 >
                     👁 Visualizar Lista Final
                 </button>
 
-            </div>
 
         </div>
 

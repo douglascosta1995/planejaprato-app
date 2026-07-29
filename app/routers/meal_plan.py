@@ -26,7 +26,7 @@ from app.database.database import get_db
 from app.models.user import User
 from app.services.shopping_list_service import get_draft_shopping_list, create_draft_shopping_list, \
     update_shopping_list_item, delete_shopping_list_item, add_manual_item, finalize_shopping_list, \
-    get_grouped_shopping_list, get_shopping_list, generate_shopping_list_text
+    get_grouped_shopping_list, get_shopping_list, generate_shopping_list_text, refresh_shopping_list
 
 router = APIRouter()
 
@@ -425,6 +425,36 @@ def copy_shopping_checklist(meal_plan_id: int, current_user: User = Depends(get_
     return {
         "text": text
     }
+
+
+@router.post("/meal-plans/{meal_plan_id}/shopping-list/refresh")
+def refresh_shopping_list_route(meal_plan_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    shopping_list = get_shopping_list(
+        db,
+        meal_plan_id
+    )
+
+    if not shopping_list:
+        return JSONResponse(
+            {"message": "Lista não encontrada"},
+            status_code=404
+        )
+
+    if shopping_list.meal_plan.user_id != current_user.id:
+        return JSONResponse(
+            {"message": "Sem permissão"},
+            status_code=403
+        )
+
+    refresh_shopping_list(db=db, shopping_list=shopping_list)
+
+    return RedirectResponse(
+        url=f"/meal-plans/{meal_plan_id}/shopping-list",
+        status_code=303
+    )
+
+
 
 @router.post("/meal-plan-items/{item_id}/delete")
 def delete_meal_plan_item_route(item_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
