@@ -183,24 +183,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function finalizeShoppingList() {
 
-    const shoppingList = document.querySelector(".shopping-list");
+    const button =
+        document.getElementById(
+            "finalize-shopping-list-btn"
+        );
+
+    const shoppingList =
+        document.querySelector(".shopping-list");
+
+    if (!shoppingList) return;
 
     const mealPlanId =
         shoppingList.dataset.mealPlanId;
 
-    const response = await fetch(
-        `/meal-plans/${mealPlanId}/shopping-list/finalize`,
-        {
-            method: "POST"
+    if (button) {
+        button.disabled = true;
+        button.classList.add("loading");
+    }
+
+    try {
+
+        const response = await fetch(
+            `/meal-plans/${mealPlanId}/shopping-list/finalize`,
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            window.location.href =
+                `/meal-plans/${mealPlanId}/shopping-list/final`;
+
         }
-    );
 
-    const data = await response.json();
+    } finally {
 
-    if (data.success) {
-
-        window.location.href =
-            `/meal-plans/${mealPlanId}/shopping-list/final`;
+        if (button) {
+            button.disabled = false;
+            button.classList.remove("loading");
+        }
 
     }
 

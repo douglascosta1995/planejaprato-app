@@ -2,8 +2,19 @@ function initIngredientSearch() {
     const searchInput = document.getElementById("ingredient_search");
     const clearButton = document.getElementById("clear-search-btn");
     const resultsContainer = document.getElementById("ingredient-results");
+    const searchButton = document.getElementById("search-ingredient-btn");
 
     if (!searchInput || !clearButton || !resultsContainer) return;
+
+    searchInput.disabled = false;
+    searchInput.placeholder = "Buscar ingrediente";
+
+    if (searchButton) {
+        searchButton.disabled = false;
+        searchButton.querySelector(".button-text").textContent = "Buscar";
+    }
+
+    clearButton.disabled = false;
 
     searchInput.addEventListener("input", () => {
         clearButton.style.display =
@@ -21,33 +32,68 @@ function initIngredientSearch() {
 }
 
 window.searchIngredient = async function () {
-    const value = document.getElementById("ingredient_search")?.value;
+
+    const searchInput =
+        document.getElementById("ingredient_search");
+
+    const button =
+        document.getElementById("search-ingredient-btn");
+
+    const container =
+        document.getElementById("ingredient-results");
+
+    const value = searchInput?.value.trim();
 
     if (!value) return;
 
-    const res = await fetch(`/ingredients/search?q=${value}`);
-    const data = await res.json();
+    if (button) {
+        button.disabled = true;
+        button.classList.add("loading");
+    }
 
-    const container = document.getElementById("ingredient-results");
-    if (!container) return;
+    try {
 
-    container.innerHTML = "";
+        const res = await fetch(
+            `/ingredients/search?q=${encodeURIComponent(value)}`
+        );
 
-    data.forEach(item => {
-        const div = document.createElement("div");
-        div.classList.add("ingredient-item");
+        const data = await res.json();
 
-        div.innerHTML = `
-            <span>${item.name}</span>
-            <button type="button">adicionar</button>
-        `;
+        if (!container) return;
 
-        div.querySelector("button").addEventListener("click", () => {
-            selectIngredient(item.id, item.name);
+        container.innerHTML = "";
+
+        data.forEach(item => {
+
+            const div = document.createElement("div");
+
+            div.classList.add("ingredient-item");
+
+            div.innerHTML = `
+                <span>${item.name}</span>
+
+                <button type="button">
+                    adicionar
+                </button>
+            `;
+
+            div.querySelector("button")
+                .addEventListener("click", () => {
+                    selectIngredient(item.id, item.name);
+                });
+
+            container.appendChild(div);
+
         });
 
-        container.appendChild(div);
-    });
+    } finally {
+
+        if (button) {
+            button.disabled = false;
+            button.classList.remove("loading");
+        }
+
+    }
 };
 
 const UNITS = [

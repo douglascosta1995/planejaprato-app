@@ -44,21 +44,39 @@ Lista de Compras
             <form
                 id="refresh-shopping-list-form"
                 method="post"
-                action="/meal-plans/{{ meal_plan.id }}/shopping-list/refresh">
+                action="/meal-plans/{{ meal_plan.id }}/shopping-list/refresh"
+                onsubmit="const button = document.querySelector('button[form=refresh-shopping-list-form]'); button.disabled = true; button.classList.add('loading');"
+            >
             </form>
 
             <button
                 form="refresh-shopping-list-form"
                 type="submit"
-                class="btn-secondary">
-                🔄 Atualizar Lista
+                class="btn-secondary"
+            >
+                <span class="button-text">
+                    🔄 Atualizar Lista
+                </span>
+
+                <span class="button-loading">
+                    <span class="button-spinner"></span>
+                    Atualizando...
+                </span>
             </button>
 
             <button
                 id="finalize-shopping-list-btn"
                 type="button"
-                class="btn-dashboard">
-                👁 Visualizar Lista Final
+                class="btn-dashboard"
+            >
+                <span class="button-text">
+                    👁 Visualizar Lista Final
+                </span>
+
+                <span class="button-loading">
+                    <span class="button-spinner"></span>
+                    Preparando lista...
+                </span>
             </button>
 
         </div>

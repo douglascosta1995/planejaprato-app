@@ -48,19 +48,30 @@ Nova Receita
                             type="text"
                             id="ingredient_search"
                             name="ingredient_search"
-                            placeholder="Buscar ingrediente"
+                            placeholder="Carregando..."
+                            disabled
                         >
                         <button
                             type="button"
                             id="clear-search-btn"
                             onclick="clearIngredientSearch()"
                             class="clear-search-btn"
+                            disabled
                         >
                             X
                         </button>
                     </div>
-                    <button type="button" onclick="searchIngredient()">
-                        Buscar
+                    <button
+                            type="button"
+                            id="search-ingredient-btn"
+                            onclick="searchIngredient()"
+                            disabled
+                    >
+                        <span class="button-text">Carregando...</span>
+                        <span class="button-loading">
+                            <span class="button-spinner"></span>
+                            Buscando...
+                        </span>
                     </button>
                 </div>
 
