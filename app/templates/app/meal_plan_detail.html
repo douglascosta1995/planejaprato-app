@@ -33,7 +33,7 @@ Cardápio Semanal
 
         <a
             href="/meal-plans/{{ meal_plan.id }}/shopping-list"
-            class="btn-dashboard"
+            class="btn-dashboard loading-link"
         >
             🛒 Lista de Compras
         </a>
@@ -41,6 +41,7 @@ Cardápio Semanal
         <form
             action="/meal-plans/{{ meal_plan.id }}/delete"
             method="post"
+            class="loading-form"
         >
 
             <button

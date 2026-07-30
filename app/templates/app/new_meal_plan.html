@@ -29,7 +29,7 @@ Gerar Cardápio Semanal
         <div class="meal-plan-info">
 
             <p>
-                ✔️ Utiliza suas receitas cadastradas
+                ✔️ Utiliza diversas receitas
             </p>
 
             <p>
@@ -44,7 +44,7 @@ Gerar Cardápio Semanal
 
         <div class="divider"></div>
 
-        <form action="/meal-plans" method="post">
+        <form action="/meal-plans" method="post" id="meal-plan-form" onsubmit="this.querySelector('button[type=submit]').disabled = true;">
 
             <div class="recipe-actions">
 
@@ -55,6 +55,7 @@ Gerar Cardápio Semanal
                 <button
                     type="submit"
                     class="btn-dashboard"
+                    id="meal-plan-submit"
                 >
                     🍽️ Gerar Cardápio
                 </button>
