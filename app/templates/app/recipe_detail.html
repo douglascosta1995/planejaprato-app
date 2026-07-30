@@ -117,14 +117,21 @@
 
             {% else %}
 
-                <form action="/recipes/{{ recipe.id }}/delete" method="post">
+                <form action="/recipes/{{ recipe.id }}/delete" method="post" onsubmit="const button = this.querySelector('button[type=submit]'); button.disabled = true; button.classList.add('loading');">
 
                     <button
                         class="btn-delete"
                         type="submit"
                         onclick="return confirm('Deseja realmente excluir esta receita?')"
                     >
-                        Excluir Receita
+                        <span class="button-text">
+                            Excluir Receita
+                        </span>
+
+                        <span class="button-loading">
+                            <span class="button-spinner"></span>
+                            Excluindo...
+                        </span>
                     </button>
 
                 </form>

@@ -1541,7 +1541,7 @@ Guide
     animation: button-spin 0.7s linear infinite;
 }
 
-.btn.loading .button-text {
+button.loading .button-text {
     display: none;
 }
 
@@ -1562,6 +1562,6 @@ Guide
     gap: 8px;
 }
 
-.btn.loading .button-loading {
+button.loading .button-loading {
     display: inline-flex;
 }

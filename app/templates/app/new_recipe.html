@@ -22,7 +22,7 @@ Nova Receita
             Cadastre uma nova receita.
         </p>
 
-        <form action="/recipes" method="post">
+        <form action="/recipes" method="post" onsubmit="const button = this.querySelector('button[type=submit]'); button.disabled = true; button.classList.add('loading');">
 
             <div class="divider"></div>
             <div class="input-group">
@@ -95,7 +95,14 @@ Nova Receita
                 </a>
 
                 <button type="submit" class="btn-dashboard">
-                    Salvar Receita
+                    <span class="button-text">
+                        Salvar Receita
+                    </span>
+
+                    <span class="button-loading">
+                        <span class="button-spinner"></span>
+                        Salvando...
+                    </span>
                 </button>
 
             </div>
