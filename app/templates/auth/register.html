@@ -23,7 +23,7 @@
         </div>
         {% endif %}
 
-        <form action="/register" method="post">
+        <form action="/register" method="post" onsubmit="const button = this.querySelector('button[type=submit]'); button.disabled = true; button.classList.add('loading');">
 
             <div class="input-group">
             <input
@@ -55,7 +55,12 @@
             </div>
 
             <button type="submit" class="btn">
-                Criar Conta
+                <span class="button-text">Criar Conta</span>
+
+                <span class="button-loading">
+                    <span class="button-spinner"></span>
+                    Criando conta...
+                </span>
             </button>
 
         </form>

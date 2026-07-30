@@ -23,7 +23,7 @@
         </div>
         {% endif %}
 
-        <form action="/login" method="post">
+        <form action="/login" method="post" onsubmit="const button = this.querySelector('button[type=submit]'); button.disabled = true; button.classList.add('loading');">
 
             <div class="input-group">
                 <input
@@ -44,7 +44,11 @@
             </div>
 
             <button class="btn" type="submit">
-                Entrar
+                <span class="button-text">Entrar</span>
+                <span class="button-loading">
+                    <span class="button-spinner"></span>
+                    Entrando...
+                </span>
             </button>
 
         </form>
