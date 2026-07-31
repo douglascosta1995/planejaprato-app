@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import Form
@@ -5,11 +7,14 @@ from fastapi import HTTPException
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from sqlalchemy import func
 
 from sqlalchemy.orm import Session
 from starlette.responses import RedirectResponse
 
+from app.config import ADMIN_TOKEN
 from app.database.database import get_db
+from app.models import Recipe, MealPlan, ShoppingList
 from app.models.user import User
 from app.services.meal_plan_service import get_user_latest_meal_plan
 from app.services.recipe_service import get_recipes_by_user, get_system_recipes, count_user_recipes, \
@@ -96,6 +101,9 @@ def login(request: Request, email: str = Form(...), password: str = Form(...), d
         }
     )
 
+    user.last_login_at = datetime.utcnow()
+    db.commit()
+
     response = RedirectResponse(url="/dashboard?message=login_success", status_code=303)
 
     response.set_cookie(
@@ -168,5 +176,44 @@ def guide(request: Request, current_user: User = Depends(get_current_user)):
         name="app/guide.html",
         context={
             "user": current_user
+        }
+    )
+
+
+@router.get("/admin/{token}")
+def admin_dashboard(token: str, request: Request, db: Session = Depends(get_db)):
+
+    if token != ADMIN_TOKEN:
+        raise HTTPException(status_code=404)
+
+    total_users = db.query(User).count()
+    total_recipes = db.query(Recipe).count()
+    total_meal_plans = db.query(MealPlan).count()
+    total_shopping_lists = db.query(ShoppingList).count()
+
+    last_users = (
+        db.query(
+            User,
+            func.count(func.distinct(Recipe.id)).label("recipe_count"),
+            func.count(func.distinct(MealPlan.id)).label("meal_plan_count")
+        )
+        .outerjoin(Recipe, Recipe.user_id == User.id)
+        .outerjoin(MealPlan, MealPlan.user_id == User.id)
+        .group_by(User.id)
+        .order_by(User.id.desc())
+        .limit(10)
+        .all()
+    )
+
+    return templates.TemplateResponse(
+        request=request,
+        name="app/admin_dashboard.html",
+        context={
+            "user": "Admin",
+            "total_users": total_users,
+            "total_recipes": total_recipes,
+            "total_meal_plans": total_meal_plans,
+            "total_shopping_lists": total_shopping_lists,
+            "last_users": last_users
         }
     )

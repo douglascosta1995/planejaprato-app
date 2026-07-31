@@ -49,3 +49,8 @@ class User(Base):
         DateTime,
         default=datetime.utcnow
     )
+
+    last_login_at = Column(
+        DateTime,
+        nullable=True
+    )

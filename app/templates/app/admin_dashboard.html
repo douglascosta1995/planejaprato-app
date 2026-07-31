@@ -1,0 +1,142 @@
+{% extends "base_app.html" %}
+
+{% block title %}
+Painel Administrativo
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <div class="dashboard-card">
+
+        <h1 class="welcome-title">
+            📊 Painel Administrativo
+        </h1>
+
+        <p class="welcome-subtitle">
+            Estatísticas do PlanejaPrato.
+        </p>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon">👤</div>
+
+                <div class="stat-value">
+                    {{ total_users }}
+                </div>
+
+                <div class="stat-label">
+                    Usuários
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🥗</div>
+
+                <div class="stat-value">
+                    {{ total_recipes }}
+                </div>
+
+                <div class="stat-label">
+                    Receitas
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+
+                <div class="stat-value">
+                    {{ total_meal_plans }}
+                </div>
+
+                <div class="stat-label">
+                    Planejamentos
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🛒</div>
+
+                <div class="stat-value">
+                    {{ total_shopping_lists }}
+                </div>
+
+                <div class="stat-label">
+                    Listas de Compras
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-card">
+
+        <h2 class="section-title">
+            👤 Últimos usuários cadastrados
+        </h2>
+
+        {% if last_users %}
+
+        <table class="admin-table">
+
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Cadastro</th>
+                    <th>Último Login</th>
+                    <th>Receitas</th>
+                    <th>Planejamentos</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for user, recipe_count, meal_plan_count in last_users %}
+
+                <tr>
+
+                    <td>{{ user.name }}</td>
+
+                    <td>{{ user.email }}</td>
+
+                    <td>
+                        {{ user.created_at.strftime("%d/%m/%Y %H:%M") }}
+                    </td>
+
+                    <td>
+                        {% if user.last_login_at %}
+                            {{ user.last_login_at.strftime("%d/%m/%Y %H:%M") }}
+                        {% else %}
+                            Nunca
+                        {% endif %}
+                    </td>
+
+                    <td>{{ recipe_count }}</td>
+
+                    <td>{{ meal_plan_count }}</td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+            <div class="empty-state">
+                Nenhum usuário cadastrado.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
