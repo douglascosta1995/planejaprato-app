@@ -15,15 +15,23 @@ COMMON_INGREDIENTS = {
         "Quinoa",
         "Macarrão",
         "Macarrão Integral",
+        "Macarrão Integral Penne",
+        "Macarrão Espaguete",
+        "Macarrão Parafuso",
+        "Macarrão Talharim",
         "Farinha de Trigo",
+        "Farinha Integral",
+        "Farinha de Aveia",
         "Farinha de Mandioca",
+        "Farinha de Rosca",
+        "Amido de Milho",
         "Fubá",
         "Polvilho Doce",
         "Polvilho Azedo",
         "Goma de Tapioca",
         "Cuscuz",
-        "Pão Francês",
-        "Pão de Forma"
+        "Flocão de Milho",
+        "Arroz para Sushi"
     ],
 
     "Carnes e Proteínas": [
@@ -40,23 +48,36 @@ COMMON_INGREDIENTS = {
         "Picanha",
         "Costela Bovina",
         "Lombo Suíno",
+        "Filé Mignon",
+        "Músculo",
+        "Cupim",
+        "Pernil",
+        "Costelinha Suína",
         "Bacon",
+        "Linguiça Toscana",
         "Linguiça Calabresa",
         "Salsicha",
         "Presunto",
         "Peito de Peru",
+        "Mortadela",
         "Atum",
         "Sardinha",
         "Tilápia",
+        "Salmão",
+        "Merluza",
+        "Camarão",
         "Ovo"
     ],
 
     "Laticínios": [
         "Leite",
+        "Leite Desnatado",
+        "Leite Semidesnatado",
         "Creme de Leite",
         "Leite Condensado",
         "Iogurte Natural",
         "Iogurte Grego",
+        "Iogurte de Morango",
         "Manteiga",
         "Margarina",
         "Requeijão",
@@ -65,12 +86,18 @@ COMMON_INGREDIENTS = {
         "Queijo Prato",
         "Queijo Minas",
         "Queijo Parmesão",
-        "Ricota"
+        "Ricota",
+        "Queijo Coalho",
+        "Provolone",
+        "Catupiry",
+        "Gorgonzola",
+        "Queijo Branco"
     ],
 
     "Legumes": [
         "Batata",
         "Batata Doce",
+        "Batata Baroa",
         "Mandioca",
         "Mandioquinha",
         "Inhame",
@@ -80,18 +107,25 @@ COMMON_INGREDIENTS = {
         "Berinjela",
         "Chuchu",
         "Abóbora",
+        "Abóbora Cabotiá",
         "Pepino",
         "Vagem",
         "Quiabo",
         "Jiló",
         "Pimentão Verde",
         "Pimentão Vermelho",
-        "Pimentão Amarelo"
+        "Pimentão Amarelo",
+        "Tomate Cereja",
+        "Alho-Poró",
+        "Rabanete",
+        "Cogumelo Shimeji",
+        "Cogumelo Shiitake"
     ],
 
     "Verduras e Folhas": [
         "Alface",
         "Alface Americana",
+        "Alface Roxa",
         "Rúcula",
         "Agrião",
         "Couve",
@@ -99,11 +133,14 @@ COMMON_INGREDIENTS = {
         "Brócolis",
         "Espinafre",
         "Repolho",
+        "Repolho Roxo",
         "Acelga",
         "Salsinha",
         "Cebolinha",
         "Coentro",
-        "Cheiro Verde"
+        "Cheiro Verde",
+        "Almeirão",
+        "Escarola"
     ],
 
     "Frutas": [
@@ -123,7 +160,14 @@ COMMON_INGREDIENTS = {
         "Abacate",
         "Maracujá",
         "Goiaba",
-        "Pêssego"
+        "Pêssego",
+        "Tangerina",
+        "Mexerica",
+        "Ameixa",
+        "Coco",
+        "Mirtilo",
+        "Framboesa",
+        "Amora"
     ],
 
     "Temperos e Condimentos": [
@@ -134,38 +178,58 @@ COMMON_INGREDIENTS = {
         "Molho de Tomate",
         "Sal",
         "Pimenta-do-Reino",
+        "Pimenta Calabresa",
         "Páprica",
+        "Páprica Defumada",
         "Orégano",
         "Cominho",
         "Colorau",
         "Açafrão",
+        "Curry",
         "Alecrim",
         "Louro",
         "Manjericão",
+        "Tomilho",
         "Noz-Moscada",
         "Mostarda",
         "Ketchup",
         "Maionese",
         "Vinagre",
+        "Vinagre Balsâmico",
         "Azeite de Oliva",
         "Óleo",
         "Molho Shoyu",
+        "Molho Inglês",
+        "Molho Barbecue",
         "Caldo de Galinha",
         "Caldo de Carne",
-        "Canela"
+        "Canela",
+        "Gengibre",
+        "Chimichurri",
+        "Lemon Pepper"
     ],
 
     "Conservas": [
         "Palmito",
         "Azeitona Verde",
         "Azeitona Preta",
-        "Champignon"
+        "Champignon",
+        "Milho em Conserva",
+        "Ervilha em Conserva",
+        "Pepino em Conserva"
     ],
 
     "Sementes e Oleaginosas": [
         "Chia",
         "Linhaça",
-        "Amendoim"
+        "Amendoim",
+        "Manteiga de Amendoim",
+        "Castanha-do-Pará",
+        "Castanha de Caju",
+        "Nozes",
+        "Amêndoas",
+        "Pistache",
+        "Gergelim"
     ],
 
     "Doces e Panificação": [
@@ -173,11 +237,25 @@ COMMON_INGREDIENTS = {
         "Açúcar Mascavo",
         "Chocolate em Pó",
         "Achocolatado",
+        "Chocolate Meio Amargo",
+        "Chocolate ao Leite",
         "Fermento Químico",
         "Fermento Biológico",
         "Leite de Coco",
         "Coco Ralado",
         "Baunilha",
-        "Mel"
+        "Mel",
+        "Doce de Leite",
+        "Geleia",
+        "Nutella",
+        "Pão Francês",
+        "Pão de Forma",
+        "Pão Integral",
+        "Pão Sírio",
+        "Wrap",
+        "Tortilha",
+        "Torrada",
+        "Biscoito Cream Cracker",
+        "Biscoito Integral"
     ]
 }
