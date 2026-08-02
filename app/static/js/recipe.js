@@ -63,6 +63,22 @@ window.searchIngredient = async function () {
 
         container.innerHTML = "";
 
+        if (data.length === 0) {
+
+            container.innerHTML = `
+                <div class="ingredient-empty-state">
+                    <strong>Não encontrou o ingrediente?</strong>
+
+                    <p>
+                        Estamos adicionando novos ingredientes constantemente.
+                        Em breve também será possível cadastrar ingredientes personalizados..
+                    </p>
+                </div>
+            `;
+
+            return;
+        }
+
         data.forEach(item => {
 
             const div = document.createElement("div");
